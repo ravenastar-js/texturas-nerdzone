@@ -439,13 +439,44 @@ h1 {
     align-items: center;
     gap: 5px;
 }
-
+.texture-icon-container {
+    position: relative;
+    display: inline-block;
+}
 .footer-link:hover {
     color: var(--mc-green);
     transform: translateY(-2px);
     text-shadow: 0 0 8px rgba(91, 140, 52, 0.5);
 }
+.version-badge {
+    position: absolute;
+    top: 10px;
+    left: -20px;
+    background: #FFD700;
+    color: #000;
+    padding: 3px 8px;
+    font-size: 0.6rem;
+    border: 2px solid #AA8F00;
+    border-radius: 3px;
+    transform: rotate(-45deg);
+    transform-origin: left bottom;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    white-space: nowrap;
+}
 
+.version-badge::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #AA8F00;
+    transform: rotate(45deg) translateX(-50%);
+}
 @keyframes pulse {
     0% {
         transform: scale(1);

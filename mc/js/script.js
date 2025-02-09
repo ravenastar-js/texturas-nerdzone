@@ -31,7 +31,10 @@ texturas.forEach(textura => {
     item.className = 'texture-item';
 
     item.innerHTML = `
-        <img src="${textura.icone}" class="texture-icon" alt="${textura.nome}">
+        <div class="texture-icon-container">
+            <div class="version-badge">${textura.v}</div>
+            <img src="${textura.icone}" class="texture-icon" alt="${textura.nome}">
+        </div>
         <div class="texture-content">
             <h3 class="texture-title">${parseMCString(textura.nome)}</h3>
             <p class="texture-description">${parseMCString(textura.description)}</p>
