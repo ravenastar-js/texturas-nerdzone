@@ -269,52 +269,52 @@ h1 {
     transform: scale(1.1);
 }
 
-    /* Botão de Regras */
+/* Botão de Regras */
 .rules-btn {
-background: linear-gradient(180deg, #FF5555 0%, #AA0000 100%);
-border: 2px solid #7A2D2D;
-border-radius: 5px;
-padding: 12px 25px;
-color: white;
-font-size: 0.8rem;
-cursor: pointer;
-transition: all 0.2s;
-position: relative;
-overflow: hidden;
-display: flex;
-align-items: center;
-gap: 10px;
-margin: 15px 0;
+    background: linear-gradient(180deg, #FF5555 0%, #AA0000 100%);
+    border: 2px solid #7A2D2D;
+    border-radius: 5px;
+    padding: 12px 25px;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
 }
 
 .rules-btn::after {
-content: '';
-position: absolute;
-top: -50%;
-left: -50%;
-width: 200%;
-height: 200%;
-background: rgba(255, 255, 255, 0.1);
-transform: rotate(45deg) translateX(-20%);
-transition: all 0.3s;
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg) translateX(-20%);
+    transition: all 0.3s;
 }
 
 .rules-btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 4px 12px rgba(255, 85, 85, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 85, 85, 0.3);
 }
 
 .rules-btn:hover::after {
-transform: rotate(45deg) translateX(20%);
+    transform: rotate(45deg) translateX(20%);
 }
 
 .rules-btn:active {
-transform: translateY(0);
+    transform: translateY(0);
 }
 
 .rules-icon {
-width: 20px;
-height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 /* Modal */
@@ -447,9 +447,17 @@ height: 20px;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @media (max-width: 768px) {
@@ -457,17 +465,17 @@ height: 20px;
         flex-direction: column;
         text-align: center;
     }
-    
+
     .footer-content {
         flex-direction: column;
     }
-    
+
     .footer-links {
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
     }
-    
+
     .server-info {
         font-size: 0.8rem;
     }
