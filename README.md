@@ -1,4 +1,4 @@
 <div align="center">
 <a href="https://loja.nerdzone.gg/" >
-  <img src="https://i.imgur.com/Uoc88UO.png" width="600">
+  <img src="https://i.imgur.com/u8g34fj.png" width="600">
 </a>
