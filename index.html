@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#FF5555" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Baixe pacotes de textura exclusivos de Minecraft para o servidor Nerdzone. Melhore sua experiência de jogo com texturas personalizadas!">
+    <meta name="keywords"
+        content="Minecraft, Texture Packs, Nerdzone, Pacotes de Textura, Mods, Download, Resource Packs">
+    <meta name="author" content="Nerdzone">
+    <meta property="og:title" content="Central de Pacotes de Textura Minecraft - Nerdzone">
+    <meta property="og:description" content="Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone.">
+    <link rel="shortcut icon" href="https://cdn.discordapp.com/emojis/1336823856320483431.png">
+    <meta property="og:image" content="https://cdn.discordapp.com/emojis/1336823856320483431.png">
+    <meta property="og:url" content="https://loja.nerdzone.gg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Central de Pacotes de Textura Minecraft - Nerdzone">
+    <meta name="twitter:description" content="Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone.">
+    <meta name="twitter:image" content="https://cdn.discordapp.com/emojis/1336823856320483431.png">
+
+    <title>Central de Pacotes de Textura Minecraft - Nerdzone</title>
+    <link rel="stylesheet" href="mc/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔨 Minecraft Texture Packs</h1>
+        <div class="info-btn" id="infoBtn">i</div>
+        <div id="texture-list"></div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn" id="closeModalBtn">&times;</span>
+            <h2>Vídeo Informativo</h2>
+            <button class="rules-btn" onclick="window.open('https://regras.nerdzone.gg', '_blank')">
+                <svg class="rules-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 4h7v5h5v11H6V4zm8 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V8h10v2z" />
+                </svg>
+                REGRAS
+            </button>
+            <div class="video-container">
+                <iframe id="youtubeVideo" src="https://www.youtube.com/embed/AFa7sii7Tds" title="Vídeo do YouTube"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicione isto antes do fechamento do </body> -->
+    <footer class="minecraft-footer">
+        <div class="footer-container">
+            <div class="achievement-icon"><img src="https://cdn.discordapp.com/emojis/1336823856320483431.png"
+                    style="width:50px"></div>
+            <div class="footer-content">
+                <div class="server-info">
+                    <span class="mc-red">nerd</span><span class="mc-white">zone.gg</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://regras.nerdzone.gg" target="_blank" class="footer-link">📜 Regras</a>
+                    <a href="https://loja.nerdzone.gg" target="_blank" class="footer-link">🏪 Loja</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="mc/js/data.js"></script>
+    <script src="mc/js/script.js"></script>
+</body>
+
+</html>

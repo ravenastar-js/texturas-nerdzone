@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --mc-green: #5B8C34;
+    --mc-dark-green: #3A5A1F;
+    --mc-stone: #7A7A7A;
+    --mc-border: #2D2D2D;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('../imgs/background.png') repeat;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container estilo Minecraft */
+.container {
+    background:
+        linear-gradient(145deg, rgba(58, 58, 58, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%),
+        url('../imgs/bedrock.png');
+    border: 4px solid var(--mc-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 0 var(--mc-border);
+    width: min(90%, 800px);
+    margin: 20px;
+    padding: 25px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+h1 {
+    color: var(--mc-green);
+    text-align: center;
+    text-shadow: 3px 3px 0 var(--mc-dark-green);
+    margin: 0 0 30px 0;
+    font-size: 1.8rem;
+    padding: 15px;
+    border-bottom: 3px solid var(--mc-green);
+}
+
+/* Item de textura */
+.texture-item {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--mc-border);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
+}
+
+.texture-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Ícone */
+.texture-icon {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--mc-border);
+    border-radius: 6px;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+}
+
+.texture-item:hover .texture-icon {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* Conteúdo textual */
+.texture-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.texture-title {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.texture-description {
+    font-size: 0.7rem;
+    color: #aaa;
+    line-height: 1.4;
+    max-width: 500px;
+}
+
+/* Botão de Download */
+.download-btn {
+    background:
+        linear-gradient(180deg, var(--mc-green) 0%, var(--mc-dark-green) 100%);
+    border: 2px solid #2d4a1d;
+    border-radius: 5px;
+    padding: 12px 25px;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg) translateX(-20%);
+    transition: all 0.3s;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(91, 140, 52, 0.3);
+}
+
+.download-btn:hover::after {
+    transform: rotate(45deg) translateX(20%);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.download-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .texture-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .texture-icon {
+        margin: 0 auto;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Cores do Minecraft */
+.mc-black {
+    color: #000000;
+}
+
+.mc-dark-blue {
+    color: #0000AA;
+}
+
+.mc-dark-green {
+    color: #00AA00;
+}
+
+.mc-dark-aqua {
+    color: #00AAAA;
+}
+
+.mc-dark-red {
+    color: #AA0000;
+}
+
+.mc-dark-purple {
+    color: #AA00AA;
+}
+
+.mc-gold {
+    color: #FFAA00;
+}
+
+.mc-gray {
+    color: #AAAAAA;
+}
+
+.mc-dark-gray {
+    color: #555555;
+}
+
+.mc-blue {
+    color: #5555FF;
+}
+
+.mc-green {
+    color: #55FF55;
+}
+
+.mc-aqua {
+    color: #55FFFF;
+}
+
+.mc-red {
+    color: #FF5555;
+}
+
+.mc-light-purple {
+    color: #FF55FF;
+}
+
+.mc-yellow {
+    color: #FFFF55;
+}
+
+.mc-white {
+    color: #FFFFFF;
+}
+
+/* Botão "Infor" */
+.info-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--mc-border);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.info-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+    /* Botão de Regras */
+.rules-btn {
+background: linear-gradient(180deg, #FF5555 0%, #AA0000 100%);
+border: 2px solid #7A2D2D;
+border-radius: 5px;
+padding: 12px 25px;
+color: white;
+font-size: 0.8rem;
+cursor: pointer;
+transition: all 0.2s;
+position: relative;
+overflow: hidden;
+display: flex;
+align-items: center;
+gap: 10px;
+margin: 15px 0;
+}
+
+.rules-btn::after {
+content: '';
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: rgba(255, 255, 255, 0.1);
+transform: rotate(45deg) translateX(-20%);
+transition: all 0.3s;
+}
+
+.rules-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 12px rgba(255, 85, 85, 0.3);
+}
+
+.rules-btn:hover::after {
+transform: rotate(45deg) translateX(20%);
+}
+
+.rules-btn:active {
+transform: translateY(0);
+}
+
+.rules-icon {
+width: 20px;
+height: 20px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background: linear-gradient(145deg, rgba(58, 58, 58, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%), url('../imgs/bedrock.png');
+    border: 4px solid var(--mc-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 0 var(--mc-border);
+    margin: 20px;
+    padding: 25px;
+    position: relative;
+}
+
+.modal-close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* Proporção 16:9 para vídeos do YouTube */
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.minecraft-footer {
+    background: linear-gradient(145deg, rgba(58, 58, 58, 0.95) 0%, rgba(34, 34, 34, 0.95) 100%), url('../imgs/bedrock.png');
+    border-top: 4px solid var(--mc-border);
+    padding: 15px;
+    width: 100%;
+    margin-top: auto;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    width: min(90%, 800px);
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+    animation: pulse 2s infinite;
+    filter: drop-shadow(0 0 5px rgba(196, 196, 196, 0.5));
+}
+
+.footer-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.server-info {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.server-status {
+    font-size: 0.7rem;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.online-dot {
+    width: 10px;
+    height: 10px;
+    background: #5B8C34;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #5B8C34;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-link:hover {
+    color: var(--mc-green);
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(91, 140, 52, 0.5);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .server-info {
+        font-size: 0.8rem;
+    }
+}
