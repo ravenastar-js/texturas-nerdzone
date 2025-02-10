@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const levelUpSound = new Audio("https://texturas-nerdzone.pages.dev/mc/sounds/level-up.mp3");
-    levelUpSound.volume = 1.0;
+    levelUpSound.volume = 0.5;
 
     function spawnXPParticle() {
         const particle = document.createElement("img");
