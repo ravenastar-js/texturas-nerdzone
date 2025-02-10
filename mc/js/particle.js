@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         setTimeout(() => {
             particle.remove();
-        }, 2000);
+        }, 1000);
     }
     
     function triggerLevelUpAnimation() {
