@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const levelUpSound = new Audio("https://texturas-nerdzone.pages.dev/sounds/level-up.mp3");
+    const levelUpSound = new Audio("https://texturas-nerdzone.pages.dev/mc/sounds/level-up.mp3");
     levelUpSound.volume = 1.0;
 
     function spawnXPParticle() {
