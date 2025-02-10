@@ -14,12 +14,20 @@ const texturas = [
         v: "1.8.9"
     },
     {
+        nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
+        link: "https://www.mediafire.com/file/ratewj62vk1vx1j/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        icone: "mc/imgs/5.png",
+        description: "§b【V2】 §dbit.ly/ravenastar§f & §6Feito para §fminérios & madeira da selva (exceto quartzo) & §eÉ necessário optifine.",
+        v: "1.8.9"
+    },
+    {
         nome: "§6RavenaStar Basic",
         link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-basic-armor-durability/",
         icone: "mc/imgs/3.png",
         description: "§b【V1】 §dbit.ly/ravenastar",
         v: "1.8.9"
     },
+
     {
         nome: "§6RavenaStar Faithful§f【32x32】",
         link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-faithful/",
