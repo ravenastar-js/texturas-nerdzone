@@ -467,7 +467,7 @@ h1 {
     z-index: 1;
     white-space: nowrap;
 }
-
+ 
 .version-badge::before {
     content: "";
     position: absolute;
