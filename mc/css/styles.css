@@ -398,12 +398,8 @@ h1 {
 }
 
 .server-info {
+    gap: 44px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.9rem;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px solid var(--mc-border);
-    border-radius: 6px;
     padding: 15px;
     margin: 15px 0;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -412,7 +408,16 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
 }
-
+.server-banner {
+    display: flex;
+    border-radius: 6px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--mc-border);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 .server-status {
     font-size: 0.7rem;
     color: #aaa;
