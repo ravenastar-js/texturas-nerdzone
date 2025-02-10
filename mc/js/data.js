@@ -19,6 +19,13 @@ const texturas = [
         icone: "mc/imgs/3.png",
         description: "§b【V1】 §dbit.ly/ravenastar",
         v: "1.8.9"
+    },
+    {
+        nome: "§6RavenaStar Faithful§f【32x32】",
+        link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-faithful/",
+        icone: "mc/imgs/4.png",
+        description: "§b【V1】 §dbit.ly/ravenastar",
+        v: "1.8.9"
     }
 ];
 
