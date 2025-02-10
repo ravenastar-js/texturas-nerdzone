@@ -1,6 +1,5 @@
 /* Staff Page Styles */
 .staff-item {
-    grid-template-columns: 100px 1fr;
     background: rgba(0, 0, 0, 0.6);
 }
 
