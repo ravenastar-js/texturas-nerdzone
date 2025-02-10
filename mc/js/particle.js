@@ -1,14 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const levelUpSound = new Audio("https://texturas-nerdzone.pages.dev/sounds/level_up.mp3");
+    const levelUpSound = new Audio("https://texturas-nerdzone.pages.dev/sounds/level-up.mp3");
     levelUpSound.volume = 1.0;
-
-    levelUpSound.addEventListener("canplaythrough", () => {
-        console.log("O áudio está pronto para ser reproduzido.");
-    });
-
-    levelUpSound.addEventListener("error", (e) => {
-        console.error("Erro ao carregar o áudio:", e);
-    });
 
     function spawnXPParticle() {
         const particle = document.createElement("img");
@@ -41,12 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function triggerLevelUpAnimation() {
-        console.log("Triggering level up animation...");
         setTimeout(() => {
             levelUpSound.currentTime = 0;
-            levelUpSound.play().catch(error => {
-                console.error("Erro ao tentar reproduzir o áudio:", error);
-            });
+            levelUpSound.play().catch(error => {});
         }, 100);
 
         for (let i = 0; i < 50; i++) {
