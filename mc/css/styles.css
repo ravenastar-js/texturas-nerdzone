@@ -376,7 +376,7 @@ h1 {
     margin-top: auto;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
-    width: min(90%, 820px);
+    width: min(90%, 650px);
 }
 
 .footer-container {
