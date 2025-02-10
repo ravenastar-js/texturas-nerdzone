@@ -21,3 +21,20 @@ const texturas = [
         v: "1.8.9"
     }
 ];
+
+const staffMembers = [
+    { nome: "§f[Fundador] Nerdstone_", hasMinecraftOriginal: true },
+    { nome: "§6[Diretor] WiintterSJ", hasMinecraftOriginal: true },
+    { nome: "§4[Gerente] Deadzin_", hasMinecraftOriginal: true },
+    { nome: "§4[Gerente] ILighttz", hasMinecraftOriginal: true },
+    { nome: "§c[Administrador] ColdsOpSs", hasMinecraftOriginal: true },
+    { nome: "§c[Administrador] KahRevolution", hasMinecraftOriginal: true },
+    { nome: "§c[Administrador] matheussponchi", hasMinecraftOriginal: false },
+    { nome: "§a[Moderador] Flaashsz", hasMinecraftOriginal: true },
+    { nome: "§a[Moderador] kalauzin", hasMinecraftOriginal: true },
+    { nome: "§a[Moderador] oohLEFTY", hasMinecraftOriginal: true },
+    { nome: "§a[Moderador] Rangel0946", hasMinecraftOriginal: true },
+    { nome: "§a[Moderador] TodKx", hasMinecraftOriginal: true },
+    { nome: "§e[Ajudante] jotavegfds", hasMinecraftOriginal: true },
+    { nome: "§e[Ajudante] kjt4", hasMinecraftOriginal: true }
+];

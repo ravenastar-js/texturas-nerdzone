@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-    <!-- Primary Meta Tags -->
     <meta charset="UTF-8" />
-    <title>Central de Pacotes de Textura Minecraft - Nerdzone</title>
-    <meta name="title" content="Central de Pacotes de Textura Minecraft - Nerdzone" />
-    <meta name="description" content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone." />
+    <title>Staff - Nerdzone</title>
+    <meta name="title" content="Staff - Nerdzone" />
+    <meta name="description" content="✨ Central da Staff" />
     <meta name="theme-color" content="#FF5555" />
-    <meta name="keywords" content="Minecraft, Texture Packs, Nerdzone, Pacotes de Textura, Mods, Download, Resource Packs">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -19,48 +14,29 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://texturas.pages.dev" />
-    <meta property="og:title" content="Central de Pacotes de Textura Minecraft - Nerdzone" />
-    <meta property="og:description" content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone." />
+    <meta property="og:title" content="Staff - Nerdzone" />
+    <meta property="og:description" content="✨ Central da Staff" />
     <meta property="og:image" content="https://i.imgur.com/u8g34fj.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://texturas.pages.dev" />
-    <meta property="twitter:title" content="Central de Pacotes de Textura Minecraft - Nerdzone" />
+    <meta property="twitter:title" content="Staff - Nerdzone" />
     <meta property="twitter:description"
-        content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone." />
+        content="✨ Central da Staff" />
     <meta property="twitter:image" content="https://i.imgur.com/u8g34fj.png" />
 
+    <!-- Metadados idênticos ao index.html -->
+    <title>Staff - Nerdzone</title>
     <link rel="stylesheet" href="mc/css/styles.css">
+    <link rel="stylesheet" href="mc/css/staff.css">
 </head>
-
 <body>
     <div class="container">
-        <h1>🔨 Minecraft Texture Packs</h1>
-        <div class="info-btn" id="infoBtn">i</div>
-        <div id="texture-list"></div>
+        <h1>👑 Staff Nerdzone</h1>
+        
+        <div id="staff-list"></div>
     </div>
-
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close-btn" id="closeModalBtn">&times;</span>
-            <h2>Vídeo Informativo</h2>
-            <button class="rules-btn" onclick="window.open('https://regras.nerdzone.gg', '_blank')">
-                <svg class="rules-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 4h7v5h5v11H6V4zm8 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V8h10v2z" />
-                </svg>
-                REGRAS
-            </button>
-            <div class="video-container">
-                <iframe id="youtubeVideo" src="https://www.youtube.com/embed/AFa7sii7Tds" title="Vídeo do YouTube"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
     <!-- FOOTER  -->
     <footer class="minecraft-footer">
         <div class="footer-container">
@@ -79,13 +55,11 @@
           
             </div>
             <div class="footer-buttons">
-                <div class="staff-btn" id="staffBtn">⚔️</div>
+                <div class="staff-btn" id="homeBtn">🏠</div>
             </div>
         </div>
     </footer>
-    <script src="mc/js/go.js"></script>
     <script src="mc/js/data.js"></script>
-    <script src="mc/js/script.js"></script>
+    <script src="mc/js/staff.js"></script>
 </body>
-
 </html>
