@@ -576,6 +576,51 @@ h1 {
     background: #FF5555;
 }
 
+/* Animações de Level Up */
+.level-up-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+    pointer-events: none;
+}
+
+.level-up-container {
+    animation: levelUp 1s ease-out;
+    text-align: center;
+}
+
+.level-up-icon {
+    width: 100px;
+    height: 100px;
+    background-image: url('https://static.wikia.nocookie.net/minecraft/images/0/0a/ExperienceOrb.gif/revision/latest?cb=20190907041203'); /* Ícone de livro encantado */
+    background-size: contain;
+    margin: 0 auto;
+    filter: brightness(1.5);
+}
+
+@keyframes levelUp {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* Partículas */
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #55FFFF;
+    border-radius: 50%;
+    animation: particle 1s ease-out;
+}
+
+@keyframes particle {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(var(--x, 0), var(--y, 0)); opacity: 0; }
+}
 @keyframes pulse {
     0% {
         transform: scale(1);
