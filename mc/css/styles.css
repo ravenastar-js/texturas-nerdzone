@@ -410,10 +410,9 @@ h1 {
 }
 .server-banner {
     display: flex;
-    border-radius: 6px;
+    border-radius: 18px;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px solid var(--mc-border);
+    background: rgba(0, 0, 0, 0.36);
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
