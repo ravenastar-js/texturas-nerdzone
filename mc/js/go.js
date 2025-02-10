@@ -1,8 +1,7 @@
-// No arquivo app.js existente
-document.getElementById('staffBtn').addEventListener('click', () => {
+document.querySelector('.staff-btn#staffBtn').addEventListener('click', () => {
     window.location.href = 'staff';
 });
 
-document.getElementById('homeBtn').addEventListener('click', () => {
-    window.location.href = 'https://texturas-nerdzone.pages.dev';
+document.querySelector('.staff-btn#homeBtn').addEventListener('click', () => {
+    window.location.href = '/';
 });
