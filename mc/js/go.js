@@ -4,5 +4,5 @@ document.getElementById('staffBtn').addEventListener('click', () => {
 });
 
 document.getElementById('homeBtn').addEventListener('click', () => {
-    window.location.href = '/';
+    window.location.href = 'https://texturas-nerdzone.pages.dev';
 });
