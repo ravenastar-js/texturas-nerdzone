@@ -30,7 +30,7 @@ const texturas = [
 ];
 
 const staffMembers = [
-    { nome: "§f[Fundador] Nerdstone_", hasMinecraftOriginal: true },
+    { nome: "§f[Fundador] Nerdstone_", hasMinecraftOriginal: true, yt: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg" },
     { nome: "§6[Diretor] WiintterSJ", hasMinecraftOriginal: true },
     { nome: "§4[Gerente] Deadzin_", hasMinecraftOriginal: true },
     { nome: "§4[Gerente] ILighttz", hasMinecraftOriginal: true },
