@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <title>Staff - Nerdzone</title>
@@ -22,44 +23,64 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://texturas.pages.dev" />
     <meta property="twitter:title" content="Staff - Nerdzone" />
-    <meta property="twitter:description"
-        content="✨ Central da Staff" />
+    <meta property="twitter:description" content="✨ Central da Staff" />
     <meta property="twitter:image" content="https://i.imgur.com/u8g34fj.png" />
-    
+
     <title>Staff - Nerdzone</title>
     <link rel="stylesheet" href="mc/css/styles.css">
     <link rel="stylesheet" href="mc/css/staff.css">
 </head>
+
 <body>
     <div class="container">
         <h1>👑 Staff Nerdzone</h1>
-        
+
         <div id="staff-list"></div>
     </div>
     <!-- FOOTER  -->
     <footer class="minecraft-footer">
         <div class="footer-container">
-            <div class="achievement-icon"><img src="https://i.imgur.com/gSomY9Z.png"
-                    style="width:50px"></div>
             <div class="footer-content">
                 <div class="server-info">
-                    <span class="mc-red">nerd</span><span class="mc-white">zone.gg</span>
+                    <img src="" class="server-icon achievement-icon" alt="Ícone do Servidor" style="display: none;">
+
+                    <div>
+                        <br>
+                        <div>
+                            IP: <span class="mc-red">nerd</span><span class="mc-white">zone.gg</span>
+                        </div>
+                        <br>
+                        <div class="server-status">
+                            <span class="online-dot"></span> Carregando...
+                        </div>
+                        <br>
+                        <div class="server-details">
+                            <span class="server-version"></span>
+                            <span class="players-count"></span>
+                        </div>
+                        <br>
+                        <div class="server-motd"></div>
+                    </div>
                 </div>
                 <div class="footer-links">
-                    <a href="https://github.com/ravenastar-js/texturas-nerdzone" target="_blank" class="footer-link">📁 Open Source</a>
+                    <a href="https://github.com/ravenastar-js/texturas-nerdzone" target="_blank" class="footer-link">📁
+                        Open Source</a>
                     <a href="https://linktr.ee/ravenastar" target="_blank" class="footer-link">© RavenaStar</a>
                     <a href="https://regras.nerdzone.gg" target="_blank" class="footer-link">📜 Regras</a>
                     <a href="https://loja.nerdzone.gg" target="_blank" class="footer-link">🏪 Loja</a>
                 </div>
-          
+
             </div>
             <div class="footer-buttons">
                 <div class="staff-btn" id="homeBtn">🏠</div>
             </div>
         </div>
+        </div>
     </footer>
+    <script src="mc/js/footer.js"></script>
     <script src="mc/js/goHome.js"></script>
     <script src="mc/js/data.js"></script>
     <script src="mc/js/staff.js"></script>
 </body>
-</html> 
+
+</html>
