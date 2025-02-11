@@ -84,7 +84,6 @@ function fetchSkin() {
     const renderCrop = document.getElementById("renderCrop").value;
 
     if (!playerName) {
-        alert("Please enter a player name.");
         return;
     }
 
