@@ -78,6 +78,11 @@ function updateAvailableCrops() {
     renderCrop.replaceChildren(fragment);
 }
 
+function generateRandomHex() {
+    return Math.floor(Math.random() * 16777215).toString(16);
+}
+
+
 function fetchSkin() {
     const playerName = document.getElementById("playerName").value.trim();
     const renderType = document.getElementById("renderType").value;
@@ -87,8 +92,41 @@ function fetchSkin() {
         return;
     }
 
-    document.getElementById("skinImage").src = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
+    const skinImage = document.getElementById("skinImage");
+    const downloadBtn = document.getElementById("downloadBtn") || document.createElement("button");
+    downloadBtn.id = "downloadBtn";  // Adiciona um id ao botão para evitarmos duplicação
+    downloadBtn.textContent = "Baixar Skin";
+
+    // Gera o nome aleatório para o arquivo
+    const randomHex = generateRandomHex();
+    const imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
+    skinImage.src = imageUrl;
+    skinImage.onload = () => {
+        // Cria o botão de download
+        downloadBtn.onclick = () => {
+            fetch(imageUrl)
+                .then(response => response.blob()) // Baixa a imagem como blob
+                .then(blob => {
+                    // Cria um link temporário para fazer o download da imagem
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);  // Cria um link com o blob
+                    link.download = `${randomHex}.png`;  // Nome aleatório para o arquivo
+                    link.click();  // Força o download
+                })
+                .catch(error => {
+                    console.error('Erro ao baixar a skin:', error);
+                });
+        };
+
+        // Adiciona o botão de download à página, logo abaixo da imagem, se ainda não estiver presente
+        const skinDisplay = document.querySelector(".skin-display");
+        if (!document.getElementById("downloadBtn")) {
+            skinDisplay.appendChild(downloadBtn);
+        }
+    };
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const renderTypeSelect = document.getElementById("renderType");
