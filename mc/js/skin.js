@@ -1,212 +1,352 @@
-const fullCrops = ["full"];
-const defaultCrops = ["default"];
-const fullHeadCrops = ["full", "head"];
-const fullBustCrops = ["full", "bust"];
-const renderTypes = {
-    "default": fullCrops,
-    "marching": fullCrops,
-    "walking": fullCrops,
-    "crouching": fullCrops,
-    "crossed": fullCrops,
-    "criss_cross": fullCrops,
-    "ultimate": fullCrops,
-    "isometric": fullHeadCrops,
-    "head": fullCrops,
-    "custom": fullCrops,
-    "cheering": fullCrops,
-    "relaxing": fullCrops,
-    "trudging": fullCrops,
-    "cowering": fullCrops,
-    "pointing": fullCrops,
-    "lunging": fullCrops,
-    "dungeons": fullCrops,
-    "facepalm": fullCrops,
-    "sleeping": fullBustCrops,
-    "dead": fullCrops,
-    "archer": fullCrops,
-    "kicking": fullCrops,
-    "mojavatar": fullBustCrops,
-    "reading": fullCrops,
-    "high_ground": fullCrops,
-    "bitzel": fullCrops,
-    "pixel": fullCrops,
-    "skin": defaultCrops,
-    "profile": fullCrops
-};
+/**
+ * 🎮 Controlador principal de renderização de skins Minecraft
+ * @class
+ */
+class SkinController {
+    /**
+     * 🏗️ Construtor inicializando configurações
+     * @constructor
+     */
+    constructor() {
+        // 🔗 Elementos do DOM
+        this.elements = {
+            playerInput: document.getElementById('playerName'),
+            renderType: document.getElementById('renderType'),
+            renderCrop: document.getElementById('renderCrop'),
+            searchBtn: document.getElementById('searchBtn'),
+            skinImage: document.getElementById('skinImage'),
+            loading: document.getElementById('loading'),
+            skinDisplay: document.querySelector('.skin-display'),
+            modal: document.getElementById('skinModal'),
+            modalImage: document.getElementById('modalSkinImage')
+        };
 
-// Traduções para exibição no select
-const renderNames = {
-    "default": "Padrão",
-    "marching": "Marcha",
-    "walking": "Andando",
-    "crouching": "Agachado",
-    "crossed": "Braços Cruzados",
-    "criss_cross": "Pernas Cruzadas",
-    "ultimate": "Supremo",
-    "isometric": "Isométrico",
-    "head": "Cabeça",
-    "custom": "Personalizado",
-    "cheering": "Torcendo",
-    "relaxing": "Relaxando",
-    "trudging": "Caminhando Pesado",
-    "cowering": "Encolhido",
-    "pointing": "Apontando",
-    "lunging": "Investida",
-    "dungeons": "Masmorras",
-    "facepalm": "Facepalm",
-    "sleeping": "Dormindo",
-    "dead": "Morto",
-    "archer": "Arqueiro",
-    "kicking": "Chutando",
-    "mojavatar": "Mojavatar",
-    "reading": "Lendo",
-    "high_ground": "Terreno Alto",
-    "bitzel": "Bitzel",
-    "pixel": "Pixel",
-    "skin": "Skin",
-    "profile": "Perfil"
-};
-
-function updateAvailableCrops() {
-    const renderType = document.getElementById("renderType").value;
-    const renderCrop = document.getElementById("renderCrop");
-
-    const fragment = document.createDocumentFragment();
-    renderTypes[renderType]?.forEach(crop => {
-        const option = document.createElement("option");
-        option.value = crop;
-        option.textContent = crop;
-        fragment.appendChild(option);
-    });
-    renderCrop.replaceChildren(fragment);
-}
-
-function generateRandomHex() {
-    return Math.floor(Math.random() * 16777215).toString(16);
-}
-
-
-function isValidMinecraftUsername(username) {
-    return /^[a-z0-9_]{2,16}$/i.test(username);
-}
-function fetchSkin() {
-    const playerName = document.getElementById("playerName").value.trim();
-    const renderType = document.getElementById("renderType").value;
-    const renderCrop = document.getElementById("renderCrop").value;
-    const loading = document.getElementById("loading");
-    const skinImage = document.getElementById("skinImage");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const skinDisplay = document.querySelector(".skin-display");
-    const searchBtn = document.getElementById("searchBtn");
-
-    // Mostrar loading
-    loading.style.display = "flex";
-    skinImage.style.display = "none";
-    searchBtn.disabled = true;
-    if (downloadBtn) downloadBtn.remove();
-
-    if (!playerName || !isValidMinecraftUsername(playerName)) {
-        loading.style.display = "none";
-        searchBtn.disabled = false;
-        return;
-    }
-
-    if (skinImage.abortController) {
-        skinImage.abortController.abort();
-    }
-    const abortController = new AbortController();
-    skinImage.abortController = abortController;
-
-    const requestId = Symbol();
-    skinImage.currentRequest = requestId;
-
-    fetch(`https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`, {
-        signal: abortController.signal
-    })
-        .then(response => {
-            if (!response.ok || skinImage.currentRequest !== requestId) {
-                throw new Error('Requisição obsoleta ou erro HTTP');
+        // 🌈 Tipos de renderização disponíveis
+        this.renderConfig = {
+            crops: {
+                full: ['full'],
+                default: ['default'],
+                head: ['full', 'head'],
+                bust: ['full', 'bust']
+            },
+            types: {
+                default: 'full',
+                marching: 'full',
+                walking: 'full',
+                crouching: 'full',
+                crossed: 'full',
+                criss_cross: 'full',
+                ultimate: 'full',
+                isometric: 'head',
+                head: 'full',
+                custom: 'full',
+                cheering: 'full',
+                relaxing: 'full',
+                trudging: 'full',
+                cowering: 'full',
+                pointing: 'full',
+                lunging: 'full',
+                dungeons: 'full',
+                facepalm: 'full',
+                sleeping: 'bust',
+                dead: 'full',
+                archer: 'full',
+                kicking: 'full',
+                mojavatar: 'bust',
+                reading: 'full',
+                high_ground: 'full',
+                bitzel: 'full',
+                pixel: 'full',
+                skin: 'default',
+                profile: 'full'
+            },
+            translations: {
+                default: 'Padrão',
+                marching: 'Marcha',
+                walking: 'Andando',
+                crouching: 'Agachado',
+                crossed: 'Braços Cruzados',
+                criss_cross: 'Pernas Cruzadas',
+                ultimate: 'Supremo',
+                isometric: 'Isométrico',
+                head: 'Cabeça',
+                custom: 'Personalizado',
+                cheering: 'Torcendo',
+                relaxing: 'Relaxando',
+                trudging: 'Caminhando Pesado',
+                cowering: 'Encolhido',
+                pointing: 'Apontando',
+                lunging: 'Investida',
+                dungeons: 'Masmorras',
+                facepalm: 'Facepalm',
+                sleeping: 'Dormindo',
+                dead: 'Morto',
+                archer: 'Arqueiro',
+                kicking: 'Chutando',
+                mojavatar: 'Mojavatar',
+                reading: 'Lendo',
+                high_ground: 'Terreno Alto',
+                bitzel: 'Bitzel',
+                pixel: 'Pixel',
+                skin: 'Skin',
+                profile: 'Perfil'
             }
-            return response.blob();
-        })
-        .then(blob => {
-            if (skinImage.currentRequest !== requestId) return;
+        };
 
-            const objectURL = URL.createObjectURL(blob);
-            const newDownloadBtn = document.createElement("button");
+        // 🎛️ Controle de requisições
+        this.abortController = null;
+        this.currentRequest = null;
+    }
 
-            skinImage.onerror = () => {
-                searchBtn.disabled = false;
-                loading.style.display = "none";
-                skinImage.style.display = "none";
-                URL.revokeObjectURL(objectURL);
-                newDownloadBtn.remove();
-            };
+    /**
+     * 🚀 Inicializa o controlador
+     * @method
+     */
+    initialize() {
+        this.populateRenderTypes();
+        this.setupEventListeners();
+        this.setupModal();
+    }
 
-            skinImage.onload = () => {
+    /**
+     * 📦 Popula os tipos de renderização no select
+     * @method
+     */
+    populateRenderTypes() {
+        const fragment = document.createDocumentFragment();
+        
+        Object.entries(this.renderConfig.types).forEach(([type, cropType]) => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = `${type} (${this.renderConfig.translations[type]})`;
+            fragment.appendChild(option);
+        });
 
-                searchBtn.disabled = false;
-                loading.style.display = "none";
-                skinImage.style.display = "block";
-                newDownloadBtn.id = "downloadBtn";
-                newDownloadBtn.textContent = "Baixar Skin";
-                newDownloadBtn.onclick = () => {
-                    const link = document.createElement("a");
-                    link.href = objectURL;
-                    link.download = `${generateRandomHex()}.png`;
-                    link.click();
-                };
-                skinDisplay.appendChild(newDownloadBtn);
-            };
-            skinImage.dataset.player = playerName;
-            skinImage.dataset.renderType = renderType;
-            skinImage.src = objectURL;
-        })
-        .catch(error => {
-            searchBtn.disabled = false;
-            loading.style.display = "none";
-            if (error.name !== "AbortError") {
-                URL.revokeObjectURL(skinImage.src);
+        this.elements.renderType.appendChild(fragment);
+        this.updateCropOptions();
+    }
+
+    /**
+     * 🔄 Atualiza as opções de crop disponíveis
+     * @method
+     */
+    updateCropOptions() {
+        const selectedType = this.elements.renderType.value;
+        const cropType = this.renderConfig.types[selectedType];
+        const crops = this.renderConfig.crops[cropType];
+
+        const fragment = document.createDocumentFragment();
+        crops.forEach(crop => {
+            const option = document.createElement('option');
+            option.value = crop;
+            option.textContent = crop;
+            fragment.appendChild(option);
+        });
+
+        this.elements.renderCrop.replaceChildren(fragment);
+    }
+
+    /**
+     * 🕹️ Configura os event listeners
+     * @method
+     */
+    setupEventListeners() {
+        this.elements.renderType.addEventListener('change', () => this.updateCropOptions());
+        this.elements.searchBtn.addEventListener('click', () => this.fetchSkin());
+    }
+
+    /**
+     * 🖼️ Configura o modal de visualização
+     * @method
+     */
+    setupModal() {
+        // 🔍 Ampliar imagem
+        this.elements.skinImage.addEventListener('click', () => {
+            if (this.elements.skinImage.dataset.player) {
+                this.elements.modalImage.src = 
+                    `https://starlightskins.lunareclipse.studio/render/${this.elements.skinImage.dataset.renderType}/${
+                        this.elements.skinImage.dataset.player}/full`;
+                this.elements.modal.style.display = 'block';
             }
         });
+
+        // ❌ Fechar modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            this.elements.modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === this.elements.modal) {
+                this.elements.modal.style.display = 'none';
+            }
+        });
+    }
+
+    /**
+     * 🔍 Valida nome de usuário Minecraft
+     * @param {string} username - Nome a validar
+     * @returns {boolean}
+     * @method
+     */
+    isValidUsername(username) {
+        return /^[a-z0-9_]{2,16}$/i.test(username);
+    }
+
+    /**
+     * ⚡ Gera hexadecimal aleatório para nome de arquivo
+     * @returns {string}
+     * @method
+     */
+    generateFileHash() {
+        return Math.random().toString(16).substr(2, 8);
+    }
+
+    /**
+     * 📡 Busca a skin do jogador
+     * @method
+     */
+    async fetchSkin() {
+        const playerName = this.elements.playerInput.value.trim();
+        
+        // 🛑 Validação inicial
+        if (!this.isValidUsername(playerName)) {
+            return;
+        }
+
+        // 🛑 Cancela requisição anterior
+        if (this.abortController) {
+            this.abortController.abort();
+        }
+
+        // 🌀 Mostra estado de carregamento
+        this.toggleLoading(true);
+        
+        try {
+            const { skinImage, renderType, renderCrop } = this.elements;
+            this.abortController = new AbortController();
+            this.currentRequest = Symbol();
+
+            // ⚡ Requisição da skin
+            const response = await fetch(
+                `https://starlightskins.lunareclipse.studio/render/${renderType.value}/${playerName}/${renderCrop.value}`,
+                { signal: this.abortController.signal }
+            );
+
+            if (!response.ok) throw new Error('Erro na resposta da API');
+
+            // 🖼️ Processamento da imagem
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            
+            skinImage.onload = () => this.handleImageLoad(url, playerName);
+            skinImage.onerror = () => this.handleImageError(url);
+            skinImage.src = url;
+            skinImage.dataset.player = playerName;
+            skinImage.dataset.renderType = renderType.value;
+
+        } catch (error) {
+            this.handleFetchError(error);
+        }
+    }
+
+    /**
+     * ✅ Trata carregamento bem-sucedido da imagem
+     * @param {string} url - URL da imagem
+     * @param {string} playerName - Nome do jogador
+     * @method
+     */
+    handleImageLoad(url, playerName) {
+        this.toggleLoading(false);
+        this.createDownloadButton(url);
+        this.createNameMCButton(playerName);
+        this.elements.skinImage.style.display = 'block';
+    }
+
+    /**
+     * 🛑 Trata erro no carregamento da imagem
+     * @param {string} url - URL da imagem
+     * @method
+     */
+    handleImageError(url) {
+        URL.revokeObjectURL(url);
+        this.toggleLoading(false);
+    }
+
+    /**
+     * 🚨 Trata erros na requisição
+     * @param {Error} error - Erro ocorrido
+     * @method
+     */
+    handleFetchError(error) {
+        if (error.name !== 'AbortError') {
+            this.toggleLoading(false);
+        }
+    }
+
+    /**
+     * 🎚️ Controla visibilidade do loading
+     * @param {boolean} show - Mostrar/Esconder
+     * @method
+     */
+    toggleLoading(show) {
+        this.elements.loading.style.display = show ? 'flex' : 'none';
+        this.elements.searchBtn.disabled = show;
+    }
+
+    /**
+     * ⬇️ Cria botão de download
+     * @param {string} url - URL da imagem
+     * @method
+     */
+    createDownloadButton(url) {
+        this.removeExistingButtons();
+        
+        const downloadBtn = document.createElement('button');
+        downloadBtn.id = 'downloadBtn';
+        downloadBtn.textContent = 'Baixar Skin';
+        downloadBtn.onclick = () => this.downloadSkin(url);
+        this.elements.skinDisplay.appendChild(downloadBtn);
+    }
+
+    /**
+     * 🌐 Cria botão do NameMC
+     * @param {string} playerName - Nome do jogador
+     * @method
+     */
+    createNameMCButton(playerName) {
+        const nameMcBtn = document.createElement('button');
+        nameMcBtn.id = 'nameMcBtn';
+        nameMcBtn.textContent = 'NameMC';
+        nameMcBtn.onclick = () => window.open(`https://namemc.com/profile/${playerName}`, '_blank');
+        this.elements.skinDisplay.appendChild(nameMcBtn);
+    }
+
+    /**
+     * 🗑️ Remove botões existentes
+     * @method
+     */
+    removeExistingButtons() {
+        const existingDownload = document.getElementById('downloadBtn');
+        const existingNameMC = document.getElementById('nameMcBtn');
+        if (existingDownload) existingDownload.remove();
+        if (existingNameMC) existingNameMC.remove();
+    }
+
+    /**
+     * 💾 Dispara o download da skin
+     * @param {string} url - URL da imagem
+     * @method
+     */
+    downloadSkin(url) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `skin_${this.generateFileHash()}.png`;
+        link.click();
+    }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const renderTypeSelect = document.getElementById("renderType");
-
-    const fragment = document.createDocumentFragment();
-    Object.keys(renderTypes).forEach(type => {
-        const option = document.createElement("option");
-        option.value = type;
-        option.textContent = `${type} (${renderNames[type] || "Sem tradução"})`;
-        fragment.appendChild(option);
-    });
-    renderTypeSelect.appendChild(fragment);
-
-    renderTypeSelect.addEventListener("change", updateAvailableCrops);
-
-    updateAvailableCrops();
+// 🚀 Inicialização quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', () => {
+    const skinController = new SkinController();
+    skinController.initialize();
 });
-// Adicione este código após o DOMContentLoaded
-document.getElementById('skinImage').addEventListener('click', function () {
-    const player = this.dataset.player;
-    const renderType = this.dataset.renderType;
-
-    if (player && renderType) {
-        const modal = document.getElementById('skinModal');
-        const modalImg = document.getElementById('modalSkinImage');
-        modalImg.src = `https://starlightskins.lunareclipse.studio/render/${renderType}/${player}/full`;
-        modal.style.display = 'block';
-    }
-});
-
-// Fechar modal
-document.querySelector('.close-modal').onclick = () => {
-    document.getElementById('skinModal').style.display = 'none';
-};
-
-window.onclick = (event) => {
-    if (event.target === document.getElementById('skinModal')) {
-        document.getElementById('skinModal').style.display = 'none';
-    }
-};

@@ -17,14 +17,90 @@ h1 {
 input,
 select,
 button {
-    font-family: 'Press Start 2P', cursive;
+    /* Fontes */
+    font-family: 'Press Start 2P', "Comic Sans MS", cursive, sans-serif;
+
+    /* Dimensionamento consistente */
     width: 90%;
+    -moz-box-sizing: border-box;
+    /* Importante para cálculo correto do width */
+    -webkit-box-sizing: border-box;
+    /* Para navegadores WebKit */
+    box-sizing: border-box;
+    /* Para Firefox */
+
+    /* Espaçamento */
     padding: 10px;
     margin: 10px 0;
+
+    /* Bordas */
     border: 3px solid #ffffff;
+    -webkit-border-radius: 0;
+    /* Reset para Safari/iOS */
+    border-radius: 0;
+
+    /* Cores e fundo */
     background: #1b1b1b;
+    background-color: #1b1b1b;
+    /* Fallback explícito */
     color: #ff7979;
+
+    /* Alinhamento */
     text-align: center;
+
+    /* Reset de estilos nativos */
+    -webkit-appearance: none;
+    /* Remove estilos padrão no iOS/Safari */
+    -moz-appearance: none;
+    /* Remove estilos padrão no Firefox */
+    appearance: none;
+
+    /* Tipografia */
+    font-size: 12px;
+    /* Tamanho mínimo recomendado para acessibilidade */
+    line-height: normal;
+    height: 45px;
+    /* Altura fixa para consistência */
+    line-height: 45px;
+    /* Alinhamento vertical centralizado */
+    vertical-align: middle;
+    /* Para Firefox */
+}
+
+/* Estilização Específica para Select */
+select {
+    /* Reset completo da seta padrão */
+    background-image:
+        url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff7979' d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 35px !important;
+    /* Espaço para a seta customizada */
+
+    /* Firefox Hack */
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+/* Firefox: Remove outline vermelha inválida */
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #ff7979;
+}
+
+/* Chrome: Ajuste de alinhamento */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {
+        line-height: 1;
+        /* Corrige alinhamento vertical no Chrome */
+        padding-top: 0;
+        /* Remove padding extra */
+    }
+}
+
+/* Edge/IE11: Remove seta padrão */
+select::-ms-expand {
+    display: none;
 }
 
 button {
@@ -50,7 +126,7 @@ button:hover {
 
 #errorMessage {
     display: none;
-    color: red;
+    color: #ff7979;
     font-size: 12px;
     margin-top: 10px;
 }
