@@ -43,7 +43,7 @@ class ServerStatus {
                 <span class="online-dot ${data.online ? 'online' : 'offline'}"></span>
                 <span class="${data.online ? 'mc-green' : 'mc-red'}">
                     ${data.online ? 'Online' : 'Offline'}
-                </span> - Jogando agora: ${data.players?.online || 0}
+                </span> - <span class="mc-white">Jogando agora:</span> <span class="mc-gold">${data.players?.online || 0}</span>
             `;
         }
     }
