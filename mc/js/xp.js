@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const levelUpSound = new Audio("https://texturas-nerdzone.pages.dev/mc/sounds/level-up.mp3");
-    levelUpSound.volume = 0.5;
+    const levelUpSound = new Audio("mc/sounds/level-up.mp3");
+    levelUpSound.volume = 0.2;
 
     function spawnXPParticle() {
         const particle = document.createElement("img");
-        particle.src = "mc/imgs/xp.gif";
+        particle.src = "mc/img/xp.gif";
         particle.classList.add("xp-particle");
 
         document.body.appendChild(particle);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function triggerLevelUpAnimation() {
         setTimeout(() => {
             levelUpSound.currentTime = 0;
-            levelUpSound.play().catch(error => {});
+            levelUpSound.play().catch(error => { });
         }, 100);
 
         for (let i = 0; i < 50; i++) {
