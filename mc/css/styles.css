@@ -416,9 +416,6 @@ h1 {
 
 .server-status {
     color: #aaa;
-    display: flex;
-    align-items: center;
-    gap: 8px;
     margin-top: 5px;
 }
 
@@ -561,10 +558,45 @@ h1 {
     flex-wrap: wrap;
 }
 
+.server-details:empty,
+.server-motd:empty {
+    display: none;
+}
+
+.server-ip {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.online-carregando {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #555;
+    margin-right: 5px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+}
+
 .server-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 5px;
+    padding: 20px;
     margin-right: 15px;
 }
 
@@ -576,12 +608,24 @@ h1 {
     line-height: 1.4;
 }
 
-.online-dot.online {
-    background: #55FF55;
+.off-center {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.online-dot {
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
 }
 
 .online-dot.offline {
     background: #FF5555;
+    box-shadow: 0 0 5px #ff5555;
 }
 
 @keyframes levelUp {

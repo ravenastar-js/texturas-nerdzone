@@ -3,25 +3,6 @@ class ServerStatus {
         this.apiUrl = 'https://api.mcstatus.io/v2/status/java/nerdzone.gg';
         this.footerElement = document.querySelector('.minecraft-footer');
         this.updateInterval = 60000;
-        this.colorMap = {
-            '§0': 'mc-black',
-            '§1': 'mc-dark-blue',
-            '§2': 'mc-dark-green',
-            '§3': 'mc-dark-aqua',
-            '§4': 'mc-dark-red',
-            '§5': 'mc-dark-purple',
-            '§6': 'mc-gold',
-            '§7': 'mc-gray',
-            '§8': 'mc-dark-gray',
-            '§9': 'mc-blue',
-            '§a': 'mc-green',
-            '§b': 'mc-aqua',
-            '§c': 'mc-red',
-            '§d': 'mc-light-purple',
-            '§e': 'mc-yellow',
-            '§f': 'mc-white',
-            '§l': 'mc-bold'
-        };
     }
 
     async init() {
@@ -43,7 +24,7 @@ class ServerStatus {
     async updateStatus() {
         const data = await this.fetchData();
 
-        if (!data) {
+        if (!data || !data.online) {
             this.setOfflineStatus();
             return;
         }
@@ -96,28 +77,44 @@ class ServerStatus {
             iconElement.src = data.icon;
             iconElement.style.display = 'block';
         }
-
-        const achievementIconElement = this.footerElement.querySelector('.achievement-icon');
-        if (achievementIconElement && data.achievementIcon) {
-            achievementIconElement.src = data.achievementIcon;
-            achievementIconElement.style.display = 'block';
-        }
     }
 
     setOfflineStatus() {
-        const elements = [
-            this.footerElement.querySelector('.server-status'),
-            this.footerElement.querySelector('.players-count'),
-            this.footerElement.querySelector('.server-version')
-        ];
+        const statusElement = this.footerElement.querySelector('.server-status');
+        const versionElement = this.footerElement.querySelector('.server-version');
+        const playersElement = this.footerElement.querySelector('.players-count');
 
-        elements.forEach(el => {
-            if (el) el.textContent = 'Offline - Servidor não disponível';
-        });
+        if (statusElement) {
+            statusElement.innerHTML = `
+                <span class="online-dot offline"></span> 
+                <span class="mc-red">Offline - Servidor não disponível</span>
+            `;
+        }
+
+        if (versionElement) versionElement.textContent = "";
+        if (playersElement) playersElement.textContent = "";
     }
-
     parseMCString(text) {
         return text.replace(/[§&][0-9a-fk-or]/g, match => {
+            const colorMap = {
+                '§0': 'mc-black',
+                '§1': 'mc-dark-blue',
+                '§2': 'mc-dark-green',
+                '§3': 'mc-dark-aqua',
+                '§4': 'mc-dark-red',
+                '§5': 'mc-dark-purple',
+                '§6': 'mc-gold',
+                '§7': 'mc-gray',
+                '§8': 'mc-dark-gray',
+                '§9': 'mc-blue',
+                '§a': 'mc-green',
+                '§b': 'mc-aqua',
+                '§c': 'mc-red',
+                '§d': 'mc-light-purple',
+                '§e': 'mc-yellow',
+                '§f': 'mc-white',
+                '§l': 'mc-bold'
+            };
             const normalizedKey = '§' + match[1];
             switch (normalizedKey) {
                 case '§4':
@@ -125,7 +122,7 @@ class ServerStatus {
                 case '§l':
                     return '<strong>';
                 default:
-                    return `</span><span class="${this.colorMap[normalizedKey]}">`;
+                    return `</span><span class="${colorMap[normalizedKey] || ''}">`;
             }
         }) + '</span>';
     }
