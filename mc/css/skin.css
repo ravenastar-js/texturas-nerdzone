@@ -14,7 +14,9 @@ h1 {
     color: #ffffff;
 }
 
-input, select, button {
+input,
+select,
+button {
     font-family: 'Press Start 2P', cursive;
     width: 90%;
     padding: 10px;
@@ -37,15 +39,155 @@ button:hover {
     background: #ffb2b2;
 }
 
-.skin-display img {
-    width: 200px;
-    height: auto;
-    margin-top: 20px;
+.skin-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
+
 
 #errorMessage {
     display: none;
     color: red;
     font-size: 12px;
     margin-top: 10px;
+}
+
+/* Minecraft Loader */
+.minecraft-loader {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+#skinImage {
+    width: 300px;
+}
+
+#modalSkinImage {
+    margin: 10% 0;
+    width: 300px;
+}
+
+.loader-container {
+    display: flex;
+    align-items: flex-end;
+    height: 50px;
+    gap: 3px;
+}
+
+.loader {
+    width: 5px;
+    height: 35px;
+    background-color: #ff7979;
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 0 2px #a52d2d;
+}
+
+/* Animações com delays */
+.l1 {
+    animation: minecraftLoader 1s 0s infinite ease;
+}
+
+.l2 {
+    animation: minecraftLoader 1s 0.1s infinite ease;
+}
+
+.l3 {
+    animation: minecraftLoader 1s 0.2s infinite ease;
+}
+
+.l4 {
+    animation: minecraftLoader 1s 0.3s infinite ease;
+}
+
+.l5 {
+    animation: minecraftLoader 1s 0.4s infinite ease;
+}
+
+.l6 {
+    animation: minecraftLoader 1s 0.5s infinite ease;
+}
+
+.l7 {
+    animation: minecraftLoader 1s 0.6s infinite ease;
+}
+
+@keyframes minecraftLoader {
+    0% {
+        height: 35px;
+    }
+
+    50% {
+        height: 5px;
+        background-color: #a52d2d;
+    }
+
+    100% {
+        height: 35px;
+    }
+}
+
+.minecraft-loading-text {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    text-shadow: 2px 2px #000;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+#searchBtn {
+    transition: all 0.3s ease;
+}
+
+#searchBtn:disabled {
+
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+}
+
+#searchBtn:disabled:hover {
+    filter: none;
+}
+
+/* Estilos do Modal */
+.skin-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 750px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #ccc;
 }

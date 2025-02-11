@@ -1,34 +1,37 @@
-const defaultCrops = ["full"];
+const fullCrops = ["full"];
+const defaultCrops = ["default"];
+const fullHeadCrops = ["full", "head"];
+const fullBustCrops = ["full", "bust"];
 const renderTypes = {
-    "default": defaultCrops,
-    "marching": defaultCrops,
-    "walking": defaultCrops,
-    "crouching": defaultCrops,
-    "crossed": defaultCrops,
-    "criss_cross": defaultCrops,
-    "ultimate": defaultCrops,
-    "isometric": ["full", "head"],
-    "head": defaultCrops,
-    "custom": defaultCrops,
-    "cheering": defaultCrops,
-    "relaxing": defaultCrops,
-    "trudging": defaultCrops,
-    "cowering": defaultCrops,
-    "pointing": defaultCrops,
-    "lunging": defaultCrops,
-    "dungeons": defaultCrops,
-    "facepalm": defaultCrops,
-    "sleeping": ["full", "bust"],
-    "dead": defaultCrops,
-    "archer": defaultCrops,
-    "kicking": defaultCrops,
-    "mojavatar": ["full", "bust"],
-    "reading": defaultCrops,
-    "high_ground": defaultCrops,
-    "bitzel": defaultCrops,
-    "pixel": defaultCrops,
-    "skin": ["default"],
-    "profile": defaultCrops
+    "default": fullCrops,
+    "marching": fullCrops,
+    "walking": fullCrops,
+    "crouching": fullCrops,
+    "crossed": fullCrops,
+    "criss_cross": fullCrops,
+    "ultimate": fullCrops,
+    "isometric": fullHeadCrops,
+    "head": fullCrops,
+    "custom": fullCrops,
+    "cheering": fullCrops,
+    "relaxing": fullCrops,
+    "trudging": fullCrops,
+    "cowering": fullCrops,
+    "pointing": fullCrops,
+    "lunging": fullCrops,
+    "dungeons": fullCrops,
+    "facepalm": fullCrops,
+    "sleeping": fullBustCrops,
+    "dead": fullCrops,
+    "archer": fullCrops,
+    "kicking": fullCrops,
+    "mojavatar": fullBustCrops,
+    "reading": fullCrops,
+    "high_ground": fullCrops,
+    "bitzel": fullCrops,
+    "pixel": fullCrops,
+    "skin": defaultCrops,
+    "profile": fullCrops
 };
 
 // Traduções para exibição no select
@@ -83,50 +86,90 @@ function generateRandomHex() {
 }
 
 
+function isValidMinecraftUsername(username) {
+    return /^[a-z0-9_]{2,16}$/i.test(username);
+}
 function fetchSkin() {
     const playerName = document.getElementById("playerName").value.trim();
     const renderType = document.getElementById("renderType").value;
     const renderCrop = document.getElementById("renderCrop").value;
+    const loading = document.getElementById("loading");
+    const skinImage = document.getElementById("skinImage");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const skinDisplay = document.querySelector(".skin-display");
+    const searchBtn = document.getElementById("searchBtn");
 
-    if (!playerName) {
+    // Mostrar loading
+    loading.style.display = "flex";
+    skinImage.style.display = "none";
+    searchBtn.disabled = true;
+    if (downloadBtn) downloadBtn.remove();
+
+    if (!playerName || !isValidMinecraftUsername(playerName)) {
+        loading.style.display = "none";
+        searchBtn.disabled = false;
         return;
     }
 
-    const skinImage = document.getElementById("skinImage");
-    const downloadBtn = document.getElementById("downloadBtn") || document.createElement("button");
-    downloadBtn.id = "downloadBtn";  // Adiciona um id ao botão para evitarmos duplicação
-    downloadBtn.textContent = "Baixar Skin";
+    if (skinImage.abortController) {
+        skinImage.abortController.abort();
+    }
+    const abortController = new AbortController();
+    skinImage.abortController = abortController;
 
-    // Gera o nome aleatório para o arquivo
-    const randomHex = generateRandomHex();
-    const imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
-    skinImage.src = imageUrl;
-    skinImage.onload = () => {
-        // Cria o botão de download
-        downloadBtn.onclick = () => {
-            fetch(imageUrl)
-                .then(response => response.blob()) // Baixa a imagem como blob
-                .then(blob => {
-                    // Cria um link temporário para fazer o download da imagem
+    const requestId = Symbol();
+    skinImage.currentRequest = requestId;
+
+    fetch(`https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`, {
+        signal: abortController.signal
+    })
+        .then(response => {
+            if (!response.ok || skinImage.currentRequest !== requestId) {
+                throw new Error('Requisição obsoleta ou erro HTTP');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            if (skinImage.currentRequest !== requestId) return;
+
+            const objectURL = URL.createObjectURL(blob);
+            const newDownloadBtn = document.createElement("button");
+
+            skinImage.onerror = () => {
+                searchBtn.disabled = false;
+                loading.style.display = "none";
+                skinImage.style.display = "none";
+                URL.revokeObjectURL(objectURL);
+                newDownloadBtn.remove();
+            };
+
+            skinImage.onload = () => {
+
+                searchBtn.disabled = false;
+                loading.style.display = "none";
+                skinImage.style.display = "block";
+                newDownloadBtn.id = "downloadBtn";
+                newDownloadBtn.textContent = "Baixar Skin";
+                newDownloadBtn.onclick = () => {
                     const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);  // Cria um link com o blob
-                    link.download = `${randomHex}.png`;  // Nome aleatório para o arquivo
-                    link.click();  // Força o download
-                })
-                .catch(error => {
-                    console.error('Erro ao baixar a skin:', error);
-                });
-        };
-
-        // Adiciona o botão de download à página, logo abaixo da imagem, se ainda não estiver presente
-        const skinDisplay = document.querySelector(".skin-display");
-        if (!document.getElementById("downloadBtn")) {
-            skinDisplay.appendChild(downloadBtn);
-        }
-    };
+                    link.href = objectURL;
+                    link.download = `${generateRandomHex()}.png`;
+                    link.click();
+                };
+                skinDisplay.appendChild(newDownloadBtn);
+            };
+            skinImage.dataset.player = playerName;
+            skinImage.dataset.renderType = renderType;
+            skinImage.src = objectURL;
+        })
+        .catch(error => {
+            searchBtn.disabled = false;
+            loading.style.display = "none";
+            if (error.name !== "AbortError") {
+                URL.revokeObjectURL(skinImage.src);
+            }
+        });
 }
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
     const renderTypeSelect = document.getElementById("renderType");
@@ -144,3 +187,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateAvailableCrops();
 });
+// Adicione este código após o DOMContentLoaded
+document.getElementById('skinImage').addEventListener('click', function () {
+    const player = this.dataset.player;
+    const renderType = this.dataset.renderType;
+
+    if (player && renderType) {
+        const modal = document.getElementById('skinModal');
+        const modalImg = document.getElementById('modalSkinImage');
+        modalImg.src = `https://starlightskins.lunareclipse.studio/render/${renderType}/${player}/full`;
+        modal.style.display = 'block';
+    }
+});
+
+// Fechar modal
+document.querySelector('.close-modal').onclick = () => {
+    document.getElementById('skinModal').style.display = 'none';
+};
+
+window.onclick = (event) => {
+    if (event.target === document.getElementById('skinModal')) {
+        document.getElementById('skinModal').style.display = 'none';
+    }
+};
