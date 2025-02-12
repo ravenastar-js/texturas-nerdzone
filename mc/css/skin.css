@@ -140,7 +140,7 @@ button:hover {
 }
 
 #skinImage {
-    width: 300px;
+    width: 250px;
 }
 
 #modalSkinImage {
@@ -266,7 +266,14 @@ button:hover {
 .close-modal:hover {
     color: #ccc;
 }
-
+button#btcp{
+    color: #212121; 
+    background: white;
+}
+button#btcp:hover{
+    color: white;
+    background: #212121; 
+}
 .result-container {
     width: min(90%, 800px);
     margin-top: 20px;
