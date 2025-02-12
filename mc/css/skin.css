@@ -64,6 +64,7 @@ button {
     /* Alinhamento vertical centralizado */
     vertical-align: middle;
     /* Para Firefox */
+    border-radius: 10px;
 }
 
 /* Estilização Específica para Select */
