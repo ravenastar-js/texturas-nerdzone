@@ -25,6 +25,7 @@
       {
         "select-name": "off"
       }
-    ]
+    ],
+    "create-element-svg": "off"
   }
 }

@@ -45,7 +45,7 @@
                 <!-- Populado via JavaScript -->
             </select>
 
-            <button id="searchBtn" >Pesquisar</button>
+            <button id="searchBtn">Pesquisar</button>
 
             <div class="skin-display">
                 <div id="skinModal" class="skin-modal">
@@ -65,6 +65,10 @@
                     <span class="loading-text">Carregando...</span>
                 </div>
                 <img id="skinImage" src="">
+                <div class="result-container" style="display: none;">
+                    <p id="result"></p>
+                    <button onclick="copyUUID()" title="Copy to Clipboard">Copiar UUID</button>
+                </div>
             </div>
             <div id="errorMessage" style="display: none;">Skin not found or error occurred.</div>
         </div>
@@ -73,7 +77,7 @@
     <!-- FOOTER  -->
 
     <footer class="minecraft-footer">
-        
+
         <div class="footer-container">
             <div class="footer-content">
                 <div class="server-info">
