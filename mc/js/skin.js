@@ -164,7 +164,7 @@ class SkinController {
         this.elements.skinImage.addEventListener('click', () => {
             if (this.elements.skinImage.dataset.player) {
                 this.elements.modalImage.src =
-                    `https://starlightskins.lunareclipse.studio/render/${this.elements.skinImage.dataset.renderType}/${this.elements.skinImage.dataset.player}/full`;
+                `https://starlightskins.lunareclipse.studio/render/${this.elements.skinImage.dataset.renderType}/${this.elements.skinImage.dataset.player}/${this.elements.skinImage.dataset.renderCrop}`;
                 this.elements.modal.style.display = 'block';
             }
         });
@@ -242,6 +242,8 @@ class SkinController {
             skinImage.src = url;
             skinImage.dataset.player = playerName;
             skinImage.dataset.renderType = renderType.value;
+            skinImage.dataset.renderCrop = renderCrop.value;
+            
             document.querySelector('.result-container').style.display = 'flex';
             // Buscar o UUID
             const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
