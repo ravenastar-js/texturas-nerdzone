@@ -134,7 +134,7 @@ class SkinController {
         const selectedType = this.elements.renderType.value;
         const cropType = this.renderConfig.types[selectedType];
         const crops = this.renderConfig.crops[cropType];
-
+    
         const fragment = document.createDocumentFragment();
         crops.forEach(crop => {
             const option = document.createElement('option');
@@ -142,8 +142,15 @@ class SkinController {
             option.textContent = crop;
             fragment.appendChild(option);
         });
-
+    
         this.elements.renderCrop.replaceChildren(fragment);
+    
+        // Adiciona display: none; diretamente no estilo do select
+        if (crops.length === 1) {
+            this.elements.renderCrop.style.display = 'none';
+        } else {
+            this.elements.renderCrop.style.display = '';
+        }
     }
 
     /**
