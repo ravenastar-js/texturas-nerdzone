@@ -48,7 +48,6 @@ const staffMembers = [
     { nome: "§a[Moderador] Flaashsz", hasMinecraftOriginal: true },
     { nome: "§a[Moderador] kalauzin", hasMinecraftOriginal: true },
     { nome: "§a[Moderador] oohLEFTY", hasMinecraftOriginal: true },
-    { nome: "§a[Moderador] Rangel0946", hasMinecraftOriginal: true },
     { nome: "§a[Moderador] TodKx", hasMinecraftOriginal: true },
     { nome: "§e[Ajudante] jotavegfds", hasMinecraftOriginal: true },
     { nome: "§e[Ajudante] kjt4", hasMinecraftOriginal: true }
