@@ -242,6 +242,51 @@ h1 {
     color: #FFFFFF;
 }
 
+/* Cores de materiais (Bedrock Edition) */
+.mc-minecoin-gold {
+    color: #DDD605;
+}
+
+.mc-material-quartz {
+    color: #E3D4D1;
+}
+
+.mc-material-iron {
+    color: #CECACA;
+}
+
+.mc-material-netherite {
+    color: #443A3B;
+}
+
+.mc-material-redstone {
+    color: #971607;
+}
+
+.mc-material-copper {
+    color: #B4684D;
+}
+
+.mc-material-gold {
+    color: #DEB12D;
+}
+
+.mc-material-emerald {
+    color: #47A036;
+}
+
+.mc-material-diamond {
+    color: #2CBAA8;
+}
+
+.mc-material-lapis {
+    color: #21497B;
+}
+
+.mc-material-amethyst {
+    color: #9A5CC6;
+}
+
 /* Botão "Infor" */
 .info-btn {
     position: absolute;
