@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const daysRemaining = calculateDaysRemaining(renewalTime);
                 statusDiv.innerHTML = currentTime > renewalTime ? 
                     '<span class="mc-red">EXPIRADO</span>' : 
-                    `<span class="mc-green">${daysRemaining} dias restante(s)</span>`;
+                    `<span class="mc-green">${daysRemaining} dia(s) restante(s)</span>`;
                 
                 rentalItem.appendChild(statusDiv);
             }
