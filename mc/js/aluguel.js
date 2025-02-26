@@ -18,14 +18,14 @@ const plotRentals = [
 
 const signRentals = [
     { 
-        plot: "§aPlaca (/p h:3 RavenaStar)", 
+        plot: "§aPlaca (/p h:4 RavenaStar)", 
         locatorName: "§fExemplo 3", 
         rentalValue: "500c", 
         rentalDuration: 1740566580, 
         rentalType: "permanente" 
     },
     { 
-        plot: "§aPlaca (/p h:4 RavenaStar)", 
+        plot: "§aPlaca (/p h:5 RavenaStar)", 
         locatorName: "§fExemplo 4", 
         rentalValue: "500c", 
         rentalDuration: 1740566580, 
