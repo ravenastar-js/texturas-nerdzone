@@ -89,9 +89,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
             rentalItem.innerHTML = `
                 <div class="minecraft-text">
-                    ${formattedPlot}<br><br><p><strong>Locatário:</strong> ${formattedLocator}
+                    ${formattedPlot}
                 </div>
+                <br>
                 <div class="minecraft-text"></div>
+                <p><strong>Locatário:</strong> ${formattedLocator}</p>
                 <p><strong>Valor:</strong> ${formattedMoney}</p>
                 <p><strong>Contratado em:</strong> ${rentalDate}</p>
             `;
