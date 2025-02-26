@@ -1,4 +1,4 @@
-// Array de aluguéis de plots
+// Array de aluguéis de plots e placas
 const plotRentals = [
     { 
         plot: "§a/p h:2 RavenaStar", 
