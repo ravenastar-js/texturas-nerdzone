@@ -3,10 +3,10 @@
 }
 
 .rental-item {
-    border: 1px solid #ccc;
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 5px;
+    background-color: #222;
 }
 
 input, button {
@@ -62,7 +62,6 @@ h1, h2 {
 /* Caixa de status */
 .status-box {
     padding: 8px;
-    border: 2px solid #5a5a5a;
     margin-top: 10px;
-    background-color: #2d2d2d;
+    background-color: #2f2f2f;
 }
