@@ -46,27 +46,35 @@ function renderTexturas(texturasFiltradas) {
  */
 function aplicarFiltroPorHash() {
     const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros)
-    const categoria = hash.substring(1).toLowerCase(); // Remove "#" do hash e converte para minúsculas
+    const categoria = hash.substring(1).toLowerCase(); // Remove "#" e converte para minúsculas
 
     // Lista de categorias válidas
     const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
 
     // Verifica se a categoria é válida
     if (categoriasValidas.includes(categoria)) {
-        // Encontra o botão correspondente e simula o clique
-        const botaoFiltro = document.querySelector(`.filtro-btn[data-ct="${categoria}"]`);
-        if (botaoFiltro) {
-            botaoFiltro.click(); // Aciona o filtro corretamente
-        }
+        ativarFiltro(categoria);
     } else {
-        // Se a categoria for inválida ou vazia, aplica o filtro "todos"
-        const botaoTodos = document.querySelector('.filtro-btn[data-ct="todos"]');
-        if (botaoTodos) {
-            botaoTodos.click();
-        }
+        ativarFiltro('todos'); // Se inválido, ativa "todos"
     }
 }
 
+/**
+ * 🚀 Ativa o filtro e adiciona a classe "active" ao botão correto.
+ * @function
+ * @param {string} categoria - Categoria do filtro a ser ativado.
+ */
+function ativarFiltro(categoria) {
+    // Remove a classe 'active' de todos os botões
+    document.querySelectorAll('.filtro-btn').forEach(btn => btn.classList.remove('active'));
+
+    // Seleciona o botão correto e adiciona a classe 'active'
+    const botaoFiltro = document.querySelector(`.filtro-btn[data-ct="${categoria}"]`);
+    if (botaoFiltro) {
+        botaoFiltro.classList.add('active');
+        botaoFiltro.click(); // Aplica o filtro visualmente
+    }
+}
 
 // Adicionar eventos aos botões de filtro
 document.querySelectorAll('.filtro-btn').forEach(botao => {
