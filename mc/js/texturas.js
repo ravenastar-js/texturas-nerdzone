@@ -44,10 +44,6 @@ function renderTexturas(texturasFiltradas) {
  * 🔍 Aplica o filtro com base no hash da URL.
  * @function
  */
-/**
- * 🔍 Aplica o filtro com base no hash da URL.
- * @function
- */
 function aplicarFiltroPorHash() {
     const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros)
     const categoria = hash.substring(1).toLowerCase(); // Remove "#" do hash e converte para minúsculas
