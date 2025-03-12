@@ -79,9 +79,9 @@ document.querySelectorAll('.filtro-btn').forEach(botao => {
 
         // Atualiza o hash da URL sem recarregar a página
         if (categoria === 'todos') {
-            history.replaceState(null, '', window.location.pathname); // Remove o hash da URL
+            history.pushState(null, '', window.location.pathname); // Remove o hash da URL
         } else {
-            history.replaceState(null, '', `#${categoria.toLowerCase()}`); // Atualiza o hash
+            history.pushState(null, '', `#${categoria.toLowerCase()}`); // Atualiza o hash
         }
 
         // Filtra as texturas com base na categoria
