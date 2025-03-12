@@ -176,7 +176,34 @@ h1 {
         font-size: 1.4rem;
     }
 }
+.filtro-botoes {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
 
+.filtro-btn {
+    font-family: 'Press Start 2P', cursive;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filtro-btn.active {
+    background-color: rgba(114, 255, 0, 0.3); /* Cor do botão ativo */
+}
+
+.filtro-btn:hover {
+    background-color: #5eff0669;
+}
 /* Cores do Minecraft */
 .mc-black {
     color: #000000;
