@@ -51,19 +51,16 @@ function aplicarFiltroPorHash() {
     const categoria = hash.substring(1);
 
     // Verifica se a categoria é válida
-    if (categoria && ['xray', 'skygrid', 'outros', 'todos'].includes(categoria.toLowerCase())) {
-        // Encontra o botão correspondente e simula o clique
-        const botaoFiltro = document.querySelector(`.filtro-btn[data-ct="${categoria}"]`);
-        if (botaoFiltro) {
-            botaoFiltro.click(); // Aplica o filtro
-        }
-    } else {
-        // Se não houver hash ou for inválido, mostra todas as texturas
-        const botaoTodos = document.querySelector('.filtro-btn[data-ct="todos"]');
-        if (botaoTodos) {
-            botaoTodos.click(); // Aplica o filtro "todos"
+    if (!categoria || !['xray', 'skygrid', 'outros', 'todos'].includes(categoria.toLowerCase())) {
+        // Evita limpar a URL caso já tenha hash válido
+        if (!hash) {
+            const botaoTodos = document.querySelector('.filtro-btn[data-ct="todos"]');
+            if (botaoTodos) {
+                botaoTodos.click();
+            }
         }
     }
+    
 }
 
 // Adicionar eventos aos botões de filtro
