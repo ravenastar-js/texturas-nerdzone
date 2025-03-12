@@ -50,6 +50,25 @@
     
         <!-- Lista de texturas -->
         <div id="texture-list"></div>
+
+        <div class="info-btn" id="infoBtn">i</div>
+       <br>
+        <div>
+            <div class="title"  style="color: #84DCFF;">LINK CURTO</div>
+            <br>
+            <div class="link-container">
+                <input readonly="" class="link-field" value="bit.ly/rav-nerdzone" id="linkField1">
+                <button class="copy-button" onclick="copyLink('linkField1', this)">
+                    
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm4 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z"></path>
+                </svg>
+                
+                
+                    <span class="tooltip">Link copiado!</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <div id="infoModal" class="modal">
@@ -119,7 +138,7 @@
         </div>
         </div>
     </footer>
-
+    <script src="mc/js/cp.js"></script>
     <script src="mc/js/colorMap.js"></script>
     <script src="mc/js/xp.js"></script>
     <script src="mc/js/footer.js"></script>

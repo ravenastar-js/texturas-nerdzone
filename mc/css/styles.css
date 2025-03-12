@@ -6,6 +6,18 @@
     --mc-stone: #7A7A7A;
     --mc-border: #2D2D2D;
     --mc-footer: #79D431;
+    --primary: #2A9D8F;
+    --primary-dark: #1E7A6F;
+    --secondary: #264653;
+    --accent: #E76F51;
+    --accent-hover: #D45A3D;
+    --text: #333333;
+    --background: #F8F9FA;
+    --white: #FFFFFF;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+    --tooltip-bg: rgba(0, 0, 0, 0.8);
 }
 
 body {
@@ -176,6 +188,7 @@ h1 {
         font-size: 1.4rem;
     }
 }
+
 .filtro-botoes {
     display: flex;
     gap: 10px;
@@ -198,12 +211,14 @@ h1 {
 }
 
 .filtro-btn.active {
-    background-color: rgba(114, 255, 0, 0.3); /* Cor do botão ativo */
+    background-color: rgba(114, 255, 0, 0.3);
+    /* Cor do botão ativo */
 }
 
 .filtro-btn:hover {
     background-color: #5eff0669;
 }
+
 /* Cores do Minecraft */
 .mc-black {
     color: #000000;
@@ -727,6 +742,61 @@ h1 {
     background: #55FFFF;
     border-radius: 50%;
     animation: particle 1s ease-out;
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.link-field {
+    background-color: #7A7A7A5C;
+    border: 1px solid rgb(185, 185, 185);
+    border-radius: var(--radius);
+    color: rgb(255, 255, 255);
+    max-height: 48px;
+    padding: 12px 16px;
+    width: 100%;
+    outline-style: none;
+    box-shadow: var(--shadow);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.copy-button {
+    cursor: pointer;
+    background: linear-gradient(180deg, var(--mc-green) 0%, var(--mc-dark-green) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 12px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.copy-button:hover {
+    background: linear-gradient(180deg, var(--mc-dark-green) 0%, var(--mc-green) 100%);
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: var(--tooltip-bg);
+    color: #fff;
+    text-align: center;
+    border-radius: var(--radius);
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    left: -200%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.copy-button.show-tooltip .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 @keyframes particle {

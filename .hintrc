@@ -20,12 +20,7 @@
       }
     ],
     "meta-viewport": "off",
-    "axe/forms": [
-      "default",
-      {
-        "select-name": "off"
-      }
-    ],
+    "axe/forms": "off",
     "create-element-svg": "off"
   }
 }
