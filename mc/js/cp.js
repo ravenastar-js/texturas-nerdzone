@@ -2,7 +2,7 @@ function copyLink(fieldId, button) {
     const linkField = document.getElementById(fieldId);
     linkField.select();
     linkField.setSelectionRange(0, 99999); // Para dispositivos móveis
-    navigator.clipboard.writeText(linkField.value)
+    navigator.clipboard.writeText("https://"+linkField.value)
         .then(() => {
             button.classList.add('show-tooltip');
             setTimeout(() => {
