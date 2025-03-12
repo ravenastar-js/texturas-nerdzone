@@ -44,24 +44,33 @@ function renderTexturas(texturasFiltradas) {
  * 🔍 Aplica o filtro com base no hash da URL.
  * @function
  */
+/**
+ * 🔍 Aplica o filtro com base no hash da URL.
+ * @function
+ */
 function aplicarFiltroPorHash() {
-    const hash = window.location.hash; // Obtém o hash da URL (#xray, #skygrid, #outros)
+    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros)
+    const categoria = hash.substring(1).toLowerCase(); // Remove "#" do hash e converte para minúsculas
 
-    // Remove o "#" do hash
-    const categoria = hash.substring(1);
+    // Lista de categorias válidas
+    const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
 
     // Verifica se a categoria é válida
-    if (!categoria || !['x-ray', 'skygrid', 'outros', 'todos'].includes(categoria.toLowerCase())) {
-        // Evita limpar a URL caso já tenha hash válido
-        if (!hash) {
-            const botaoTodos = document.querySelector('.filtro-btn[data-ct="todos"]');
-            if (botaoTodos) {
-                botaoTodos.click();
-            }
+    if (categoriasValidas.includes(categoria)) {
+        // Encontra o botão correspondente e simula o clique
+        const botaoFiltro = document.querySelector(`.filtro-btn[data-ct="${categoria}"]`);
+        if (botaoFiltro) {
+            botaoFiltro.click(); // Aciona o filtro corretamente
+        }
+    } else {
+        // Se a categoria for inválida ou vazia, aplica o filtro "todos"
+        const botaoTodos = document.querySelector('.filtro-btn[data-ct="todos"]');
+        if (botaoTodos) {
+            botaoTodos.click();
         }
     }
-    
 }
+
 
 // Adicionar eventos aos botões de filtro
 document.querySelectorAll('.filtro-btn').forEach(botao => {
