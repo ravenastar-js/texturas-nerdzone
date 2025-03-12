@@ -51,7 +51,7 @@ function aplicarFiltroPorHash() {
     const categoria = hash.substring(1);
 
     // Verifica se a categoria é válida
-    if (!categoria || !['xray', 'skygrid', 'outros', 'todos'].includes(categoria.toLowerCase())) {
+    if (!categoria || !['x-ray', 'skygrid', 'outros', 'todos'].includes(categoria.toLowerCase())) {
         // Evita limpar a URL caso já tenha hash válido
         if (!hash) {
             const botaoTodos = document.querySelector('.filtro-btn[data-ct="todos"]');
