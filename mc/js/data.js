@@ -7,6 +7,13 @@ const texturas = [
         v: "1.8.9"
     },
     {
+        nome: "§6RavenaStar §aX-Ray v2 §cNerd§fzone",
+        link: "https://www.mediafire.com/file/7drdvgt2nwbiof2/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_v2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        icone: "mc/img/icon/1_v2.png",
+        desc: "§b【V2】 §dbit.ly/ravenastar§f & §6Feito para minerar §fQUARTZO & BEACON§6, §a@Kevenkbm",
+        v: "1.8.9"
+    },
+    {
         nome: "§6RavenaStar §bSkyGrid §cNerd§fzone",
         link: "https://www.mediafire.com/file/7ddpjvrnijch325/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2.png",
@@ -16,7 +23,7 @@ const texturas = [
     {
         nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
         link: "https://www.mediafire.com/file/ratewj62vk1vx1j/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/5.png",
+        icone: "mc/img/icon/2_v2.png",
         desc: "§b【V2】 §dbit.ly/ravenastar§f & §6Feito para §fminérios & madeira da selva (exceto quartzo) & §eÉ necessário optifine.",
         v: "1.8.9"
     },
