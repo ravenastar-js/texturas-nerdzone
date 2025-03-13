@@ -19,7 +19,7 @@ const texturas = [
         nome: "§6RavenaStar §bSkyGrid §cNerd§fzone",
         link: "https://www.mediafire.com/file/7ddpjvrnijch325/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2.png",
-        desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
+        desc: "§b【V1】 §dbit.ly/ravenastar §f𖥔 §bMadeira da selva e minérios.§f & §eÉ necessário optifine.",
         v: "1.8.9",
         ct: "SkyGrid"
     },
@@ -27,7 +27,7 @@ const texturas = [
         nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
         link: "https://www.mediafire.com/file/ratewj62vk1vx1j/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v2.png",
-        desc: "§b【V2】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
+        desc: "§b【V2】 §dbit.ly/ravenastar §f𖥔 §bMadeira da selva, minérios e areia.§f & §eÉ necessário optifine.",
         v: "1.8.9",
         ct: "SkyGrid"
     },
