@@ -98,10 +98,10 @@ function toggleInfoTooltip(tooltip) {
  * @function
  */
 function aplicarFiltroPorHash() {
-    const hash = window.location.hash; // Obtém o hash da URL (#xray, #skygrid, #outros, #skygrid-1, etc.)
+    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros, #skygrid-1, etc.)
     const [categoria, numero] = hash.substring(1).toLowerCase().split('-'); // Divide o hash em categoria e número
 
-    // Verifica se o hash contém um número (ex: #skygrid-1, #xray-2)
+    // Verifica se o hash contém um número (ex: #skygrid-1, #x-ray-2)
     if (numero) {
         const texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
         const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém a textura pelo índice
@@ -113,7 +113,7 @@ function aplicarFiltroPorHash() {
     }
 
     // Lista de categorias válidas
-    const categoriasValidas = ['xray', 'skygrid', 'outros', 'todos'];
+    const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
 
     // Verifica se a categoria é válida
     if (categoriasValidas.includes(categoria)) {
