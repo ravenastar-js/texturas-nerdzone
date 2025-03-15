@@ -77,6 +77,20 @@ const data = [
         link: "https://discord.com/invite/YBBB8hyTbz",
         platform: "Discord",
         hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] Kevenkbm",
+        link: "https://www.youtube.com/channel/UCbGBtFCV7veapprhOqR09_w",
+        platform: "YouTube",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] Nerdstone_",
+        link: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg",
+        platform: "YouTube",
+        hasMinecraftOriginal: true
     }
 ];
 
