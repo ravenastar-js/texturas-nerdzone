@@ -96,7 +96,7 @@ function renderItens(itensFiltrados, categoria) {
                             </svg>
                         </div>
                     </div>
-                    <span>Youtube</span>
+                    <span>Twitch</span>
                 </button>`;
             }
 
