@@ -1,11 +1,4 @@
 /**
- * 🌟 Renderiza todas as texturas inicialmente.
- * @function
- * @param {Array<Object>} texturas - Lista de texturas a serem renderizadas.
- */
-renderTexturas(texturas);
-
-/**
  * 🎨 Renderiza as texturas na lista de texturas.
  * @function
  * @param {Array<Object>} texturasFiltradas - Lista de texturas filtradas para renderização.
@@ -61,6 +54,7 @@ function renderTexturas(texturasFiltradas) {
         textureList.appendChild(item);
     });
 }
+
 /**
  * 🛠️ Mostra o tooltip de informações.
  * @function
@@ -93,13 +87,14 @@ function toggleInfoTooltip(tooltip) {
         showInfoTooltip(tooltip);
     }
 }
+
 /**
  * 🔍 Aplica o filtro com base no hash da URL.
  * @function
  */
 function aplicarFiltroPorHash() {
-    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #x-ray-1, etc.)
-    const [categoria, numero] = hash.substring(1).toLowerCase().split(/-(.+)/); // Divide o hash em categoria e número
+    const hash = window.location.hash.substring(1).toLowerCase(); // Obtém o hash da URL sem o '#'
+    const [categoria, numero] = hash.match(/^([a-z-]+)(?:-(\d+))?$/).slice(1); // Divide o hash em categoria e número
 
     // Lista de categorias válidas
     const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
@@ -152,7 +147,6 @@ function ativarFiltro(categoria) {
     renderTexturas(texturasFiltradas);
 }
 
-
 // Adicionar eventos aos botões de filtro
 document.querySelectorAll('.filtro-btn').forEach(botao => {
     botao.addEventListener('click', () => {
@@ -185,7 +179,7 @@ document.querySelectorAll('.filtro-btn').forEach(botao => {
 });
 
 // Aplicar o filtro ao carregar a página
-window.addEventListener('load', aplicarFiltroPorHash);
+document.addEventListener('DOMContentLoaded', aplicarFiltroPorHash);
 
 // Aplicar o filtro quando o hash da URL mudar
 window.addEventListener('hashchange', aplicarFiltroPorHash);
