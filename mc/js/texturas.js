@@ -18,10 +18,19 @@ function renderTexturas(texturasFiltradas) {
         const item = document.createElement('div');
         item.className = 'texture-item';
 
+        // Gera o ID da textura
+        const texturaId = `# <span class="mc-yellow">${textura.ct.toLowerCase()}-${index + 1}</span>`;
+
+        // Verifica se a URL tem hash (ou seja, se não é a categoria "todos")
+        const mostrarInfo = window.location.hash !== '';
+
         item.innerHTML = `
             <div class="texture-icon-container">
                 <div class="version-badge">${textura.v}</div>
-                <img src="${textura.icone}" class="texture-icon" alt="${textura.nome}">
+                <div>
+                    <img src="${textura.icone}" class="texture-icon" alt="${textura.nome}">
+                    ${mostrarInfo ? `<div class="texture-info-btn">i<div class="info-tooltip">${texturaId}</div></div>` : ''}
+                </div>
             </div>
             <div class="texture-content">
                 <h3 class="texture-title">${parseMCString(textura.nome)}</h3>
@@ -36,10 +45,54 @@ function renderTexturas(texturasFiltradas) {
             </button>
         `;
 
+        // Adiciona os eventos ao botão de informações das texturas (se existir)
+        if (mostrarInfo) {
+            const infoBtn = item.querySelector('.texture-info-btn');
+            const tooltip = infoBtn.querySelector('.info-tooltip');
+
+            // Mostra/oculta o tooltip ao passar o mouse (desktop)
+            infoBtn.addEventListener('mouseover', () => showInfoTooltip(tooltip));
+            infoBtn.addEventListener('mouseout', () => hideInfoTooltip(tooltip));
+
+            // Mostra/oculta o tooltip ao tocar (mobile)
+            infoBtn.addEventListener('click', () => toggleInfoTooltip(tooltip));
+        }
+
         textureList.appendChild(item);
     });
 }
+/**
+ * 🛠️ Mostra o tooltip de informações.
+ * @function
+ * @param {HTMLElement} tooltip - Elemento do tooltip.
+ */
+function showInfoTooltip(tooltip) {
+    tooltip.style.visibility = 'visible';
+    tooltip.style.opacity = '1';
+}
 
+/**
+ * 🛠️ Oculta o tooltip de informações.
+ * @function
+ * @param {HTMLElement} tooltip - Elemento do tooltip.
+ */
+function hideInfoTooltip(tooltip) {
+    tooltip.style.visibility = 'hidden';
+    tooltip.style.opacity = '0';
+}
+
+/**
+ * 🛠️ Alterna a visibilidade do tooltip de informações.
+ * @function
+ * @param {HTMLElement} tooltip - Elemento do tooltip.
+ */
+function toggleInfoTooltip(tooltip) {
+    if (tooltip.style.visibility === 'visible') {
+        hideInfoTooltip(tooltip);
+    } else {
+        showInfoTooltip(tooltip);
+    }
+}
 /**
  * 🔍 Aplica o filtro com base no hash da URL.
  * @function
