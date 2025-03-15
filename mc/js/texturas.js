@@ -112,7 +112,7 @@ function aplicarFiltroPorHash() {
     const numero = match[2] ? parseInt(match[2], 10) : null; // Captura o número (ex: "1") e converte para número
 
     // Lista de categorias válidas
-    const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
+    const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'pvp','todos'];
 
     // Verifica se a categoria é válida
     if (categoriasValidas.includes(categoria)) {

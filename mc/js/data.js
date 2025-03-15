@@ -55,6 +55,14 @@ const texturas = [
         v: "1.8.9",
         ct: "Outros"
     },
+    {
+        nome: "§6RavenaStar §fArmor §2Dur§6abil§city",
+        link: "https://www.mediafire.com/file/webycx5m8f842yh/%25C2%25A76RavenaStar_%25C2%25A7fArmor_%25C2%25A72Dur%25C2%25A76abil%25C2%25A7city.zip/file",
+        icone: "mc/img/icon/6.png",
+        desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
+        v: "1.8.9",
+        ct: "pvp"
+    }
 ];
 
 const staffMembers = [
