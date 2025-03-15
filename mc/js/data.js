@@ -98,6 +98,13 @@ const data = [
         link: "https://www.twitch.tv/kzn__rj",
         platform: "Twitch",
         hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] CariokDUCALOTE",
+        link: "https://www.twitch.tv/ducalotekkj",
+        platform: "Twitch",
+        hasMinecraftOriginal: true
     }
 ];
 
