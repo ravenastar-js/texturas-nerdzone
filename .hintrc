@@ -21,6 +21,7 @@
     ],
     "meta-viewport": "off",
     "axe/forms": "off",
-    "create-element-svg": "off"
+    "create-element-svg": "off",
+    "compat-api/css": "off"
   }
 }

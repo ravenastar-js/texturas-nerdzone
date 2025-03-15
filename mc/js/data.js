@@ -1,5 +1,6 @@
-const texturas = [
+const data = [
     {
+        content: 'textura',
         nome: "§6RavenaStar §aX-Ray §cNerd§fzone",
         link: "https://www.mediafire.com/file/4rix81qxrb6ejuu/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/1.png",
@@ -8,6 +9,7 @@ const texturas = [
         ct: "X-Ray"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar §aX-Ray v2 §cNerd§fzone",
         link: "https://www.mediafire.com/file/7drdvgt2nwbiof2/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_v2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/1_v2.png",
@@ -16,6 +18,7 @@ const texturas = [
         ct: "X-Ray"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar §bSkyGrid §cNerd§fzone",
         link: "https://www.mediafire.com/file/7ddpjvrnijch325/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2.png",
@@ -24,6 +27,7 @@ const texturas = [
         ct: "SkyGrid"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
         link: "https://www.mediafire.com/file/ratewj62vk1vx1j/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v2.png",
@@ -32,6 +36,7 @@ const texturas = [
         ct: "SkyGrid"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar Basic",
         link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-basic-armor-durability/",
         icone: "mc/img/icon/3.png",
@@ -40,6 +45,7 @@ const texturas = [
         ct: "Outros"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar Faithful§f【32x32】",
         link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-faithful/",
         icone: "mc/img/icon/4.png",
@@ -48,6 +54,7 @@ const texturas = [
         ct: "Outros"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar §fLINHAS",
         link: "https://www.mediafire.com/file/wi1jf28440qbydh/%25C2%25A76RavenaStar_%25C2%25A7fLINHAS.zip/file",
         icone: "mc/img/icon/5.png",
@@ -56,12 +63,20 @@ const texturas = [
         ct: "Outros"
     },
     {
+        content: 'textura',
         nome: "§6RavenaStar §fArmor §2Dur§6abil§city",
         link: "https://www.mediafire.com/file/webycx5m8f842yh/%25C2%25A76RavenaStar_%25C2%25A7fArmor_%25C2%25A72Dur%25C2%25A76abil%25C2%25A7city.zip/file",
         icone: "mc/img/icon/6.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
         v: "1.8.9",
         ct: "pvp"
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] WesleyJK",
+        link: "https://discord.com/invite/YBBB8hyTbz",
+        platform: "Discord",
+        hasMinecraftOriginal: true
     }
 ];
 
