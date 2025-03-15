@@ -80,9 +80,9 @@ const data = [
     },
     {
         content: 'influencer',
-        username: "§9[Influencer] WesleyJK",
-        link: "https://discord.com/invite/YBBB8hyTbz",
-        platform: "Discord",
+        username: "§9[Influencer] CariokDUCALOTE",
+        link: "https://www.twitch.tv/ducalotekkj",
+        platform: "Twitch",
         hasMinecraftOriginal: true
     },
     {
@@ -101,9 +101,23 @@ const data = [
     },
     {
         content: 'influencer',
-        username: "§9[Influencer] CariokDUCALOTE",
-        link: "https://www.twitch.tv/ducalotekkj",
-        platform: "Twitch",
+        username: "§9[Influencer] WesleyJK",
+        link: "https://discord.com/invite/YBBB8hyTbz",
+        platform: "Discord",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] xJoao_",
+        link: "https://www.youtube.com/channel/UCqD7NjB0RRiGCN2zbFT54uA",
+        platform: "YouTube",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] zChrisPTz",
+        link: "https://www.youtube.com/channel/UCTnO0yU7Vvna2LKPMgzo3ag",
+        platform: "YouTube",
         hasMinecraftOriginal: true
     }
 ];
