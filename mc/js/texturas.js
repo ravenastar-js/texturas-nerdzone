@@ -14,7 +14,7 @@ function renderTexturas(texturasFiltradas) {
     const textureList = document.getElementById('texture-list');
     textureList.innerHTML = ''; // Limpa a lista antes de renderizar
 
-    texturasFiltradas.forEach(textura => {
+    texturasFiltradas.forEach((textura, index) => {
         const item = document.createElement('div');
         item.className = 'texture-item';
 
@@ -45,8 +45,19 @@ function renderTexturas(texturasFiltradas) {
  * @function
  */
 function aplicarFiltroPorHash() {
-    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros)
-    const categoria = hash.substring(1).toLowerCase(); // Remove "#" e converte para minúsculas
+    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros, #skygrid-1, etc.)
+    const [categoria, numero] = hash.substring(1).toLowerCase().split('-'); // Divide o hash em categoria e número
+
+    // Verifica se o hash contém um número (ex: #skygrid-1, #x-ray-2)
+    if (numero) {
+        const texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
+        const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém a textura pelo índice
+
+        if (texturaSelecionada) {
+            window.open(texturaSelecionada.link, '_blank'); // Redireciona para o link de download
+            return; // Interrompe a execução para evitar a renderização da lista
+        }
+    }
 
     // Lista de categorias válidas
     const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
