@@ -46,7 +46,15 @@ const texturas = [
         desc: "§b【V1】 §dbit.ly/ravenastar",
         v: "1.8.9",
         ct: "Outros"
-    }
+    },
+    {
+        nome: "§6RavenaStar §fLINHAS",
+        link: "https://www.mediafire.com/file/wi1jf28440qbydh/%25C2%25A76RavenaStar_%25C2%25A7fLINHAS.zip/file",
+        icone: "mc/img/icon/5.png",
+        desc: "§b【V1】 §dbit.ly/ravenastar§f & §eVeja as linhas de teias mais facilmente.",
+        v: "1.8.9",
+        ct: "Outros"
+    },
 ];
 
 const staffMembers = [
