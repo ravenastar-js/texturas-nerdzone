@@ -116,23 +116,20 @@ function aplicarFiltroPorHash() {
 
     // Verifica se a categoria é válida
     if (categoriasValidas.includes(categoria)) {
-        // Se houver número (ex: #x-ray-1)
+        ativarFiltro(categoria); // Garante que a categoria é ativada
+    
+        // Se houver um número (ex: #x-ray-1), tenta abrir o link da textura correspondente
         if (numero) {
             const texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
-            const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém pelo índice
-
+            const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1];
+    
             if (texturaSelecionada) {
-                window.open(texturaSelecionada.link, '_blank'); // Redireciona
-                return; // Não renderiza a lista
+                window.open(texturaSelecionada.link, '_blank'); 
             }
         }
-
-        // Ativa o filtro da categoria (ex: #x-ray)
-        ativarFiltro(categoria);
     } else {
-        // Categoria inválida, ativa "todos"
-        ativarFiltro('todos');
-    }
+        ativarFiltro('todos'); // Se a categoria não for válida, ativa "todos"
+    }    
 }
 
 /**
