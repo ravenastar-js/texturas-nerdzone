@@ -120,10 +120,11 @@ function aplicarFiltroPorHash() {
         // Se o hash não contém um número (ex: #x-ray, #skygrid)
         ativarFiltro(categoria);
     } else {
-        // Se a categoria for inválida, ativa "todos"
+        // Se a categoria for inválida ou o hash estiver vazio, ativa "todos"
         ativarFiltro('todos');
     }
 }
+
 /**
  * 🚀 Ativa o filtro e adiciona a classe "active" ao botão correto.
  * @function
@@ -150,6 +151,7 @@ function ativarFiltro(categoria) {
     // Renderiza as texturas filtradas
     renderTexturas(texturasFiltradas);
 }
+
 
 // Adicionar eventos aos botões de filtro
 document.querySelectorAll('.filtro-btn').forEach(botao => {
