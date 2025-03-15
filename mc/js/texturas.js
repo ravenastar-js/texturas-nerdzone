@@ -98,31 +98,32 @@ function toggleInfoTooltip(tooltip) {
  * @function
  */
 function aplicarFiltroPorHash() {
-    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #outros, #skygrid-1, etc.)
-    const [categoria, numero] = hash.substring(1).toLowerCase().split('-'); // Divide o hash em categoria e número
-
-    // Verifica se o hash contém um número (ex: #skygrid-1, #x-ray-2)
-    if (numero) {
-        const texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
-        const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém a textura pelo índice
-
-        if (texturaSelecionada) {
-            window.open(texturaSelecionada.link, '_blank'); // Redireciona para o link de download
-            return; // Interrompe a execução para evitar a renderização da lista
-        }
-    }
+    const hash = window.location.hash; // Obtém o hash da URL (#x-ray, #skygrid, #x-ray-1, etc.)
+    const [categoria, numero] = hash.substring(1).toLowerCase().split(/-(.+)/); // Divide o hash em categoria e número
 
     // Lista de categorias válidas
     const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
 
     // Verifica se a categoria é válida
     if (categoriasValidas.includes(categoria)) {
+        // Se o hash contém um número (ex: #x-ray-1, #skygrid-2)
+        if (numero) {
+            const texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
+            const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém a textura pelo índice
+
+            if (texturaSelecionada) {
+                window.open(texturaSelecionada.link, '_blank'); // Redireciona para o link de download
+                return; // Interrompe a execução para evitar a renderização da lista
+            }
+        }
+
+        // Se o hash não contém um número (ex: #x-ray, #skygrid)
         ativarFiltro(categoria);
     } else {
-        ativarFiltro('todos'); // Se inválido, ativa "todos"
+        // Se a categoria for inválida, ativa "todos"
+        ativarFiltro('todos');
     }
 }
-
 /**
  * 🚀 Ativa o filtro e adiciona a classe "active" ao botão correto.
  * @function
@@ -136,8 +137,18 @@ function ativarFiltro(categoria) {
     const botaoFiltro = document.querySelector(`.filtro-btn[data-ct="${categoria}"]`);
     if (botaoFiltro) {
         botaoFiltro.classList.add('active');
-        botaoFiltro.click(); // Aplica o filtro visualmente
     }
+
+    // Filtra as texturas com base na categoria
+    let texturasFiltradas;
+    if (categoria === 'todos') {
+        texturasFiltradas = texturas; // Mostra todas as texturas
+    } else {
+        texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
+    }
+
+    // Renderiza as texturas filtradas
+    renderTexturas(texturasFiltradas);
 }
 
 // Adicionar eventos aos botões de filtro
