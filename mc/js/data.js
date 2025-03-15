@@ -73,6 +73,13 @@ const data = [
     },
     {
         content: 'influencer',
+        username: "§9[Influencer] Nerdstone_",
+        link: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg",
+        platform: "YouTube",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
         username: "§9[Influencer] WesleyJK",
         link: "https://discord.com/invite/YBBB8hyTbz",
         platform: "Discord",
@@ -87,9 +94,9 @@ const data = [
     },
     {
         content: 'influencer',
-        username: "§9[Influencer] Nerdstone_",
-        link: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg",
-        platform: "YouTube",
+        username: "§9[Influencer] KZN",
+        link: "https://www.twitch.tv/kzn__rj",
+        platform: "Twitch",
         hasMinecraftOriginal: true
     }
 ];
