@@ -93,29 +93,44 @@ function toggleInfoTooltip(tooltip) {
  * @function
  */
 function aplicarFiltroPorHash() {
-    const hash = window.location.hash.substring(1).toLowerCase(); // Obtém o hash da URL sem o '#'
-    const [categoria, numero] = hash.match(/^([a-z-]+)(?:-(\d+))?$/).slice(1); // Divide o hash em categoria e número
+    const hash = window.location.hash.substring(1).toLowerCase(); // Obtém o hash sem o '#'
+
+    // Se não houver hash, ativa "todos"
+    if (!hash) {
+        ativarFiltro('todos');
+        return;
+    }
+
+    // Divide o hash em categoria e número usando regex
+    const match = hash.match(/^([a-z-]+)(?:-(\d+))?$/);
+    if (!match) { // Se o hash for inválido
+        ativarFiltro('todos');
+        return;
+    }
+
+    const categoria = match[1]; // Captura a categoria (ex: "x-ray")
+    const numero = match[2]; // Captura o número (ex: "1")
 
     // Lista de categorias válidas
     const categoriasValidas = ['x-ray', 'skygrid', 'outros', 'todos'];
 
     // Verifica se a categoria é válida
     if (categoriasValidas.includes(categoria)) {
-        // Se o hash contém um número (ex: #x-ray-1, #skygrid-2)
+        // Se houver número (ex: #x-ray-1)
         if (numero) {
             const texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
-            const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém a textura pelo índice
+            const texturaSelecionada = texturasFiltradas[parseInt(numero, 10) - 1]; // Obtém pelo índice
 
             if (texturaSelecionada) {
-                window.open(texturaSelecionada.link, '_blank'); // Redireciona para o link de download
-                return; // Interrompe a execução para evitar a renderização da lista
+                window.open(texturaSelecionada.link, '_blank'); // Redireciona
+                return; // Não renderiza a lista
             }
         }
 
-        // Se o hash não contém um número (ex: #x-ray, #skygrid)
+        // Ativa o filtro da categoria (ex: #x-ray)
         ativarFiltro(categoria);
     } else {
-        // Se a categoria for inválida ou o hash estiver vazio, ativa "todos"
+        // Categoria inválida, ativa "todos"
         ativarFiltro('todos');
     }
 }
@@ -123,30 +138,25 @@ function aplicarFiltroPorHash() {
 /**
  * 🚀 Ativa o filtro e adiciona a classe "active" ao botão correto.
  * @function
- * @param {string} categoria - Categoria do filtro a ser ativado.
  */
 function ativarFiltro(categoria) {
     // Remove a classe 'active' de todos os botões
     document.querySelectorAll('.filtro-btn').forEach(btn => btn.classList.remove('active'));
 
-    // Seleciona o botão correto e adiciona a classe 'active'
+    // Seleciona o botão correto e adiciona 'active'
     const botaoFiltro = document.querySelector(`.filtro-btn[data-ct="${categoria}"]`);
     if (botaoFiltro) {
         botaoFiltro.classList.add('active');
     }
 
-    // Filtra as texturas com base na categoria
-    let texturasFiltradas;
-    if (categoria === 'todos') {
-        texturasFiltradas = texturas; // Mostra todas as texturas
-    } else {
-        texturasFiltradas = texturas.filter(textura => textura.ct.toLowerCase() === categoria);
-    }
+    // Filtra as texturas
+    const texturasFiltradas = (categoria === 'todos')
+        ? texturas
+        : texturas.filter(textura => textura.ct.toLowerCase() === categoria);
 
-    // Renderiza as texturas filtradas
+    // Renderiza
     renderTexturas(texturasFiltradas);
 }
-
 // Adicionar eventos aos botões de filtro
 document.querySelectorAll('.filtro-btn').forEach(botao => {
     botao.addEventListener('click', () => {
