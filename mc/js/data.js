@@ -38,6 +38,8 @@ const data = [
         obs: "§fTextura ideal para localizar madeira de selva e minérios com facilidade no Skygrid.",
         blocks: [
             "mc/img/blocks/Jungle_Log.png",
+            "mc/img/blocks/Sand.png",
+            // minérios
             "mc/img/blocks/Gold_Ore.png",
             "mc/img/blocks/Redstone_Ore.png",
             "mc/img/blocks/Coal_Ore.png",
@@ -45,7 +47,7 @@ const data = [
             "mc/img/blocks/Diamond_Ore.png",
             "mc/img/blocks/Iron_Ore.png",
             "mc/img/blocks/Lapis_Lazuli_Ore.png",
-
+            // blocos
             "mc/img/blocks/Block_of_Coal.png",
             "mc/img/blocks/Bloco_de_ferro.png",
             "mc/img/blocks/Block_of_Diamond.png",
