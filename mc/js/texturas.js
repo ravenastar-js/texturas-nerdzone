@@ -54,6 +54,7 @@ function renderItens(itensFiltrados, categoria) {
                         <div class="texture-obs">
                             ${parseMCString(item.obs)}
                             <div class="block-icons">${blocksHTML}</div>
+                            <br>
                         </div>
                     </div>
                 ` : ''}
