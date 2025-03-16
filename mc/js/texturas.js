@@ -20,25 +20,43 @@ function renderItens(itensFiltrados, categoria) {
             // Verifica se a URL tem hash (ou seja, se não é a categoria "todos")
             const mostrarInfo = window.location.hash !== '';
 
+            // Verifica se há observações (obs) para a textura
+            const hasObs = item.obs ? true : false;
+
+            // Renderiza os ícones dos blocos, se existirem
+            const blocksHTML = item.blocks
+                ? item.blocks.map(block => `<img src="${block}" alt="Bloco" class="block-icon">`).join('')
+                : '';
+
             texturaItem.innerHTML = `
-                <div class="texture-icon-container">
-                    <div class="version-badge">${item.v}</div>
-                    <div>
-                        <img src="${item.icone}" class="texture-icon" alt="${item.nome}">
-                        ${mostrarInfo ? `<div class="texture-info-btn">i<div class="info-tooltip">${texturaId}</div></div>` : ''}
-                    </div>
-                </div>
                 <div class="texture-content">
-                    <h3 class="texture-title">${parseMCString(item.nome)}</h3>
-                    <p class="texture-description">${parseMCString(item.desc)}</p>
+                    <div class="texture-icon-container">
+                        <div class="version-badge">${item.v}</div>
+                        <div>
+                            <img src="${item.icone}" class="texture-icon" alt="${item.nome}">
+                            ${mostrarInfo ? `<div class="texture-info-btn">i<div class="info-tooltip">${texturaId}</div></div>` : ''}
+                        </div>
+                    </div>
+                    <div class="texture-details">
+                        <h3 class="texture-title">${parseMCString(item.nome)}</h3>
+                        <p class="texture-description">${parseMCString(item.desc)}</p>
+                    </div>
+                    <button class="download-btn" onclick="window.open('${item.link}', '_blank')">
+                        <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 20h14v-2H5v2zm7-18L5.33 8.67 6 10l6-5 6 5 0.67-1.33L12 2z"/>
+                            <path d="M11 10v6h2v-6h3l-4-4-4 4h3z"/>
+                        </svg>
+                        Download
+                    </button>
                 </div>
-                <button class="download-btn" onclick="window.open('${item.link}', '_blank')">
-                    <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5 20h14v-2H5v2zm7-18L5.33 8.67 6 10l6-5 6 5 0.67-1.33L12 2z"/>
-                        <path d="M11 10v6h2v-6h3l-4-4-4 4h3z"/>
-                    </svg>
-                    Download
-                </button>
+                ${hasObs ? `
+                    <div class="texture-obs-container">
+                        <div class="texture-obs">
+                            ${parseMCString(item.obs)}
+                            <div class="block-icons">${blocksHTML}</div>
+                        </div>
+                    </div>
+                ` : ''}
             `;
 
             // Adiciona os eventos ao botão de informações das texturas (se existir)
@@ -58,7 +76,7 @@ function renderItens(itensFiltrados, categoria) {
         } else if (item.content === 'influencer') {
             // Renderiza um influenciador
             const influencerItem = document.createElement('div');
-            influencerItem.className = 'texture-item';
+            influencerItem.className = 'texture-item2';
             const username = item.username.split(' ')[1];
             const iconURL = getIconURL(username, item.hasMinecraftOriginal);
             let btv = item.platform;
@@ -105,13 +123,11 @@ function renderItens(itensFiltrados, categoria) {
 
             influencerItem.innerHTML = `
                 <div class="texture-icon-container">
-                  
                         <img src="${iconURL}" class="texture-icon" alt="${username}" style="border: none;">
                         <div class="texture-info-btn">i<div class="info-tooltip">${influencerId}</div></div>
-                  
                 </div>
                 <div class="texture-content">
-                    <h3 class="texture-title">   ${parseMCString(item.username)}</h3>
+                    <h3 class="texture-title">${parseMCString(item.username)}</h3>
                 </div>
                 ${bt}
             `;

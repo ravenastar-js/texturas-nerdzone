@@ -67,7 +67,7 @@ h1 {
     border-bottom: 3px solid var(--mc-green);
 }
 
-/* Item de textura */
+/* Container principal do item de textura */
 .texture-item {
     background: rgba(0, 0, 0, 0.4);
     border: 2px solid var(--mc-border);
@@ -76,18 +76,18 @@ h1 {
     margin: 15px 0;
     transition: transform 0.2s, box-shadow 0.2s;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    flex-direction: column;
     gap: 15px;
-    align-items: center;
 }
 
+/* Efeito de hover no texture-item */
 .texture-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     background: rgba(0, 0, 0, 0.5);
 }
 
-/* Ícone */
+/* Ícone da textura */
 .texture-icon {
     width: 80px;
     height: 80px;
@@ -101,12 +101,14 @@ h1 {
     transform: scale(1.05) rotate(2deg);
 }
 
-/* Conteúdo textual */
+/* Container do conteúdo principal (ícone, título, descrição e botão) */
 .texture-content {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
 }
+
 
 .texture-title {
     font-size: 1rem;
@@ -163,31 +165,43 @@ h1 {
     transform: translateY(0);
 }
 
+/* Estilo para os ícones dos blocos */
+.block-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.block-icon {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    border-radius: 4px;
+    transition: transform 0.2s;
+}
+
+.block-icon:hover {
+    transform: scale(1.1);
+}
+
 .download-icon {
     width: 20px;
     height: 20px;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .texture-item {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .texture-icon {
-        margin: 0 auto;
-    }
-
-    .download-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-    }
+.texture-item2 {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--mc-border);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
 }
+
 
 .filtro-botoes {
     display: flex;
@@ -628,10 +642,14 @@ h1 {
     gap: 5px;
 }
 
+/* Container do ícone */
 .texture-icon-container {
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
 
 .footer-link:hover {
     color: var(--mc-footer);
@@ -886,6 +904,30 @@ h1 {
     opacity: 1;
 }
 
+/* Container do submenu de observações */
+.texture-obs-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #3333335c;
+    border-radius: 0 0 6px 6px;
+    margin-top: 10px;
+    border-top: 2px solid var(--mc-border);
+}
+
+/* Conteúdo do submenu */
+.texture-obs {
+    padding: 15px;
+    font-size: 0.7rem;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+/* Efeito de hover no texture-item para exibir o submenu */
+.texture-item:hover .texture-obs-container {
+    max-height: 200px;
+}
+
 @keyframes particle {
     0% {
         transform: translate(0, 0);
@@ -913,6 +955,39 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    .block-icons {
+        justify-content: center;
+    }
+
+    .texture-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .texture-item2 {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .texture-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .texture-icon {
+        margin: 0 auto;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+
     .footer-container {
         flex-direction: column;
         text-align: center;

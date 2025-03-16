@@ -2,38 +2,55 @@ const data = [
     {
         content: 'textura',
         nome: "§6RavenaStar §aX-Ray §cNerd§fzone",
-        link: "https://www.mediafire.com/file/4rix81qxrb6ejuu/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        link: "https://www.mediafire.com/file/e5886z0cks8elle/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/1.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
         v: "1.8.9",
-        ct: "X-Ray"
+        ct: "X-Ray",
+        obs: "§fTextura ideal para encontrar beacon e minério de quartzo.",
+        blocks: [
+            "mc/img/blocks/Quartz_Ore.webp",
+            "mc/img/blocks/Beacon.webp"
+        ]
     },
     {
         content: 'textura',
         nome: "§6RavenaStar §aX-Ray v2 §cNerd§fzone",
-        link: "https://www.mediafire.com/file/7drdvgt2nwbiof2/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_v2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        link: "https://www.mediafire.com/file/l9n4vr157j0nz2d/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_v2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/1_v2.png",
         desc: "§b【V2】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
         v: "1.8.9",
-        ct: "X-Ray"
+        ct: "X-Ray",
+        obs: "§fTextura ideal para encontrar beacon e minério de quartzo.",
+        blocks: [
+            "mc/img/blocks/Quartz_Ore.webp",
+            "mc/img/blocks/Beacon.webp"
+        ]
     },
     {
         content: 'textura',
         nome: "§6RavenaStar §bSkyGrid §cNerd§fzone",
-        link: "https://www.mediafire.com/file/7ddpjvrnijch325/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/2.png",
-        desc: "§b【V1】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva e minérios.§f & §eÉ necessário optifine.",
-        v: "1.8.9",
-        ct: "SkyGrid"
-    },
-    {
-        content: 'textura',
-        nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
-        link: "https://www.mediafire.com/file/ratewj62vk1vx1j/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        link: "https://www.mediafire.com/file/ww0ttzfwkykzcr3/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v2.png",
         desc: "§b【V2】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, minérios e areia.§f & §eÉ necessário optifine.",
         v: "1.8.9",
-        ct: "SkyGrid"
+        ct: "SkyGrid",
+        obs: "§fTextura ideal para localizar madeira de selva e minérios com facilidade no Skygrid.",
+        blocks: [
+            "mc/img/blocks/Jungle_Log.png",
+            "mc/img/blocks/Gold_Ore.png",
+            "mc/img/blocks/Redstone_Ore.png",
+            "mc/img/blocks/Coal_Ore.png",
+            "mc/img/blocks/Emerald_Ore.png",
+            "mc/img/blocks/Diamond_Ore.png",
+            "mc/img/blocks/Iron_Ore.png",
+            "mc/img/blocks/Lapis_Lazuli_Ore.png",
+
+            "mc/img/blocks/Block_of_Coal.png",
+            "mc/img/blocks/Bloco_de_ferro.png",
+            "mc/img/blocks/Block_of_Diamond.png",
+            "mc/img/blocks/Bloco_de_redstone.png"
+        ]
     },
     {
         content: 'textura',
@@ -56,7 +73,7 @@ const data = [
     {
         content: 'textura',
         nome: "§6RavenaStar §fLINHAS",
-        link: "https://www.mediafire.com/file/wi1jf28440qbydh/%25C2%25A76RavenaStar_%25C2%25A7fLINHAS.zip/file",
+        link: "https://www.mediafire.com/file/zrx6zfs1pcag29g/%25C2%25A76RavenaStar_%25C2%25A7fLINHAS.zip/file",
         icone: "mc/img/icon/5.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eVeja as linhas de teias mais facilmente.",
         v: "1.8.9",
@@ -65,7 +82,7 @@ const data = [
     {
         content: 'textura',
         nome: "§6RavenaStar §fArmor §2Dur§6abil§city",
-        link: "https://www.mediafire.com/file/webycx5m8f842yh/%25C2%25A76RavenaStar_%25C2%25A7fArmor_%25C2%25A72Dur%25C2%25A76abil%25C2%25A7city.zip/file",
+        link: "https://www.mediafire.com/file/d75hnwqlkhb1wg2/%25C2%25A76RavenaStar_%25C2%25A7fArmor_%25C2%25A72Dur%25C2%25A76abil%25C2%25A7city.zip/file",
         icone: "mc/img/icon/6.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
         v: "1.8.9",
