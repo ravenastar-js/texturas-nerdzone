@@ -59,7 +59,7 @@ const data = [
         nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
         link: "https://www.mediafire.com/file/brgihlh4u3btaqx/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v3.png",
-        desc: "§b【V2】 §dbit.ly/ravenastar §f𖥔 §aSomente areia.§f & §eÉ necessário optifine.",
+        desc: "§b【V2】 §dbit.ly/ravenastar",
         v: "1.8.9",
         ct: "SkyGrid",
         obs: "§fTextura ideal para localizar areias com facilidade no Skygrid.",
