@@ -32,7 +32,7 @@ const data = [
         nome: "§6RavenaStar §bSkyGrid §cNerd§fzone",
         link: "https://www.mediafire.com/file/ww0ttzfwkykzcr3/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v2.png",
-        desc: "§b【V2】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, minérios e areia.§f & §eÉ necessário optifine.",
+        desc: "§b【V1】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, minérios e areia.§f & §eÉ necessário optifine.",
         v: "1.8.9",
         ct: "SkyGrid",
         obs: "§fTextura ideal para localizar madeira de selva e minérios com facilidade no Skygrid.",
