@@ -169,15 +169,21 @@ h1 {
 .block-icons {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
     margin-top: 10px;
+    max-width: 100%;
+    padding-bottom: 10px;
 }
 
+/* Estilo dos ícones dos blocos */
 .block-icon {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     image-rendering: pixelated;
     border-radius: 4px;
     transition: transform 0.2s;
+    flex-shrink: 0;
+    /* Impede que os ícones encolham */
 }
 
 .block-icon:hover {
@@ -957,6 +963,13 @@ h1 {
 @media (max-width: 768px) {
     .block-icons {
         justify-content: center;
+    }
+
+
+    .block-icon {
+        width: 28px;
+        /* Reduz o tamanho dos ícones em telas menores */
+        height: 28px;
     }
 
     .texture-content {

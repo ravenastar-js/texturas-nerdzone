@@ -21,7 +21,7 @@ const data = [
         desc: "§b【V2】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
         v: "1.8.9",
         ct: "X-Ray",
-        obs: "§fTextura ideal para encontrar beacon e minério de quartzo.",
+        obs: "§fTextura ideal para localizar beacons e minérios de quartzo.",
         blocks: [
             "mc/img/blocks/Quartz_Ore.webp",
             "mc/img/blocks/Beacon.webp"
