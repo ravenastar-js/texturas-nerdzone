@@ -172,7 +172,7 @@ const staffMembers = [
     { nome: "§4[Gerente] Deadzin_", hasMinecraftOriginal: true },
     { nome: "§4[Gerente] ILighttz", hasMinecraftOriginal: true },
     { nome: "§4[Gerente] KahRevolution", hasMinecraftOriginal: true },
-    { nome: "§c[Administrador] ColdsOpSs", hasMinecraftOriginal: true },
+    { nome: "§5[Coordenador] ColdsOpSs", hasMinecraftOriginal: true },
     { nome: "§c[Administrador] TodKx", hasMinecraftOriginal: true },
 ];
 
