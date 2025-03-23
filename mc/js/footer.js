@@ -140,7 +140,7 @@ class ServerStatus {
         if (statusElement) {
             statusElement.innerHTML = `
                 <span class="online-dot offline"></span> 
-                <span class="mc-red">🔴 Offline - Servidor não disponível</span>
+                <span class="mc-red">Offline - Servidor não disponível</span>
             `;
         }
 

@@ -5,7 +5,7 @@ const data = [
         link: "https://www.mediafire.com/file/e5886z0cks8elle/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/1.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "X-Ray",
         obs: "§fTextura ideal para encontrar beacon e minério de quartzo.",
         blocks: [
@@ -19,7 +19,7 @@ const data = [
         link: "https://www.mediafire.com/file/l9n4vr157j0nz2d/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_v2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/1_v2.png",
         desc: "§b【V2】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "X-Ray",
         obs: "§fTextura ideal para localizar beacons e minérios de quartzo.",
         blocks: [
@@ -33,7 +33,7 @@ const data = [
         link: "https://www.mediafire.com/file/ww0ttzfwkykzcr3/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v2.png",
         desc: "§b【V1】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, minérios e areias.§f & §eÉ necessário optifine.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "SkyGrid",
         obs: "§fTextura ideal para localizar madeira da selva, minérios e areias com facilidade no Skygrid.",
         blocks: [
@@ -60,7 +60,7 @@ const data = [
         link: "https://www.mediafire.com/file/brgihlh4u3btaqx/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v3.png",
         desc: "§b【V2】 §dbit.ly/ravenastar",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "SkyGrid",
         obs: "§fTextura ideal para localizar areias com facilidade no Skygrid.",
         blocks: [
@@ -73,7 +73,7 @@ const data = [
         link: "https://www.mediafire.com/file/nx5z5b84itfpfas/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V3_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
         icone: "mc/img/icon/2_v4.png",
         desc: "§b【V3】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, alguns minérios e areias.§f & §eÉ necessário optifine.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "SkyGrid",
         obs: "§fTextura ideal para localizar madeira de selva, alguns minérios e areias com facilidade no Skygrid.",
         blocks: [
@@ -92,7 +92,7 @@ const data = [
         link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-basic-armor-durability/",
         icone: "mc/img/icon/3.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "Outros"
     },
     {
@@ -101,7 +101,7 @@ const data = [
         link: "https://www.planetminecraft.com/texture-pack/v1-ravenastar-faithful/",
         icone: "mc/img/icon/4.png",
         desc: "§b【V1】 §dbit.ly/ravenastar",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "Outros"
     },
     {
@@ -110,7 +110,7 @@ const data = [
         link: "https://www.mediafire.com/file/zrx6zfs1pcag29g/%25C2%25A76RavenaStar_%25C2%25A7fLINHAS.zip/file",
         icone: "mc/img/icon/5.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eVeja as linhas de teias mais facilmente.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "Outros"
     },
     {
@@ -119,7 +119,7 @@ const data = [
         link: "https://www.mediafire.com/file/d75hnwqlkhb1wg2/%25C2%25A76RavenaStar_%25C2%25A7fArmor_%25C2%25A72Dur%25C2%25A76abil%25C2%25A7city.zip/file",
         icone: "mc/img/icon/6.png",
         desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
-        v: "1.8.9",
+        v: "1.8.x",
         ct: "pvp"
     },
     {
