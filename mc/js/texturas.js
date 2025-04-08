@@ -204,6 +204,15 @@ function getIconURL(username, hasMinecraftOriginal) {
  * @param {string} categoria - Categoria a ser ativada.
  */
 function ativarFiltro(categoria) {
+    const previewContainer = document.getElementById('preview-container');
+
+    // Mostra ou esconde o preview-container baseado na categoria
+    if (categoria === 'influencer' || categoria === 'todos') {
+        previewContainer.style.display = 'none';
+    } else {
+        previewContainer.style.display = '';
+    }
+
     // Remove a classe 'active' de todos os botões
     document.querySelectorAll('.filtro-btn').forEach(btn => btn.classList.remove('active'));
 
@@ -237,6 +246,15 @@ function ativarFiltro(categoria) {
  */
 function aplicarFiltroPorHash() {
     const hash = window.location.hash.substring(1).toLowerCase(); // Obtém o hash sem o '#'
+
+    const previewContainer = document.getElementById('preview-container');
+
+    // Mostra ou esconde o preview-container baseado no hash
+    if (hash === 'influencer' || hash === 'todos') {
+        previewContainer.style.display = 'none';
+    } else {
+        previewContainer.style.display = ''; // Volta ao valor padrão
+    }
 
     // Se não houver hash, ativa "todos"
     if (!hash) {
