@@ -182,8 +182,8 @@ const data = [
         content: 'influencer',
         username: "§9[Influencer] WesleyJK",
         mc_username: "WesleyJK",
-        link: "https://discord.com/invite/YBBB8hyTbz",
-        platform: "Discord",
+        link: "https://www.youtube.com/channel/UC4XGgSO3pDRWqgqCU7ij9UQ",
+        platform: "YouTube",
         hasMinecraftOriginal: true
     },
     {
