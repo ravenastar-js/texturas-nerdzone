@@ -5,8 +5,10 @@
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
     <title>Texture Packs & Influencers - Nerdzone</title>
-    <meta name="description" content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone e Influencers.">
-    <meta name="keywords" content="Minecraft, Texture Packs, Nerdzone, Pacotes de Textura, Mods, Download, Resource Packs">
+    <meta name="description"
+        content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone e Influencers.">
+    <meta name="keywords"
+        content="Minecraft, Texture Packs, Nerdzone, Pacotes de Textura, Mods, Download, Resource Packs">
     <meta name="theme-color" content="#FF5555">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://i.imgur.com/gSomY9Z.png">
@@ -15,25 +17,29 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://texturas.pages.dev">
     <meta property="og:title" content="Texture Packs & Influencers - Nerdzone">
-    <meta property="og:description" content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone e Influencers.">
+    <meta property="og:description"
+        content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone e Influencers.">
     <meta property="og:image" content="https://i.imgur.com/u8g34fj.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://texturas.pages.dev">
     <meta property="twitter:title" content="Texture Packs & Influencers - Nerdzone">
-    <meta property="twitter:description" content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone e Influencers.">
+    <meta property="twitter:description"
+        content="✨ Pacotes de textura exclusivos de Minecraft para o servidor Nerdzone e Influencers.">
     <meta property="twitter:image" content="https://i.imgur.com/u8g34fj.png">
 
     <link rel="stylesheet" href="mc/css/styles.css">
     <link rel="stylesheet" href="mc/css/bt.css">
+    <link rel="stylesheet" href="mc/css/w.css">
+
 </head>
 
 <body>
     <div class="container">
         <h1>✨ Texture Packs & Influencers</h1>
         <div class="info-btn" id="infoBtn">i</div>
-    
+
         <!-- Botões de filtro -->
         <div class="filtro-botoes">
             <button class="filtro-btn active" data-ct="todos">Todos</button>
@@ -43,23 +49,74 @@
             <button class="filtro-btn" data-ct="influencer">Influencer</button>
             <button class="filtro-btn" data-ct="outros">Outros</button>
         </div>
-    
+
+        <div id="preview-container" class="preview-container">
+            <div class="win11-explorer">
+                <!-- Title Bar -->
+                <div class="win11-title-bar">
+                    <div class="win11-title-controls">
+                        <button class="win11-btn win11-close"></button>
+                        <button class="win11-btn win11-maximize"></button>
+                        <button class="win11-btn win11-minimize"></button>
+                    </div>
+                    <div class="win11-title-text">Explorador de Arquivos</div>
+                </div>
+
+
+                <!-- File View -->
+                <div class="win11-file-view">
+                    <div class="win11-breadcrumb">
+                        <span class="win11-breadcrumb-item">%appdata%/.minecraft</span>
+                        <span class="win11-breadcrumb-separator">&gt;</span>
+                        <span class="win11-breadcrumb-item active">resourcepacks</span>
+                    </div>
+
+
+                    <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                        role="alert">
+                        <i class="start-icon fa fa-exclamation-triangle faa-flash animated"></i>
+                        <span class="alert-text">Descompactar a textura na pasta <strong>resourcepacks</strong>.</span>
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+                    </div>
+
+                    <div class="alert fade alert-simple alert-info alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                        role="alert">
+                        <i class="start-icon fa fa-info faa-flash animated"></i>
+                        <span class="alert-text">Ative a visualização de itens ocultos para conseguir ver e acessar a
+                            pasta <strong>AppData</strong>.</span>
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+                    </div>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="win11-status-bar">
+                    <div class="win11-status-space"></div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Lista de texturas -->
         <div id="texture-list"></div>
 
-       <br>
+        <br>
         <div>
-            <div class="title"  style="color: #84DCFF;">LINK CURTO</div>
+            <div class="title" style="color: #84DCFF;">LINK CURTO</div>
             <br>
             <div class="link-container">
                 <input readonly="" class="link-field" value="bit.ly/rav-nerdzone" id="linkField1">
                 <button class="copy-button" onclick="copyLink('linkField1', this)">
-                    
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm4 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z"></path>
-                </svg>
-                
-                
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px"
+                        height="24px">
+                        <path
+                            d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm4 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z">
+                        </path>
+                    </svg>
+
+
                     <span class="tooltip">Link copiado!</span>
                 </button>
             </div>
@@ -90,13 +147,13 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="server-info">
-                    <div class="footer-buttons" >
+                    <div class="footer-buttons">
                         <div style="display: flex;gap: 10px;">
-                        <div class="staff-btn" id="skinBtn">✨</div>
-                        <div class="staff-btn" id="staffBtn">⚔️</div>
-                        <div class="staff-btn" id="aluguelBtn">💰</div>
-                        <div class="staff-btn" id="coresBtn">🌈</div>
-                    </div>
+                            <div class="staff-btn" id="skinBtn">✨</div>
+                            <div class="staff-btn" id="staffBtn">⚔️</div>
+                            <div class="staff-btn" id="aluguelBtn">💰</div>
+                            <div class="staff-btn" id="coresBtn">🌈</div>
+                        </div>
                     </div>
                     <div class="server-banner">
                         <img src="" class="server-icon achievement-icon" alt="Ícone do Servidor" style="display: none;">
@@ -145,7 +202,7 @@
     <script src="mc/js/goAluguel.js"></script>
     <script src="mc/js/data.js"></script>
     <script src="mc/js/texturas.js"></script>
-   
+
 </body>
 
 </html>

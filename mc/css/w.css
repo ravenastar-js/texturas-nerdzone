@@ -1,0 +1,781 @@
+/* Windows 11 Explorer Styles */
+.win11-explorer {
+    color: black;
+    width: 800px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+    margin: 0 auto;
+}
+
+/* Title Bar */
+.win11-title-bar {
+    height: 32px;
+    background: #000000a8;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    position: relative;
+}
+
+.win11-title-controls {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    left: 12px;
+}
+
+.win11-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.win11-close {
+    background: #ff5f56;
+}
+
+.win11-maximize {
+    background: #ffbd2e;
+}
+
+.win11-minimize {
+    background: #27c93f;
+}
+
+.win11-title-text {
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+.win11-search-box {
+    position: absolute;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.win11-search-box i {
+    font-size: 10px;
+}
+
+/* Ribbon */
+.win11-ribbon {
+    background: #f6f6f6;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.win11-ribbon-tabs {
+    display: flex;
+    padding-left: 12px;
+}
+
+.win11-ribbon-tab {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    position: relative;
+}
+
+.win11-ribbon-tab.active {
+    color: #0067c0;
+}
+
+.win11-ribbon-tab.active:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #0067c0;
+}
+
+.win11-ribbon-content {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.win11-ribbon-btn {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+}
+
+.win11-ribbon-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.win11-address-bar {
+    flex-grow: 1;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    height: 28px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.win11-address-path {
+    display: flex;
+    align-items: center;
+}
+
+.win11-address-segment {
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.win11-address-segment:hover {
+    background: #e5f1fb;
+}
+
+.win11-address-segment.active {
+    background: #cce4ff;
+}
+
+.win11-address-arrow {
+    margin: 0 4px;
+    color: #999;
+    font-size: 10px;
+}
+
+/* Main Content */
+.win11-main-content {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Navigation Pane */
+.win11-navigation {
+    width: 200px;
+    background: #f6f6f6;
+    border-right: 1px solid #e5e5e5;
+    padding: 12px 0;
+    overflow-y: auto;
+}
+
+.win11-nav-header {
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.win11-nav-item {
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+}
+
+.win11-nav-item i {
+    width: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.win11-nav-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* File View */
+.win11-file-view {
+    flex-grow: 1;
+    padding: 12px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.44);
+}
+
+.win11-breadcrumb {
+    font-size: 15px;
+    color: #ffffff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background:#00000038;
+    padding:10px;
+    border-radius:10px;
+}
+
+.win11-breadcrumb-item {
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+
+.win11-breadcrumb-item.active {
+    color: #d7d74b;
+    font-weight: 500;
+}
+
+.win11-breadcrumb-separator {
+    margin: 0 4px;
+    color: #999;
+}
+
+.win11-folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.win11-folder-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.win11-folder-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.win11-folder-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+}
+
+.win11-folder-name {
+    font-size: 12px;
+    text-align: center;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.win11-instruction-box {
+    background: #f0f6ff;
+    border-left: 3px solid #0067c0;
+    padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+}
+
+.win11-instruction-box i {
+    color: #0067c0;
+    font-size: 16px;
+}
+
+/* Status Bar */
+.win11-status-bar {
+    height: 24px;
+    background: #000000a8;
+    border-top: 1px solid #000000a8;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    color: #666;
+}
+
+.win11-status-space {
+    flex-grow: 1;
+}
+
+/* Animation */
+@keyframes pathHighlight {
+    0% {
+        background: transparent;
+    }
+
+    50% {
+        background: #e5f1fb;
+    }
+
+    100% {
+        background: transparent;
+    }
+}
+
+.win11-address-segment:nth-child(1) {
+    animation: pathHighlight 0.5s 0s forwards;
+}
+
+.win11-address-segment:nth-child(3) {
+    animation: pathHighlight 0.5s 0.5s forwards;
+}
+
+.win11-address-segment:nth-child(5) {
+    animation: pathHighlight 0.5s 1s forwards;
+}
+
+.win11-address-segment:nth-child(7) {
+    animation: pathHighlight 0.5s 1.5s forwards;
+}
+
+.win11-address-segment:nth-child(9) {
+    animation: pathHighlight 0.5s 2s forwards;
+}
+
+.win11-address-segment:nth-child(11) {
+    animation: pathHighlight 0.5s 2.5s forwards;
+}
+
+.win11-address-segment:nth-child(13) {
+    animation: pathHighlight 0.5s 3s forwards;
+}
+
+.win11-address-segment:nth-child(15) {
+    animation: pathHighlight 0.5s 3.5s forwards;
+    animation-fill-mode: both;
+}
+
+.win11-folder-item[data-folder="resourcepacks"] {
+    animation: folderPulse 0.5s 4s forwards;
+}
+
+@keyframes folderPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .win11-explorer {
+        width: 95%;
+        height: auto;
+        max-height: 90vh;
+    }
+
+    .win11-title-text {
+        font-size: 10px;
+    }
+
+    .win11-search-box span {
+        display: none;
+    }
+
+    .win11-folder-container {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 12px;
+    }
+
+    .win11-folder-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .win11-instruction-box {
+        font-size: 12px;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .win11-ribbon-content {
+        flex-wrap: wrap;
+    }
+
+    .win11-address-bar {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .win11-ribbon-tab {
+        padding: 6px 12px;
+    }
+
+    .win11-status-bar {
+        font-size: 10px;
+        padding: 0 8px;
+    }
+}
+
+
+
+
+.alert {
+    position: relative;
+    padding:
+        .75rem 1.25rem;
+    padding-right: 1.25rem;
+    padding-right: 1.25rem;
+    margin-bottom: 1rem;
+    border:
+        1px solid transparent;
+    border-radius:
+        .25rem;
+}
+
+.alert>.start-icon {
+    margin-right: 0;
+    min-width: 20px;
+    text-align: center;
+}
+
+.alert>.start-icon {
+    margin-right: 5px;
+}
+
+.greencross {
+    font-size: 18px;
+    color: #25ff0b;
+    text-shadow: none;
+}
+
+.alert-simple.alert-success {
+    border: 1px solid rgba(36, 241, 6, 0.46);
+    background-color: rgba(7, 149, 66, 0.12156862745098039);
+    box-shadow: 0px 0px 2px #259c08;
+    color: #0ad406;
+    text-shadow: 2px 1px #00040a;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.alert-success:hover {
+    background-color: rgba(7, 149, 66, 0.35);
+    transition: 0.5s;
+}
+
+.alert-simple.alert-info {
+    border: 1px solid rgba(6, 44, 241, 0.46);
+    background-color: rgba(7, 73, 149, 0.12156862745098039);
+    box-shadow: 0px 0px 2px #0396ff;
+    color: #0396ff;
+    text-shadow: 2px 1px #00040a;
+    transition: 0.5s;
+}
+
+.alert-info:hover {
+    background-color: rgba(7, 73, 149, 0.35);
+    transition: 0.5s;
+}
+
+.blue-cross {
+    font-size: 18px;
+    color: #0bd2ff;
+    text-shadow: none;
+}
+
+.alert-simple.alert-warning {
+    border: 1px solid rgba(241, 142, 6, 0.81);
+    background-color: rgba(220, 128, 1, 0.16);
+    box-shadow: 0px 0px 2px #ffb103;
+    color: #ffb103;
+    text-shadow: 2px 1px #00040a;
+    transition: 0.5s;
+}
+
+.alert-warning:hover {
+    background-color: rgba(220, 128, 1, 0.33);
+    transition: 0.5s;
+}
+
+.warning {
+    font-size: 18px;
+    color: #ffb40b;
+    text-shadow: none;
+}
+
+.alert-simple.alert-danger {
+    border: 1px solid rgba(241, 6, 6, 0.81);
+    background-color: rgba(220, 17, 1, 0.16);
+    box-shadow: 0px 0px 2px #ff0303;
+    color: #ff0303;
+    text-shadow: 2px 1px #00040a;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.alert-danger:hover {
+    background-color: rgba(220, 17, 1, 0.33);
+    transition: 0.5s;
+}
+
+.danger {
+    font-size: 18px;
+    color: #ff0303;
+    text-shadow: none;
+}
+
+.alert-simple.alert-primary {
+    border: 1px solid rgba(6, 241, 226, 0.81);
+    background-color: rgba(1, 204, 220, 0.16);
+    box-shadow: 0px 0px 2px #03fff5;
+    color: #03d0ff;
+    text-shadow: 2px 1px #00040a;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.alert-primary:hover {
+    background-color: rgba(1, 204, 220, 0.33);
+    transition: 0.5s;
+}
+
+.alertprimary {
+    font-size: 18px;
+    color: #03d0ff;
+    text-shadow: none;
+}
+
+.square_box {
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-top-left-radius: 45px;
+    opacity: 0.302;
+}
+
+.square_box.box_three {
+    background-image: -moz-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+    background-image: -webkit-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+    background-image: -ms-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+    opacity: 0.059;
+    left: -80px;
+    top: -60px;
+    width: 500px;
+    height: 500px;
+    border-radius: 45px;
+}
+
+.square_box.box_four {
+    background-image: -moz-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+    background-image: -webkit-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+    background-image: -ms-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+    opacity: 0.059;
+    left: 150px;
+    top: -25px;
+    width: 550px;
+    height: 550px;
+    border-radius: 45px;
+}
+
+.alert:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: calc(100% - 44px);
+    border-left: 1px solid;
+    border-right: 2px solid;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: 20px;
+}
+
+.fa-times {
+    -webkit-animation: blink-1 2s infinite both;
+    animation: blink-1 2s infinite both;
+}
+
+
+
+.preview-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* File Explorer Styles */
+.file-explorer {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.file-explorer-header {
+    background: linear-gradient(to bottom, #e8e8e8, #d1d1d1);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.file-explorer-buttons {
+    display: flex;
+    gap: 6px;
+    margin-right: 10px;
+}
+
+.file-explorer-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.file-explorer-btn.red {
+    background: #ff5f56;
+}
+
+.file-explorer-btn.yellow {
+    background: #ffbd2e;
+}
+
+.file-explorer-btn.green {
+    background: #27c93f;
+}
+
+.file-explorer-title {
+    flex-grow: 1;
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.file-explorer-body {
+    display: flex;
+    height: 200px;
+}
+
+.file-explorer-sidebar {
+    width: 160px;
+    background: #e8e8e8;
+    padding: 10px 0;
+    border-right: 1px solid #ddd;
+}
+
+.file-explorer-location {
+    padding: 6px 12px;
+    color: #555;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.file-explorer-location.active {
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    font-weight: 500;
+}
+
+.file-explorer-location i {
+    margin-right: 6px;
+    color: #6b6b6b;
+}
+
+.file-explorer-content {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.file-explorer-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.file-explorer-item:hover {
+    background: #f0f0f0;
+}
+
+.file-explorer-item i {
+    margin-right: 8px;
+    color: #ffaa33;
+}
+
+.file-explorer-instruction {
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff8e6;
+    border-left: 3px solid #ffaa33;
+    border-radius: 4px;
+    color: #8a6d3b;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}
+
+.file-explorer-instruction i {
+    margin-right: 8px;
+    color: #ffaa33;
+}
+
+/**
+ * ----------------------------------------
+ * animation blink-1
+ * ----------------------------------------
+ */
+@-webkit-keyframes blink-1 {
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+@keyframes blink-1 {
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
