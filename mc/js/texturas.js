@@ -207,7 +207,7 @@ function ativarFiltro(categoria) {
     const previewContainer = document.getElementById('preview-container');
 
     // Mostra ou esconde o preview-container baseado na categoria
-    if (categoria === 'influencer' || categoria === 'todos') {
+    if (categoria === 'influencer') {
         previewContainer.style.display = 'none';
     } else {
         previewContainer.style.display = '';
@@ -250,7 +250,7 @@ function aplicarFiltroPorHash() {
     const previewContainer = document.getElementById('preview-container');
 
     // Mostra ou esconde o preview-container baseado no hash
-    if (hash === 'influencer' || hash === 'todos') {
+    if (hash === 'influencer') {
         previewContainer.style.display = 'none';
     } else {
         previewContainer.style.display = ''; // Volta ao valor padrão
