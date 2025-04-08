@@ -124,6 +124,14 @@ const data = [
     },
     {
         content: 'influencer',
+        username: " §cnerd§fzone.gg",
+        mc_username: "nerdzone",
+        link: "https://discord.nerdzone.gg",
+        platform: "Discord",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
         username: "§9[Influencer] Nerdstone_",
         mc_username: "Nerdstone_",
         link: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg",

@@ -121,7 +121,7 @@ function renderItens(itensFiltrados, categoria) {
             }
 
             // Gera o ID do influenciador
-            const influencerId = `# <span class="mc-yellow">${u1.toLowerCase()}</span>`;
+            const influencerId = `# <span class="mc-yellow">${u1.includes("zone.gg") ? "nerdzone" : u1.toLowerCase()}</span>`;
 
             influencerItem.innerHTML = `
                 <div class="texture-icon-container">
@@ -192,10 +192,10 @@ function toggleInfoTooltip(tooltip) {
  */
 function getIconURL(username, hasMinecraftOriginal) {
     if (hasMinecraftOriginal) {
+        if(username.includes("nerdzone")) return 'mc/img/base/icon.png';
         return `https://starlightskins.lunareclipse.studio/render/head/${username}/full`;
     } else {
         if (username.includes("matheussponchi")) return 'mc/img/staff/matheussponchi.png';
-        if (username.includes("Thails")) return `https://starlightskins.lunareclipse.studio/render/head/${username}/full`;
         return 'mc/img/staff/p.png';
     }
 }
