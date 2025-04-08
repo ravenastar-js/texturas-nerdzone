@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MINECRAFT COLOR CODES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="mc/css/styles.css">
+    <link rel="stylesheet" href="mc/css/bt.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        input#textInput {
+            font-size: 0.6rem;
+        }
+
+        .color-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .color-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-box {
+            background:#0000004a;
+            border-radius:12px;
+            padding:20px;
+            white-space:pre-wrap;
+            word-break: break-word;
+        }
+
+        .bg-in-gray {
+            background-color: #2f2f2f;
+        }
+
+        .b-gray {
+            background-color: #58575854;
+        }
+
+        .bg-gray-900 {
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('mc/img/base/background.png') repeat;
+        }
+
+        .rebel-char {
+            animation: glitch 0.3s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-1px, 1px);
+            }
+
+            40% {
+                transform: translate(-1px, -1px);
+            }
+
+            60% {
+                transform: translate(1px, 1px);
+            }
+
+            80% {
+                transform: translate(1px, -1px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 min-h-screen">
+
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-16">
+            <h1 class="text-3xl md:text-3xl font-bold text-yellow-400 pixel-font mb-4">MINECRAFT COLOR CODES</h1>
+            <p class="text-gray-300 max-w-2xl mx-auto font-bold">Visualize e copie os códigos de cores</p>
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+            <div class="flex-1">
+                <h2 class="text-2xl text-white pixel-font mb-6">CÓDIGOS DE CORES</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4" id="colorsContainer"></div>
+            </div>
+
+            <div class="flex-1">
+                <h2 class="text-2xl text-white pixel-font mb-6">PREVIEW DINÂMICO</h2>
+                <div id="previewBox" class="preview-box pixel-font text-lg text-white"></div>
+
+                <div class="b-gray rounded-xl p-6 shadow-xl mt-8">
+                    <h3 class="text-xl text-white pixel-font mb-4">GERADOR DE TEXTO</h3>
+                    <input type="text" id="textInput"
+                        class="w-full px-4 py-3 bg-in-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4"
+                        placeholder="Digite seu texto com códigos (ex: &aOlá &bMundo!)">
+                    <div class="flex items-center gap-4">
+                        <button id="copyButton" disabled
+                            class="copy-btn bg-gray-600 hover:bg-gray-700 text-white pixel-font py-3 px-6 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                            COPIAR CÓDIGO
+                        </button>
+                        <div id="copyFeedback" class="text-green-400 pixel-font text-sm opacity-0 transition-opacity">
+                            Copiado!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- FOOTER  -->
+
+    <footer class="minecraft-footer" style="width:min(100%, 750px);">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="server-info">
+                    <div class="footer-buttons">
+                        <div class="staff-btn" id="homeBtn">🏠</div>
+                    </div>
+                    <div class="server-banner">
+                        <img src="" class="server-icon achievement-icon" alt="Ícone do Servidor" style="display: none;">
+
+                        <div>
+                            <br>
+                            <div>
+                                IP: <span class="mc-red">nerd</span><span class="mc-white">zone.gg</span>
+                            </div>
+                            <br>
+                            <div class="server-status">
+                                <span class="online-carregando"></span> Carregando...
+                            </div>
+                            <br>
+                            <div class="server-details">
+                                <span class="server-version"></span>
+                            </div>
+                            <br>
+                            <div class="server-motd"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="footer-links">
+                    <a href="https://github.com/ravenastar-js/texturas-nerdzone" target="_blank" class="footer-link">📁
+                        Open Source</a>
+                    <a href="https://linktr.ee/ravenastar" target="_blank" class="footer-link">© RavenaStar</a>
+                    <a href="https://regras.nerdzone.gg" target="_blank" class="footer-link">📜 Regras</a>
+                    <a href="https://loja.nerdzone.gg" target="_blank" class="footer-link">🏪 Loja</a>
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+    </footer>
+
+
+    <script>
+        const minecraftColors = [
+            { code: '&0', hex: '#000000' }, { code: '&1', hex: '#0000AA' },
+            { code: '&2', hex: '#00AA00' }, { code: '&3', hex: '#00AAAA' },
+            { code: '&4', hex: '#AA0000' }, { code: '&5', hex: '#AA00AA' },
+            { code: '&6', hex: '#FFAA00' }, { code: '&7', hex: '#AAAAAA' },
+            { code: '&8', hex: '#555555' }, { code: '&9', hex: '#5555FF' },
+            { code: '&a', hex: '#55FF55' }, { code: '&b', hex: '#55FFFF' },
+            { code: '&c', hex: '#FF5555' }, { code: '&d', hex: '#FF55FF' },
+            { code: '&e', hex: '#FFFF55' }, { code: '&f', hex: '#FFFFFF' },
+        ];
+
+        const colorsContainer = document.getElementById('colorsContainer');
+        const textInput = document.getElementById('textInput');
+        const previewBox = document.getElementById('previewBox');
+        const copyButton = document.getElementById('copyButton');
+        const copyFeedback = document.getElementById('copyFeedback');
+
+        function renderColorCards() {
+            minecraftColors.forEach(color => {
+                const card = document.createElement('div');
+                card.className = 'color-card b-gray rounded-lg p-4 cursor-pointer flex items-center gap-3';
+                card.innerHTML = `
+          <div class="w-10 h-10 rounded-md" style="background-color: ${color.hex}"></div>
+          <div>
+            <div class="text-white font-mono">${color.code}</div>
+          </div>
+        `;
+                card.addEventListener('click', () => {
+                    textInput.value += color.code;
+                    renderPreview();
+                    validateInput();
+                    textInput.focus();
+                });
+                colorsContainer.appendChild(card);
+            });
+        }
+
+        function getColorByCode(code) {
+            const colorObj = minecraftColors.find(c => c.code === code);
+            return colorObj ? colorObj.hex : '#ffffff';
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function renderPreview() {
+            const raw = textInput.value || "Aguardando...";
+            let html = '';
+            let currentColor = '#ffffff';
+            let isRebel = false;
+
+            for (let i = 0; i < raw.length; i++) {
+                if (raw[i] === '&' && i + 1 < raw.length) {
+                    const code = raw[i + 1].toLowerCase();
+                    if (code === 'k') {
+                        isRebel = true; i++; continue;
+                    } else if (code === 'r') {
+                        currentColor = '#ffffff'; isRebel = false; i++; continue;
+                    }
+                    const hex = getColorByCode(`&${code}`);
+                    if (hex) {
+                        currentColor = hex; i++; continue;
+                    }
+                }
+
+                const char = raw[i];
+                if (isRebel) {
+                    html += `<span class="rebel-char" style="color:${getRandomColor()}">${char}</span>`;
+                } else {
+                    html += `<span style="color:${currentColor}">${char}</span>`;
+                }
+            }
+
+            previewBox.innerHTML = html;
+        }
+
+        function validateInput() {
+            const text = textInput.value;
+            // Remove todos os códigos de cor (ex: &a, &r, &k...)
+            const cleaned = text.replace(/&[0-9a-frk]/gi, '').trim();
+            copyButton.disabled = cleaned.length === 0;
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(textInput.value).then(() => {
+                copyFeedback.style.opacity = '1';
+                setTimeout(() => {
+                    copyFeedback.style.opacity = '0';
+                }, 2000);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderColorCards();
+            renderPreview();
+            validateInput();
+
+            textInput.addEventListener('input', () => {
+                renderPreview();
+                validateInput();
+            });
+
+            copyButton.addEventListener('click', copyToClipboard);
+        });
+    </script>
+    <script src="mc/js/footer.js"></script>
+    <script src="mc/js/goStaff.js"></script>
+    <script src="mc/js/goSkin.js"></script>
+    <script src="mc/js/goAluguel.js"></script>
+    <script src="mc/js/data.js"></script>
+</body>
+
+</html>
