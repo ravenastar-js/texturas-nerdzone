@@ -152,6 +152,13 @@ const data = [
     },
     {
         content: 'influencer',
+        username: "§9[Influencer] Thails",
+        link: "https://www.youtube.com/channel/UC228QmhyRLf2ak8ilQwcpSg",
+        platform: "YouTube",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
         username: "§9[Influencer] WesleyJK",
         link: "https://discord.com/invite/YBBB8hyTbz",
         platform: "Discord",
