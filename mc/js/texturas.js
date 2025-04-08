@@ -79,6 +79,7 @@ function renderItens(itensFiltrados, categoria) {
             const influencerItem = document.createElement('div');
             influencerItem.className = 'texture-item2';
             const username = item.mc_username;
+            const u1 = item.username.split(' ')[1];
             const iconURL = getIconURL(username, item.hasMinecraftOriginal);
             let btv = item.platform;
             let bt = "";
@@ -120,7 +121,7 @@ function renderItens(itensFiltrados, categoria) {
             }
 
             // Gera o ID do influenciador
-            const influencerId = `# <span class="mc-yellow">${username.toLowerCase()}</span>`;
+            const influencerId = `# <span class="mc-yellow">${u1.toLowerCase()}</span>`;
 
             influencerItem.innerHTML = `
                 <div class="texture-icon-container">

@@ -148,6 +148,22 @@ const data = [
     },
     {
         content: 'influencer',
+        username: "§9[Influencer] GrMP5",
+        mc_username: "GrMP5",
+        link: "https://www.youtube.com/channel/UC-KfPZn3SH3OCa3Ur3ExL5g",
+        platform: "YouTube",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
+        username: "§9[Influencer] JorginhoTKS",
+        mc_username: "JorginhoTKS",
+        link: "https://www.twitch.tv/kossxd",
+        platform: "Twitch",
+        hasMinecraftOriginal: true
+    },
+    {
+        content: 'influencer',
         username: "§9[Influencer] KZN",
         mc_username: "KZN",
         link: "https://www.twitch.tv/kzn__rj",
