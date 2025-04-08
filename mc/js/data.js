@@ -125,6 +125,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] Nerdstone_",
+        mc_username: "Nerdstone_",
         link: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg",
         platform: "YouTube",
         hasMinecraftOriginal: true
@@ -132,6 +133,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] CariokDUCALOTE",
+        mc_username: "CariokDUCALOTE",
         link: "https://www.twitch.tv/ducalotekkj",
         platform: "Twitch",
         hasMinecraftOriginal: true
@@ -139,6 +141,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] Kevenkbm",
+        mc_username: "Kevenkbm",
         link: "https://www.youtube.com/channel/UCbGBtFCV7veapprhOqR09_w",
         platform: "YouTube",
         hasMinecraftOriginal: true
@@ -146,6 +149,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] KZN",
+        mc_username: "KZN",
         link: "https://www.twitch.tv/kzn__rj",
         platform: "Twitch",
         hasMinecraftOriginal: true
@@ -153,6 +157,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] Thails",
+        mc_username: "iThails",
         link: "https://www.youtube.com/channel/UC228QmhyRLf2ak8ilQwcpSg",
         platform: "YouTube",
         hasMinecraftOriginal: true
@@ -160,6 +165,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] WesleyJK",
+        mc_username: "WesleyJK",
         link: "https://discord.com/invite/YBBB8hyTbz",
         platform: "Discord",
         hasMinecraftOriginal: true
@@ -167,6 +173,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] xJoao_",
+        mc_username: "xJoao_",
         link: "https://www.youtube.com/channel/UCqD7NjB0RRiGCN2zbFT54uA",
         platform: "YouTube",
         hasMinecraftOriginal: true
@@ -174,6 +181,7 @@ const data = [
     {
         content: 'influencer',
         username: "§9[Influencer] zChrisPTz",
+        mc_username: "zChrisPTz",
         link: "https://www.youtube.com/channel/UCTnO0yU7Vvna2LKPMgzo3ag",
         platform: "YouTube",
         hasMinecraftOriginal: true

@@ -78,7 +78,7 @@ function renderItens(itensFiltrados, categoria) {
             // Renderiza um influenciador
             const influencerItem = document.createElement('div');
             influencerItem.className = 'texture-item2';
-            const username = item.username.split(' ')[1];
+            const username = item.mc_username;
             const iconURL = getIconURL(username, item.hasMinecraftOriginal);
             let btv = item.platform;
             let bt = "";
@@ -194,9 +194,11 @@ function getIconURL(username, hasMinecraftOriginal) {
         return `https://starlightskins.lunareclipse.studio/render/head/${username}/full`;
     } else {
         if (username.includes("matheussponchi")) return 'mc/img/staff/matheussponchi.png';
+        if (username.includes("Thails")) return `https://starlightskins.lunareclipse.studio/render/head/${username}/full`;
         return 'mc/img/staff/p.png';
     }
 }
+
 
 /**
  * 🚀 Ativa o filtro e adiciona a classe "active" ao botão correto.
