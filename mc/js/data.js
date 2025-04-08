@@ -132,7 +132,7 @@ const data = [
     },
     {
         content: 'influencer',
-        username: "§9[Influencer] Nerdstone_",
+        username: "§9[Influencer] Nerdstone",
         mc_username: "Nerdstone_",
         link: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg",
         platform: "YouTube",

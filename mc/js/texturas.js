@@ -121,7 +121,7 @@ function renderItens(itensFiltrados, categoria) {
             }
 
             // Gera o ID do influenciador
-            const influencerId = `# <span class="mc-yellow">${u1.includes("zone.gg") ? "nerdzone" : u1.toLowerCase()}</span>`;
+            const influencerId = `# <span class="mc-yellow">${u1.includes("Nerdstone_") ? "nerdstone" : u1.includes("zone.gg") ? "nerdzone" : u1.toLowerCase()}</span>`;
 
             influencerItem.innerHTML = `
                 <div class="texture-icon-container">
