@@ -5,7 +5,8 @@
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
     <title>Nerdzone Commands - Lista de Comandos</title>
-    <meta name="description" content="📜 Lista completa de comandos do servidor Nerdzone de Minecraft. Todos os comandos essenciais em um só lugar!">
+    <meta name="description"
+        content="📜 Lista completa de comandos do servidor Nerdzone de Minecraft. Todos os comandos essenciais em um só lugar!">
     <meta name="keywords" content="Minecraft, Nerdzone, Comandos, Server, Minecraft Commands, Lista de Comandos">
     <meta name="theme-color" content="#FF5555">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -384,6 +385,8 @@
             }
         }
     </style>
+        <link rel="stylesheet" href="mc/css/footer.css">
+       
 </head>
 
 <body class="bg-mc-dark text-gray-100 min-h-screen font-sans overflow-x-hidden">
@@ -420,7 +423,52 @@
         <div id="commands-container" class="grid grid-cols-1  lg:grid-cols-3 gap-6 mb-12">
             <!-- Commands will be dynamically inserted here -->
         </div>
+        <!-- FOOTER  -->
 
+        <footer class="minecraft-footer mx-auto px-4 py-8">
+
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="server-info">
+                        <div class="footer-buttons">
+                            <div class="staff-btn" id="homeBtn">🏠</div>
+                        </div>
+                        <div class="server-banner">
+                            <img src="" class="server-icon achievement-icon" alt="Ícone do Servidor" style="display: none;">
+    
+                            <div>
+                                <br>
+                                <div>
+                                    IP: <span class="mc-red">nerd</span><span class="mc-white">zone.gg</span>
+                                </div>
+                                <br>
+                                <div class="server-status">
+                                    <span class="online-carregando"></span> Carregando...
+                                </div>
+                                <br>
+                                <div class="server-details">
+                                    <span class="server-version"></span>
+                                </div>
+                                <br>
+                                <div class="server-motd"></div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <br>
+                    <div class="footer-links">
+                        <a href="https://github.com/ravenastar-js/texturas-nerdzone" target="_blank" class="footer-link">📁
+                            Open Source</a>
+                        <a href="https://linktr.ee/ravenastar" target="_blank" class="footer-link">© RavenaStar</a>
+                        <a href="https://regras.nerdzone.gg" target="_blank" class="footer-link">📜 Regras</a>
+                        <a href="https://loja.nerdzone.gg" target="_blank" class="footer-link">🏪 Loja</a>
+                    </div>
+    
+                </div>
+    
+            </div>
+            </div>
+        </footer>
         <!-- Modal -->
         <div id="modal"
             class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
@@ -457,8 +505,12 @@
                 </div>
             </div>
         </div>
-    </div>
 
+
+ 
+    </div>
+    <script src="mc/js/goHome.js"></script>
+    <script src="mc/js/footer.js"></script>
     <script>
         // Color mapping and parsing functions
         const colorMap = (() => {

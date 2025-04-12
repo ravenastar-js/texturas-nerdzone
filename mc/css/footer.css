@@ -1,0 +1,646 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --mc-green: #5B8C34;
+    --mc-dark-green: #3A5A1F;
+    --mc-stone: #7A7A7A;
+    --mc-border: #2D2D2D;
+    --mc-footer: #79D431;
+    --primary: #2A9D8F;
+    --primary-dark: #1E7A6F;
+    --secondary: #264653;
+    --accent: #E76F51;
+    --accent-hover: #D45A3D;
+    --text: #333333;
+    --background: #F8F9FA;
+    --white: #FFFFFF;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+
+
+
+
+
+
+/* Container principal do item de textura */
+.texture-item {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--mc-border);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Efeito de hover no texture-item */
+.texture-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Ícone da textura */
+.texture-icon {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--mc-border);
+    border-radius: 6px;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+}
+
+.texture-item:hover .texture-icon {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* Container do conteúdo principal (ícone, título, descrição e botão) */
+.texture-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.texture-title {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.texture-description {
+    font-size: 0.7rem;
+    color: #aaa;
+    line-height: 1.4;
+    max-width: 500px;
+}
+
+/* Botão de Download */
+.download-btn {
+    background:
+        linear-gradient(180deg, var(--mc-green) 0%, var(--mc-dark-green) 100%);
+    border: 2px solid #88ff4730;
+    border-radius: 5px;
+    padding: 12px 25px;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg) translateX(-20%);
+    transition: all 0.3s;
+}
+
+.download-btn:hover {
+    box-shadow: 0 4px 12px rgba(114, 255, 0, 0.3);
+}
+
+.download-btn:hover::after {
+    transform: rotate(45deg) translateX(20%);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+/* Estilo para os ícones dos blocos */
+.block-icons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+/* Estilo dos ícones dos blocos */
+.block-icon {
+    width: 38px;
+    height: 38px;
+    image-rendering: pixelated;
+    border-radius: 4px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    /* Impede que os ícones encolham */
+}
+
+.block-icon:hover {
+    transform: scale(1.1);
+}
+
+.download-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.texture-item2 {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--mc-border);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.filtro-botoes {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.filtro-btn {
+    font-family: 'Press Start 2P', cursive;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filtro-btn.active {
+    background-color: rgba(114, 255, 0, 0.3);
+    /* Cor do botão ativo */
+}
+
+.filtro-btn:hover {
+    background-color: #5eff0669;
+}
+
+
+/* Estilo do botão de informações das texturas */
+.texture-info-btn {
+    position: absolute;
+    top: -1px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 30%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.texture-info-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+
+
+/* Estilo do botão de "info" do modal */
+.txt-info-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--mc-border);
+    border-radius: 30%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.txt-info-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* Proporção 16:9 para vídeos do YouTube */
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.minecraft-footer {
+    background: linear-gradient(145deg, rgb(9 9 18 / 29%) 0%, rgb(9 9 14 / 12%) 100%), url(../img/base/obsidian.png);
+    padding: 15px;
+    margin-top: auto;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    width: min(90%, 650px);
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+    animation: pulse 2s infinite;
+    filter: drop-shadow(0 0 5px rgba(196, 196, 196, 0.5));
+}
+
+.footer-content {
+    flex-grow: 1;
+}
+
+.server-info {
+    gap: 44px;
+    font-family: 'Press Start 2P', cursive;
+    margin: 15px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.server-banner {
+    display: flex;
+    border-radius: 18px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.36);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.server-status {
+    line-height: 1.5em;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+.online-dot {
+    width: 10px;
+    height: 10px;
+    background: #55FF55;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #55FF55;
+}
+
+.online-carregando {
+    width: 10px;
+    height: 10px;
+    background: #aaaaaa;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #aaaaaa;
+}
+
+.footer-links {
+    border-top: 3px solid #2d2d2d;
+    padding-top: 15px;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Container do ícone */
+.texture-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.footer-link:hover {
+    color: var(--mc-footer);
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(91, 140, 52, 0.5);
+}
+
+
+.staff-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--mc-border);
+    border-radius: 10%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 1.7rem;
+    transition: all 0.2s;
+}
+
+.staff-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+/* Staff Page Styles */
+.staff-item {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* styles.css */
+.server-details {
+    display: flex;
+    gap: 9.8px;
+    margin-top: 5px;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.server-details:empty,
+.server-motd:empty {
+    display: none;
+}
+
+.server-ip {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.online-carregando {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #555;
+    margin-right: 5px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+}
+
+.server-icon {
+    padding: 20px;
+    margin-right: 15px;
+}
+
+.server-motd {
+    font-size: 0.65rem;
+    color: #aaa;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.off-center {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.online-dot {
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.online-dot.offline {
+    background: #FF5555;
+    box-shadow: 0 0 5px #ff5555;
+}
+
+@keyframes levelUp {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* Partículas */
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #55FFFF;
+    border-radius: 50%;
+    animation: particle 1s ease-out;
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.link-field {
+    background-color: #7A7A7A5C;
+    border: 1px solid rgb(185, 185, 185);
+    border-radius: var(--radius);
+    color: rgb(255, 255, 255);
+    max-height: 48px;
+    padding: 12px 16px;
+    width: 100%;
+    outline-style: none;
+    box-shadow: var(--shadow);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.copy-button {
+    cursor: pointer;
+    background: linear-gradient(180deg, var(--mc-green) 0%, var(--mc-dark-green) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 12px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.copy-button:hover {
+    background: linear-gradient(180deg, var(--mc-dark-green) 0%, var(--mc-green) 100%);
+}
+
+
+
+
+/* Container do submenu de observações */
+.texture-obs-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #3333335c;
+    border-radius: 0 0 6px 6px;
+    margin-top: 10px;
+    border-top: 2px solid var(--mc-border);
+}
+
+/* Conteúdo do submenu */
+.texture-obs {
+    font-size: 0.7rem;
+    color: #aaa;
+    line-height: 1.4;
+    padding: 10px 0;
+}
+
+/* Efeito de hover no texture-item para exibir o submenu */
+.texture-item:hover .texture-obs-container {
+    max-height: 200px;
+}
+
+@keyframes particle {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--x, 0), var(--y, 0));
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .block-icons {
+        justify-content: center;
+    }
+
+
+    .block-icon {
+        width: 28px;
+        /* Reduz o tamanho dos ícones em telas menores */
+        height: 28px;
+    }
+
+    .texture-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .texture-item2 {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .texture-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .texture-icon {
+        margin: 0 auto;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .server-info {
+        font-size: 0.8rem;
+    }
+}
