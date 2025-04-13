@@ -248,10 +248,10 @@
                     ${parseMCString(command.description || '')}
                 </div>
             </div>
-            <div class="capture-footer">
-                <p>IP: nerdzone.gg • ID: ${commandId}</p>
-                <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString()}</p>
-            </div>
+        <div class="capture-footer">
+            <p><span class="ip">nerd</span><span class="ip2">zone.gg</span><span class="separator">•</span><span class="id">${commandId}</span></p>
+            <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
+        </div>
         `;
     
         // Forçar estilos para captura

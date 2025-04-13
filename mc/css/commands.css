@@ -348,7 +348,23 @@
 .capture-footer p.text-xs {
     opacity: 0.6;
 }
+#capture-area.capturing .ip {
+    color: #FF5555;
+    font-weight: 600;
+}
+#capture-area.capturing .ip2 {
+    color: #ffffff;
+    font-weight: 600;
+}
+#capture-area.capturing .id {
+    color: #f6e05e;
+    font-weight: 600;
+}
 
+#capture-area.capturing .separator {
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0 0.5rem;
+}
 /* Efeito de partículas decorativas (opcional) */
 .capture-area.capturing::after {
     content: '';
