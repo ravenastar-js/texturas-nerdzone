@@ -225,28 +225,78 @@
 
     // Capture modal as PNG
     function captureModal() {
-        // Add a small delay to ensure everything is rendered
+        // Armazenar o HTML original para restaurar depois
+        const originalContent = captureArea.innerHTML;
+        
+        // Criar novo conteúdo padronizado para a captura
+        const commandId = new URLSearchParams(window.location.search).get('m') || 'command';
+        const command = commands.find(cmd => cmd.id === commandId) || {};
+        
+        captureArea.innerHTML = `
+            <div class="capture-header">
+                <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="capture-logo">
+                <div>
+                    <h3 class="mc-red">Nerd<span class="mc-white">zone</span></h3>
+                    <p class="text-sm mc-gray">Comandos do Servidor</p>
+                </div>
+            </div>
+            <div class="command-content">
+                <div id="modal-command" class="text-2xl font-bold mb-4 break-words">
+                    ${parseMCString(command.command || '')}
+                </div>
+                <div id="modal-description" class="text-lg mc-gray break-words">
+                    ${parseMCString(command.description || '')}
+                </div>
+            </div>
+            <div class="capture-footer">
+                <p>IP: nerdzone.gg • ID: ${commandId}</p>
+                <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString()}</p>
+            </div>
+        `;
+    
+        // Forçar estilos para captura
+        const originalStyles = {
+            width: captureArea.style.width,
+            minHeight: captureArea.style.minHeight,
+            padding: captureArea.style.padding,
+            margin: captureArea.style.margin
+        };
+    
+        captureArea.style.width = '800px';
+        captureArea.style.minHeight = '400px';
+        captureArea.style.padding = '30px';
+        captureArea.style.margin = '0 auto';
+        
+        // Adicionar classe de captura
+        captureArea.classList.add('capturing');
+    
+        // Pequeno delay para garantir o render
         setTimeout(() => {
-            // Add temporary class for capture
-            captureArea.classList.add('capturing');
-
             html2canvas(captureArea, {
                 backgroundColor: null,
                 scale: 2,
                 logging: false,
                 useCORS: true,
                 allowTaint: true,
-                windowWidth: captureArea.scrollWidth,
+                windowWidth: 800,
                 windowHeight: captureArea.scrollHeight
             }).then(canvas => {
                 const link = document.createElement('a');
-                const commandId = new URLSearchParams(window.location.search).get('m') || 'command';
-                link.download = `comando-${commandId}-${new Date().toISOString().slice(0, commands.length)}.png`;
+                link.download = `comando-${commandId}-${new Date().toISOString().slice(0, 10)}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-
-                // Remove temporary class
+    
+                // Restaurar conteúdo e estilos originais
+                captureArea.innerHTML = originalContent;
+                captureArea.style.width = originalStyles.width;
+                captureArea.style.minHeight = originalStyles.minHeight;
+                captureArea.style.padding = originalStyles.padding;
+                captureArea.style.margin = originalStyles.margin;
                 captureArea.classList.remove('capturing');
+                
+                // Reaplicar o conteúdo do modal
+                modalCommand.innerHTML = parseMCString(command.command || '');
+                modalDescription.innerHTML = parseMCString(command.description || '');
             });
         }, 100);
     }
