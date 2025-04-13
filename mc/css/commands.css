@@ -117,33 +117,7 @@
     color: var(--mc-dark-gray);
 }
 
-.mc-blue {
-    color: var(--mc-blue);
-}
 
-.mc-green {
-    color: var(--mc-green);
-}
-
-.mc-aqua {
-    color: var(--mc-aqua);
-}
-
-.mc-red {
-    color: var(--mc-red);
-}
-
-.mc-light-purple {
-    color: var(--mc-light-purple);
-}
-
-.mc-yellow {
-    color: var(--mc-yellow);
-}
-
-.mc-white {
-    color: var(--mc-white);
-}
 
 .bg-mc-dark {
     background-color: #1a1a1a;
