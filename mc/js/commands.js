@@ -225,6 +225,10 @@
 
     // Capture modal as PNG
     function captureModal() {
+        // Bloquear o botão de captura
+        captureBtn.disabled = true;
+        captureBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        
         // Armazenar o HTML original para restaurar depois
         const originalContent = captureArea.innerHTML;
         
@@ -248,10 +252,10 @@
                     ${parseMCString(command.description || '')}
                 </div>
             </div>
-        <div class="capture-footer">
-            <p><span class="ip">nerd</span><span class="ip2">zone.gg</span><span class="separator">•</span><span class="id">${commandId}</span></p>
-            <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
-        </div>
+            <div class="capture-footer">
+                <p><span class="ip">nerd</span><span class="ip2">zone.gg</span><span class="separator">•</span><span class="id">${commandId}</span></p>
+                <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
+            </div>
         `;
     
         // Forçar estilos para captura
@@ -297,6 +301,15 @@
                 // Reaplicar o conteúdo do modal
                 modalCommand.innerHTML = parseMCString(command.command || '');
                 modalDescription.innerHTML = parseMCString(command.description || '');
+                
+                // Liberar o botão de captura
+                captureBtn.disabled = false;
+                captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }).catch(error => {
+                console.error('Erro ao capturar:', error);
+                // Liberar o botão mesmo em caso de erro
+                captureBtn.disabled = false;
+                captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             });
         }, 100);
     }
