@@ -102,14 +102,14 @@
                 </div>
                 <div class="command-drawer">
                     <div class="command-drawer-content p-4">
-                        <p class="text-gray-300 mb-3 command-text">${parsedDescription}</p>
+                        <p class="text-gray-300 mb-4 command-text">${parsedDescription}</p>
                         <div class="flex justify-between items-center text-sm mc-gray">
-                            <span class="bg-gray-800 px-2 py-1 rounded flex items-center gap-1">
+                            <span class="bg-[#2e2d2d] px-2 py-1 rounded flex items-center gap-1">
                                   <span class="text-white">ID:</span>
                                   <span class="text-yellow-400 font-mono">${cmd.id}</span>
                             </span>
                             <div class="tooltip-container">
-                                <button class="copy-btn px-3 py-1 bg-gray-700 text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
+                                <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
                                     <i class="fas fa-copy mr-1"></i>Copiar comando
                                 </button>
                                 <span class="tooltip">Copiar para área de transferência</span>
@@ -157,13 +157,13 @@
                     // Feedback visual
                     const originalText = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Copiado!';
-                    copyBtn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                    copyBtn.classList.remove('bg-[#2e2d2d]', 'hover:bg-gray-600');
                     copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
 
                     setTimeout(() => {
                         copyBtn.innerHTML = originalText;
                         copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
-                        copyBtn.classList.add('bg-gray-700', 'hover:bg-gray-600');
+                        copyBtn.classList.add('bg-[#2e2d2d]', 'hover:bg-gray-600');
                     }, 2000);
                 });
             }
