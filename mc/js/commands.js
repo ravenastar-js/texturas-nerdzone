@@ -237,7 +237,7 @@
                 <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="capture-logo">
                 <div>
                     <h3 class="mc-red">Nerd<span class="mc-white">zone</span></h3>
-                    <p class="text-sm mc-gray">Comandos do Servidor</p>
+                    <p class="text-sm mc-gray">Comando do Servidor</p>
                 </div>
             </div>
             <div class="command-content">
