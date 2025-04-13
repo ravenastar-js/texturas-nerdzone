@@ -61,6 +61,16 @@
         description: '&fVisualiza e gerencia suas habilidades no servidor, incluindo progresso e upgrades.'
     },
     {
+        id: 'skillsverbooster',
+        command: '&f/skills verbooster',
+        description: '&fVer booster de xp ativo e o tempo restante.'
+    },
+    {
+        id: 'skillsvernivel',
+        command: '&f/skills vernivel',
+        description: '&fVer booster de nível ativo e o tempo restante.'
+    },
+    {
         id: 'kit',
         command: '&f/kit',
         description: '&fAcessa os kits disponíveis para seu rank e os resgata conforme os cooldowns.'
