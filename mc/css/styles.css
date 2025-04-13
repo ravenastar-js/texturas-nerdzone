@@ -1016,8 +1016,9 @@ h1 {
         justify-content: center;
         gap: 15px;
     }
+.f-mbl {
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-    .server-info {
-        font-size: 0.8rem;
-    }
 }
