@@ -1,0 +1,353 @@
+:root {
+    --mc-black: #000000;
+    --mc-dark-blue: #0000AA;
+    --mc-dark-green: #00AA00;
+    --mc-dark-aqua: #00AAAA;
+    --mc-dark-red: #AA0000;
+    --mc-dark-purple: #AA00AA;
+    --mc-gold: #FFAA00;
+    --mc-gray: #AAAAAA;
+    --mc-dark-gray: #555555;
+    --mc-blue: #5555FF;
+    --mc-green: #55FF55;
+    --mc-aqua: #55FFFF;
+    --mc-red: #FF5555;
+    --mc-light-purple: #FF55FF;
+    --mc-yellow: #FFFF55;
+    --mc-white: #FFFFFF;
+}
+
+.mc-black {
+    color: var(--mc-black);
+}
+
+.mc-dark-blue {
+    color: var(--mc-dark-blue);
+}
+
+.mc-dark-green {
+    color: var(--mc-dark-green);
+}
+
+.mc-dark-aqua {
+    color: var(--mc-dark-aqua);
+}
+
+.mc-dark-red {
+    color: var(--mc-dark-red);
+}
+
+.mc-dark-purple {
+    color: var(--mc-dark-purple);
+}
+
+.mc-gold {
+    color: var(--mc-gold);
+}
+
+.mc-gray {
+    color: var(--mc-gray);
+}
+
+.mc-dark-gray {
+    color: var(--mc-dark-gray);
+}
+
+.mc-blue {
+    color: var(--mc-blue);
+}
+
+.mc-green {
+    color: var(--mc-green);
+}
+
+.mc-aqua {
+    color: var(--mc-aqua);
+}
+
+.mc-red {
+    color: var(--mc-red);
+}
+
+.mc-light-purple {
+    color: var(--mc-light-purple);
+}
+
+.mc-yellow {
+    color: var(--mc-yellow);
+}
+
+.mc-white {
+    color: var(--mc-white);
+}
+
+.bg-mc-dark {
+    background-color: #1a1a1a;
+    background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23374151' fill-opacity='0.2'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.bg-mc-darker {
+    background-color: #0d0d0d;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.command-text {
+    word-break: break-word;
+    line-height: 1.6;
+}
+
+/* Efeito de gaveta melhorado */
+.command-drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: rgba(26, 32, 44, 0.7);
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.command-drawer.open {
+    max-height: 500px;
+    padding: 1rem;
+    border-top: 1px solid rgba(74, 85, 104, 0.3);
+}
+
+.command-drawer-content {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
+}
+
+.command-drawer.open .command-drawer-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modal estilizado */
+.modal {
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+}
+
+.modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1a202c, #2d3748);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(74, 85, 104, 0.5);
+    max-width: calc(100vw - 2rem);
+    width: auto;
+    overflow: visible !important;
+}
+
+/* Cards de comando */
+.command-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #2d3748, #1a202c);
+    border-left: 4px solid #48bb78;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.command-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #48bb78, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.command-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    border-left-color: #68d391;
+}
+
+.command-card:hover::before {
+    opacity: 1;
+}
+
+/* Área de captura */
+.capture-area {
+    background: linear-gradient(145deg, #2d3748, #1a202c);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(74, 85, 104, 0.3);
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.capture-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(74, 85, 104, 0.5), transparent);
+}
+
+/* Botões */
+.btn-capture {
+    background: linear-gradient(145deg, #38a169, #2f855a);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-capture:hover {
+    background: linear-gradient(145deg, #48bb78, #38a169);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-capture:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.copy-btn {
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a202c;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+}
+
+/* Tooltip corrigido */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 1000;
+    min-width: 120px;
+    background-color: #2d3748;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 5px;
+}
+
+.tooltip.bottom {
+    bottom: auto;
+    top: 100%;
+    margin-top: 5px;
+}
+
+.tooltip-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.t-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .command-card {
+        border-left-width: 3px;
+    }
+
+    .modal-content {
+        width: 95vw;
+        margin: 0 auto;
+    }
+
+    .capture-area {
+        padding: 1rem;
+    }
+
+    .tooltip {
+        font-size: 11px;
+        min-width: 100px;
+        padding: 4px 6px;
+    }
+}

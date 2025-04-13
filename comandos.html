@@ -5,8 +5,7 @@
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
     <title>Nerdzone Commands - Lista de Comandos</title>
-    <meta name="description"
-        content="📜 Todos os comandos essenciais do servidor Nerdzone em um só lugar!">
+    <meta name="description" content="📜 Todos os comandos essenciais do servidor Nerdzone em um só lugar!">
     <meta name="keywords" content="Minecraft, Nerdzone, Comandos, Server, Minecraft Commands, Lista de Comandos">
     <meta name="theme-color" content="#FF5555">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,377 +15,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nerdzone-commands.pages.dev">
     <meta property="og:title" content="Nerdzone Commands - Lista de Comandos">
-    <meta property="og:description"
-        content="📜 Todos os comandos essenciais do servidor Nerdzone em um só lugar!">
+    <meta property="og:description" content="📜 Todos os comandos essenciais do servidor Nerdzone em um só lugar!">
     <meta property="og:image" content="https://i.imgur.com/u8g34fj.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://nerdzone-commands.pages.dev">
     <meta property="twitter:title" content="Nerdzone Commands - Lista de Comandos">
-    <meta property="twitter:description"
-        content="📜 Todos os comandos essenciais do servidor Nerdzone em um só lugar!">
+    <meta property="twitter:description" content="📜 Todos os comandos essenciais do servidor Nerdzone em um só lugar!">
     <meta property="twitter:image" content="https://i.imgur.com/u8g34fj.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --mc-black: #000000;
-            --mc-dark-blue: #0000AA;
-            --mc-dark-green: #00AA00;
-            --mc-dark-aqua: #00AAAA;
-            --mc-dark-red: #AA0000;
-            --mc-dark-purple: #AA00AA;
-            --mc-gold: #FFAA00;
-            --mc-gray: #AAAAAA;
-            --mc-dark-gray: #555555;
-            --mc-blue: #5555FF;
-            --mc-green: #55FF55;
-            --mc-aqua: #55FFFF;
-            --mc-red: #FF5555;
-            --mc-light-purple: #FF55FF;
-            --mc-yellow: #FFFF55;
-            --mc-white: #FFFFFF;
-        }
 
-        .mc-black {
-            color: var(--mc-black);
-        }
+    <link rel="stylesheet" href="mc/css/commands.css">
+    <link rel="stylesheet" href="mc/css/footer.css">
 
-        .mc-dark-blue {
-            color: var(--mc-dark-blue);
-        }
-
-        .mc-dark-green {
-            color: var(--mc-dark-green);
-        }
-
-        .mc-dark-aqua {
-            color: var(--mc-dark-aqua);
-        }
-
-        .mc-dark-red {
-            color: var(--mc-dark-red);
-        }
-
-        .mc-dark-purple {
-            color: var(--mc-dark-purple);
-        }
-
-        .mc-gold {
-            color: var(--mc-gold);
-        }
-
-        .mc-gray {
-            color: var(--mc-gray);
-        }
-
-        .mc-dark-gray {
-            color: var(--mc-dark-gray);
-        }
-
-        .mc-blue {
-            color: var(--mc-blue);
-        }
-
-        .mc-green {
-            color: var(--mc-green);
-        }
-
-        .mc-aqua {
-            color: var(--mc-aqua);
-        }
-
-        .mc-red {
-            color: var(--mc-red);
-        }
-
-        .mc-light-purple {
-            color: var(--mc-light-purple);
-        }
-
-        .mc-yellow {
-            color: var(--mc-yellow);
-        }
-
-        .mc-white {
-            color: var(--mc-white);
-        }
-
-        .bg-mc-dark {
-            background-color: #1a1a1a;
-            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23374151' fill-opacity='0.2'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        .bg-mc-darker {
-            background-color: #0d0d0d;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-        }
-
-        .command-text {
-            word-break: break-word;
-            line-height: 1.6;
-        }
-
-        /* Efeito de gaveta melhorado */
-        .command-drawer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: rgba(26, 32, 44, 0.7);
-            border-radius: 0 0 0.5rem 0.5rem;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        }
-
-        .command-drawer.open {
-            max-height: 500px;
-            padding: 1rem;
-            border-top: 1px solid rgba(74, 85, 104, 0.3);
-        }
-
-        .command-drawer-content {
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
-        }
-
-        .command-drawer.open .command-drawer-content {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Modal estilizado */
-        .modal {
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            backdrop-filter: blur(5px);
-            overflow-y: auto;
-        }
-
-        .modal.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: linear-gradient(145deg, #1a202c, #2d3748);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(74, 85, 104, 0.5);
-            max-width: calc(100vw - 2rem);
-            width: auto;
-            overflow: visible !important;
-        }
-
-        /* Cards de comando */
-        .command-card {
-            transition: all 0.3s ease;
-            background: linear-gradient(145deg, #2d3748, #1a202c);
-            border-left: 4px solid #48bb78;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .command-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #48bb78, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .command-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-            border-left-color: #68d391;
-        }
-
-        .command-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Área de captura */
-        .capture-area {
-            background: linear-gradient(145deg, #2d3748, #1a202c);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(74, 85, 104, 0.3);
-            position: relative;
-            width: 100%;
-            box-sizing: border-box;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .capture-area::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(74, 85, 104, 0.5), transparent);
-        }
-
-        /* Botões */
-        .btn-capture {
-            background: linear-gradient(145deg, #38a169, #2f855a);
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-capture:hover {
-            background: linear-gradient(145deg, #48bb78, #38a169);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-capture:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .copy-btn {
-            transition: all 0.2s ease;
-        }
-
-        .copy-btn:hover {
-            transform: translateY(-1px);
-        }
-
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a202c;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #4a5568;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #718096;
-        }
-
-        /* Tooltip corrigido */
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip {
-            position: absolute;
-            z-index: 1000;
-            min-width: 120px;
-            background-color: #2d3748;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 8px;
-            font-size: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            white-space: nowrap;
-            pointer-events: none;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 5px;
-        }
-
-        .tooltip.bottom {
-            bottom: auto;
-            top: 100%;
-            margin-top: 5px;
-        }
-
-        .tooltip-container:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Animações */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease forwards;
-            opacity: 0;
-        }
-
-        .t-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .title {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .command-card {
-                border-left-width: 3px;
-            }
-
-            .modal-content {
-                width: 95vw;
-                margin: 0 auto;
-            }
-
-            .capture-area {
-                padding: 1rem;
-            }
-
-            .tooltip {
-                font-size: 11px;
-                min-width: 100px;
-                padding: 4px 6px;
-            }
-        }
-    </style>
-        <link rel="stylesheet" href="mc/css/footer.css">
-       
 </head>
 
 <body class="bg-mc-dark text-gray-100 min-h-screen font-sans overflow-x-hidden">
@@ -434,8 +78,9 @@
                             <div class="staff-btn" id="homeBtn">🏠</div>
                         </div>
                         <div class="server-banner">
-                            <img src="" class="server-icon achievement-icon" alt="Ícone do Servidor" style="display: none;">
-    
+                            <img src="" class="server-icon achievement-icon" alt="Ícone do Servidor"
+                                style="display: none;">
+
                             <div>
                                 <br>
                                 <div>
@@ -452,421 +97,66 @@
                                 <br>
                                 <div class="server-motd"></div>
                             </div>
-    
+
                         </div>
                     </div>
                     <br>
                     <div class="footer-links">
-                        <a href="https://github.com/ravenastar-js/texturas-nerdzone" target="_blank" class="footer-link">📁
+                        <a href="https://github.com/ravenastar-js/texturas-nerdzone" target="_blank"
+                            class="footer-link">📁
                             Open Source</a>
                         <a href="https://linktr.ee/ravenastar" target="_blank" class="footer-link">© RavenaStar</a>
                         <a href="https://regras.nerdzone.gg" target="_blank" class="footer-link">📜 Regras</a>
                         <a href="https://loja.nerdzone.gg" target="_blank" class="footer-link">🏪 Loja</a>
                     </div>
-    
+
                 </div>
-    
-            </div>
-            </div>
-        </footer>
-        <!-- Modal -->
-        <div id="modal"
-            class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
-            <div class="modal-content rounded-lg w-auto max-h-[90vh] mx-4 overflow-y-auto">
-                <div class="p-6 w-full">
-                    <div class="flex justify-between items-center mb-4 gap-[10px]">
-                        <h3 class="text-2xl font-bold mc-yellow">
-                            <i class="fas fa-info-circle mr-2"></i>Detalhes do Comando (modal)
-                        </h3>
-                        <div class="tooltip-container">
-                            <button id="close-modal"
-                                class="text-gray-400 hover:text-white transition-colors duration-300">
-                                <i class="fas fa-times text-xl"></i>
-                            </button>
-                            <span class="tooltip">Fechar modal</span>
-                        </div>
-                    </div>
 
-                    <!-- Área de captura -->
-                    <div id="capture-area" class="capture-area w-full">
-                        <div id="modal-command" class="text-2xl font-bold mb-4 break-words"></div>
-                        <div id="modal-description" class="text-lg mc-gray break-words"></div>
+            </div>
+    </div>
+    </footer>
+    <!-- Modal -->
+    <div id="modal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
+        <div class="modal-content rounded-lg w-auto max-h-[90vh] mx-4 overflow-y-auto">
+            <div class="p-6 w-full">
+                <div class="flex justify-between items-center mb-4 gap-[10px]">
+                    <h3 class="text-2xl font-bold mc-yellow">
+                        <i class="fas fa-info-circle mr-2"></i>Detalhes do Comando (modal)
+                    </h3>
+                    <div class="tooltip-container">
+                        <button id="close-modal" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                        <span class="tooltip">Fechar modal</span>
                     </div>
+                </div>
 
-                    <div class="flex justify-end mt-4">
-                        <div class="tooltip-container">
-                            <button id="capture-btn"
-                                class="btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium">
-                                <i class="fas fa-camera mr-2"></i>Capturar
-                            </button>
-                            <span class="tooltip">Salvar como imagem</span>
-                        </div>
+                <!-- Área de captura -->
+                <div id="capture-area" class="capture-area w-full">
+                    <div id="modal-command" class="text-2xl font-bold mb-4 break-words"></div>
+                    <div id="modal-description" class="text-lg mc-gray break-words"></div>
+                </div>
+
+                <div class="flex justify-end mt-4">
+                    <div class="tooltip-container">
+                        <button id="capture-btn"
+                            class="btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium">
+                            <i class="fas fa-camera mr-2"></i>Capturar
+                        </button>
+                        <span class="tooltip">Salvar como imagem</span>
                     </div>
                 </div>
             </div>
         </div>
-
-
- 
     </div>
+
+
+
+    </div>
+    <script src="mc/js/commands.js"></script>
     <script src="mc/js/goHome.js"></script>
     <script src="mc/js/footer.js"></script>
-    <script>
-        // Color mapping and parsing functions
-        const colorMap = (() => {
-            const baseColors = {
-                '§0': 'mc-black',
-                '§1': 'mc-dark-blue',
-                '§2': 'mc-dark-green',
-                '§3': 'mc-dark-aqua',
-                '§4': 'mc-dark-red',
-                '§5': 'mc-dark-purple',
-                '§6': 'mc-gold',
-                '§7': 'mc-gray',
-                '§8': 'mc-dark-gray',
-                '§9': 'mc-blue',
-                '§a': 'mc-green',
-                '§b': 'mc-aqua',
-                '§c': 'mc-red',
-                '§d': 'mc-light-purple',
-                '§e': 'mc-yellow',
-                '§f': 'mc-white'
-            };
 
-            // Create versions with & for the same map
-            const extendedColors = {};
-            for (const [key, value] of Object.entries(baseColors)) {
-                extendedColors[key] = value;
-                extendedColors['&' + key[1]] = value;
-            }
-
-            return extendedColors;
-        })();
-
-        function parseMCString(text) {
-            if (!text) return '';
-
-            // Primeiro substituímos os colchetes por HTML entities
-            const withEntities = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-            // Depois aplicamos as cores
-            const result = withEntities
-                .replace(/[§&][0-9a-f]/g, match => {
-                    const normalizedKey = '§' + match[1];
-                    return `</span><span class="${colorMap[normalizedKey] || ''}">`;
-                })
-                .replace(/<\/span>/g, '', 1) + '</span>';
-
-            return result.replace(/<span class=""><\/span>/g, '');
-        }
-
-        // Command data
-        const commands = [
-            {
-                id: 'plotadd',
-                command: '&f/plot add &6&lt;nick&gt;',
-                description: '&fAdiciona um jogador à sua plot com permissões limitadas. O jogador só terá permissões enquanto você estiver online no servidor.'
-            },
-            {
-                id: 'plottrust',
-                command: '&f/plot trust &6&lt;nick&gt;',
-                description: '&fAdiciona um jogador à sua plot com permissões completas. O jogador terá permissões mesmo quando você estiver offline.'
-            },
-            {
-                id: 'plotalias',
-                command: '&f/plot alias set &6&lt;nome&gt;',
-                description: '&fDefina um nome alternativo para sua plot.'
-            },
-            {
-                id: 'changepass',
-                command: '&f/changepass &6&lt;senha-antiga&gt; &6&lt;senha-nova&gt;',
-                description: '&fAltera a senha da sua conta no servidor. Você precisa fornecer a senha antiga e a nova senha.'
-            },
-            {
-                id: 'vercaixa',
-                command: '&f/vercaixa &6&lt;caixa&gt;',
-                description: '&fVisualiza o conteúdo de uma caixa específica antes de abri-la. Substitua &lt;caixa&gt; pelo nome ou ID da caixa.'
-            },
-            {
-                id: 'rankup',
-                command: '&f/rankup',
-                description: '&fUpar para o próximo rank. Isso requer certos requisitos, como cabeça de mobs e money. Use &e/ranks &fpara ver os requisitos.'
-            },
-            {
-                id: 'ranks',
-                command: '&f/ranks',
-                description: '&fMostre uma lista de todos os ranks disponíveis no servidor, incluindo requisitos, quantidade de cabeças necessárias e money para upar de rank.'
-            },
-            {
-                id: 'xp',
-                command: '&f/xp &6&lt;quantia&gt;',
-                description: '&fConverta seu XP acumulado em frascos de XP, especificando a quantidade desejada.'
-            },
-            {
-                id: 'plotauto',
-                command: '&f/plot auto',
-                description: '&fCompra automaticamente uma plot disponível em uma localização aleatória no mundo de plots.'
-            },
-            {
-                id: 'skills',
-                command: '&f/skills',
-                description: '&fGerencie suas habilidades (skills) no servidor. Você pode alocar XP para melhorar habilidades específicas, remover o XP de habilidades e assim por diante.'
-            }
-        ];
-
-        // DOM elements
-        const commandsContainer = document.getElementById('commands-container');
-        const searchInput = document.getElementById('search');
-        const modal = document.getElementById('modal');
-        const modalCommand = document.getElementById('modal-command');
-        const modalDescription = document.getElementById('modal-description');
-        const closeModalBtn = document.getElementById('close-modal');
-        const captureBtn = document.getElementById('capture-btn');
-        const captureArea = document.getElementById('capture-area');
-
-        // Render commands
-        function renderCommands(filter = '') {
-            commandsContainer.innerHTML = '';
-
-            const filteredCommands = commands.filter(cmd =>
-                cmd.command.toLowerCase().includes(filter.toLowerCase()) ||
-                cmd.description.toLowerCase().includes(filter.toLowerCase())
-            );
-
-            if (filteredCommands.length === 0) {
-                commandsContainer.innerHTML = `
-                    <div class="col-span-full text-center py-8 mc-gray">
-                        <i class="fas fa-search-minus text-5xl mb-4 block"></i>
-                        <p class="text-xl">Nenhum comando encontrado para "${filter}"</p>
-                        <p class="text-sm mt-2">Tente usar termos diferentes</p>
-                    </div>
-                `;
-                return;
-            }
-
-            filteredCommands.forEach((cmd, index) => {
-                const commandElement = document.createElement('div');
-                commandElement.className = `command-card rounded-lg transition-all duration-300 animate-fade-in delay-${index}`;
-
-                // Parse the command with colors
-                const parsedCommand = parseMCString(cmd.command);
-                const parsedDescription = parseMCString(cmd.description);
-
-                commandElement.innerHTML = `
-                    <div class="p-5 cursor-pointer command-header">
-                        <div class="flex justify-between items-start">
-                            <div class="flex-1 command-text">
-                                <h3 class="text-xl font-bold mb-2">${parsedCommand}</h3>
-                            </div>
-                            <div class="tooltip-container">
-                                <button class="info-btn ml-2 p-1 text-gray-400 hover:text-yellow-400 transition-colors duration-300" data-id="${cmd.id}">
-                                    <i class="fas fa-info-circle text-xl"></i>
-                                </button>
-                                <span class="tooltip">Mais detalhes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="command-drawer">
-                        <div class="command-drawer-content p-4">
-                            <p class="text-gray-300 mb-3 command-text">${parsedDescription}</p>
-                            <div class="flex justify-between items-center text-sm mc-gray">
-                                <span class="bg-gray-800 px-2 py-1 rounded flex items-center gap-1">
-                                      <span class="text-white">ID:</span>
-                                      <span class="text-yellow-400 font-mono">${cmd.id}</span>
-                                </span>
-                                <div class="tooltip-container">
-                                    <button class="copy-btn px-3 py-1 bg-gray-700 text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
-                                        <i class="fas fa-copy mr-1"></i>Copiar comando
-                                    </button>
-                                    <span class="tooltip">Copiar para área de transferência</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Add click event to toggle drawer when clicking anywhere on the card
-                commandElement.addEventListener('click', (e) => {
-                    // Don't toggle if clicking on buttons or tooltips
-                    if (e.target.closest('.info-btn') ||
-                        e.target.closest('.copy-btn') ||
-                        e.target.closest('.tooltip')) {
-                        return;
-                    }
-
-                    const drawer = commandElement.querySelector('.command-drawer');
-                    drawer.classList.toggle('open');
-
-                    // Close other open drawers
-                    document.querySelectorAll('.command-drawer').forEach(d => {
-                        if (d !== drawer && d.classList.contains('open')) {
-                            d.classList.remove('open');
-                        }
-                    });
-                });
-
-                // Add event listener to info button
-                const infoBtn = commandElement.querySelector('.info-btn');
-                infoBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModal(cmd.id);
-                });
-
-                // Add event listener to copy button
-                const copyBtn = commandElement.querySelector('.copy-btn');
-                if (copyBtn) {
-                    copyBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const commandText = copyBtn.getAttribute('data-command');
-                        navigator.clipboard.writeText(commandText);
-
-                        // Feedback visual
-                        const originalText = copyBtn.innerHTML;
-                        copyBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Copiado!';
-                        copyBtn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
-                        copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
-
-                        setTimeout(() => {
-                            copyBtn.innerHTML = originalText;
-                            copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
-                            copyBtn.classList.add('bg-gray-700', 'hover:bg-gray-600');
-                        }, 2000);
-                    });
-                }
-
-                commandsContainer.appendChild(commandElement);
-            });
-
-            // Configurar posicionamento dos tooltips
-            setupTooltipPositioning();
-        }
-
-        // Configurar posicionamento inteligente dos tooltips
-        function setupTooltipPositioning() {
-            document.querySelectorAll('.tooltip-container').forEach(container => {
-                const tooltip = container.querySelector('.tooltip');
-
-                container.addEventListener('mouseenter', function () {
-                    const containerRect = container.getBoundingClientRect();
-                    const tooltipRect = tooltip.getBoundingClientRect();
-
-                    // Reset position
-                    tooltip.classList.remove('bottom');
-
-                    // Verificar se o tooltip caberia acima do elemento
-                    if (containerRect.top - tooltipRect.height < 10) { // 10px de margem
-                        tooltip.classList.add('bottom');
-                    }
-                });
-            });
-        }
-
-        // Open modal with command info
-        function openModal(cmdId) {
-            const command = commands.find(cmd => cmd.id === cmdId);
-            if (!command) return;
-
-            // Update URL
-            history.pushState(null, null, `?m=${cmdId}`);
-
-            // Parse the command with colors
-            const parsedCommand = parseMCString(command.command);
-            const parsedDescription = parseMCString(command.description);
-
-            // Set modal content
-            modalCommand.innerHTML = parsedCommand;
-            modalDescription.innerHTML = parsedDescription;
-
-            // Show modal
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close modal
-        function closeModal() {
-            modal.classList.remove('open');
-            history.pushState(null, null, window.location.pathname);
-            document.body.style.overflow = '';
-        }
-
-        // Capture modal as PNG
-        function captureModal() {
-            // Add a small delay to ensure everything is rendered
-            setTimeout(() => {
-                // Add temporary class for capture
-                captureArea.classList.add('capturing');
-
-                html2canvas(captureArea, {
-                    backgroundColor: null,
-                    scale: 2,
-                    logging: false,
-                    useCORS: true,
-                    allowTaint: true,
-                    windowWidth: captureArea.scrollWidth,
-                    windowHeight: captureArea.scrollHeight
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    const commandId = new URLSearchParams(window.location.search).get('m') || 'command';
-                    link.download = `comando-${commandId}-${new Date().toISOString().slice(0, 10)}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-
-                    // Remove temporary class
-                    captureArea.classList.remove('capturing');
-                });
-            }, 100);
-        }
-
-        // Check URL for modal parameter on load
-        function checkUrlForModal() {
-            const params = new URLSearchParams(window.location.search);
-            const cmdId = params.get('m');
-            if (cmdId) {
-                openModal(cmdId);
-            }
-        }
-
-        // Event listeners
-        searchInput.addEventListener('input', (e) => {
-            renderCommands(e.target.value);
-        });
-
-        closeModalBtn.addEventListener('click', closeModal);
-        captureBtn.addEventListener('click', captureModal);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('open')) {
-                closeModal();
-            }
-        });
-
-        // Initialize
-        renderCommands();
-        checkUrlForModal();
-
-        // Add animation delay styles dynamically
-        const style = document.createElement('style');
-        for (let i = 0; i < 10; i++) {
-            style.innerHTML += `
-                .delay-${i} {
-                    animation-delay: ${i * 0.1}s;
-                }
-            `;
-        }
-        style.innerHTML += `
-            .capturing {
-                box-shadow: 0 0 0 2px #48bb78;
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
 </body>
-
 </html>
