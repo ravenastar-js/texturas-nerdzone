@@ -139,7 +139,7 @@
 .command-drawer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 0.3s ease-out;
     background-color: #222222;
     border-radius: 0 0 0.5rem 0.5rem;
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -147,19 +147,22 @@
 
 .command-drawer.open {
     max-height: 500px;
-    padding: 1rem;
-    border-top: 1px solid rgba(74, 85, 104, 0.3);
+    transition: max-height 0.3s ease-in;
 }
 
+
 .command-drawer-content {
+    padding: 1rem;
     opacity: 0;
     transform: translateY(-10px);
-    transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    border-top: 1px solid rgba(74, 85, 104, 0.3);
 }
 
 .command-drawer.open .command-drawer-content {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.2s ease 0.1s, transform 0.2s ease 0.1s;
 }
 
 /* Modal estilizado */
@@ -175,12 +178,14 @@
     opacity: 1;
     visibility: visible;
 }
+
 .p3 {
     padding:
-  10px 20px;
+        10px 20px;
     border-radius:
-  10px;
-  }
+        10px;
+}
+
 .modal-content {
     background: #2e2d2d;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
@@ -353,14 +358,17 @@
 .capture-footer p.text-xs {
     opacity: 0.6;
 }
+
 #capture-area.capturing .ip {
     color: #FF5555;
     font-weight: 600;
 }
+
 #capture-area.capturing .ip2 {
     color: #ffffff;
     font-weight: 600;
 }
+
 #capture-area.capturing .id {
     color: #f6e05e;
     font-weight: 600;
@@ -370,6 +378,7 @@
     color: rgba(255, 255, 255, 0.3);
     margin: 0 0.5rem;
 }
+
 /* Efeito de partículas decorativas (opcional) */
 .capture-area.capturing::after {
     content: '';
