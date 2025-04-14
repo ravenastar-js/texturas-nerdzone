@@ -105,6 +105,11 @@ const commands = [
         description: '&fCrie uma home personalizada em sua plot com um nome customizado.'
     },
     {
+        id: 'delhome',
+        command: '&f/delhome &6<nome>',
+        description: '&fDeletar sua home.'
+    },
+    {
         id: 'lixeira',
         command: '&f/lixeira',
         description: '&fAbre uma lixeira virtual para descartar itens indesejados.'
@@ -123,6 +128,31 @@ const commands = [
         id: 'plotadd',
         command: '&f/plot add &6<nick>',
         description: '&fAdiciona um jogador à sua plot com permissões limitadas (apenas enquanto você estiver online).'
+    },
+    {
+        id: 'plotdeny',
+        command: '&f/plot deny &6<nick>',
+        description: '&fImpedir que o player entre em sua plot.'
+    },
+    {
+        id: 'plotdeny*',
+        command: '&f/plot deny * &6<seu nick>',
+        description: '&fImpedir que TODOS os players entrem em sua plot, exceto você.'
+    },
+    {
+        id: 'plotundeny',
+        command: '&f/plot undeny &6<nick>',
+        description: '&fPermitir que o player entre em sua plot.'
+    },
+    {
+        id: 'plotundeny*',
+        command: '&f/plot undeny * &6<seu nick>',
+        description: '&fAutorizar que TODOS os players entrem em sua plot.'
+    },
+    {
+        id: 'plotsethome',
+        command: '&f/plot sethome',
+        description: '&fDefina onde será o local de spawn da sua plot.'
     },
     {
         id: 'leilaoanunciar',
