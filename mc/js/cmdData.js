@@ -97,7 +97,7 @@ const commands = [
     {
         id: 'homes',
         command: '&f/homes',
-        description: '&fVejas suas suas homes.'
+        description: '&fVejas suas homes.'
     },
     {
         id: 'sethome',
