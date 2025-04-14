@@ -392,6 +392,7 @@ h1 {
     font-size: 1.2rem;
     line-height: 1;
     transition: background-color 0.2s, transform 0.2s;
+    z-index: 2;
 }
 
 .texture-info-btn:hover {
@@ -514,7 +515,7 @@ h1 {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     left: 0;
     top: 0;
     width: 100%;
@@ -1016,9 +1017,10 @@ h1 {
         justify-content: center;
         gap: 15px;
     }
-.f-mbl {
-    flex-wrap: wrap;
-    justify-content: center;
-}
+
+    .f-mbl {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
 }
