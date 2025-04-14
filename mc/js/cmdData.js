@@ -1,5 +1,9 @@
- // Command data
- const commands = [
+const commands = [
+    {
+        id: 'ajuda',
+        command: '&f/ajuda',
+        description: '&fConfira o tutorial do servidor.'
+    },
     {
         id: 'rankup',
         command: '&f/rankup',
@@ -38,7 +42,7 @@
     {
         id: 'vendas',
         command: '&f/vendas',
-        description: '&fAcessa o menu de vendas do servidor para comprar ou vender itens.'
+        description: '&fMostra o tempo do booster de vendas.'
     },
     {
         id: 'skygrid',
@@ -81,6 +85,11 @@
         description: '&fMostra o link do site oficial do servidor para mais informações.'
     },
     {
+        id: 'toggletell',
+        command: '&f/toggletell',
+        description: '&fDesativa/ativa o tell.'
+    },
+    {
         id: 'home',
         command: '&f/home',
         description: '&fTeleporta-se para sua casa principal definida no servidor.'
@@ -104,6 +113,16 @@
         id: 'plotadd',
         command: '&f/plot add &6<nick>',
         description: '&fAdiciona um jogador à sua plot com permissões limitadas (apenas enquanto você estiver online).'
+    },
+    {
+        id: 'leilaoanunciar',
+        command: '&f/leilao anunciar &6<valor>',
+        description: '&fPara negociar seus itens com outros jogadores.'
+    },
+    {
+        id: 'warpreciclar',
+        command: '&f/warp reciclar',
+        description: '&fCaso não utilize seus spawners antigos, você pode reciclá-los...'
     },
     {
         id: 'plottrust',
