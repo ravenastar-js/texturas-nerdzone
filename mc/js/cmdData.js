@@ -147,7 +147,7 @@ const commands = [
     {
         id: 'plotundeny*',
         command: '&f/plot undeny * &6<seu nick>',
-        description: '&fAutorizar que TODOS os players entrem em sua plot.'
+        description: '&fPermitir que todos os players consigam entrar em sua plot.'
     },
     {
         id: 'plotsethome',
