@@ -91,8 +91,18 @@ const commands = [
     },
     {
         id: 'home',
-        command: '&f/home',
-        description: '&fTeleporta-se para sua casa principal definida no servidor.'
+        command: '&f/home &6<nome>',
+        description: '&fTeleporta-se para sua home.'
+    },
+    {
+        id: 'homes',
+        command: '&f/homes',
+        description: '&fVejas suas suas homes.'
+    },
+    {
+        id: 'sethome',
+        command: '&f/sethome &6<nome>',
+        description: '&fCrie uma home personalizada em sua plot com um nome customizado.'
     },
     {
         id: 'lixeira',
