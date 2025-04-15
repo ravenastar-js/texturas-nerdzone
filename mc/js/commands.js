@@ -198,7 +198,14 @@ function setupTooltipPositioning() {
 // Open modal with command info
 function openModal(cmdId) {
     const command = commands.find(cmd => cmd.id === cmdId);
-    if (!command) return;
+    
+    if (!command) {
+        // Limpar conteúdo do modal se o comando não for encontrado
+        modalCommand.innerHTML = '';
+        modalDescription.innerHTML = '';
+        closeModal();
+        return;
+    }
 
     // Update URL
     history.pushState(null, null, `?m=${cmdId}`);
