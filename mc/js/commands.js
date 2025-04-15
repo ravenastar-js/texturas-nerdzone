@@ -243,9 +243,11 @@ function closeModal() {
 function captureModal() {
     if (!currentCommandId) return;
 
+    // Bloquear o botão de captura
     captureBtn.disabled = true;
     captureBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
+    // 1. Criar um elemento temporário idêntico ao captureArea
     const tempCaptureArea = document.createElement('div');
     tempCaptureArea.id = 'temp-capture-area';
     tempCaptureArea.className = captureArea.className;
@@ -254,8 +256,10 @@ function captureModal() {
     tempCaptureArea.style.top = '0';
     document.body.appendChild(tempCaptureArea);
 
+    // 2. Obter o comando atual
     const command = commands.find(cmd => cmd.id === currentCommandId) || {};
 
+    // 3. Popular o elemento temporário com o conteúdo de captura
     tempCaptureArea.innerHTML = `
         <div class="capture-header">
             <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="capture-logo">
@@ -272,18 +276,34 @@ function captureModal() {
                 ${parseMCString(command.description || '')}
             </div>
         </div>
-        <div class="capture-footer">
-            <p><span class="ip">nerd</span><span class="ip2">zone.gg</span><span class="separator">•</span><span class="id">${currentCommandId}</span></p>
-            <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
+        <div class="capture-footer" style="
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 14px;
+        ">
+            <p style="margin: 0;">
+                <span class="ip" style="color: #FF5555;">nerd<span class="ip2" style="color:rgb(255, 255, 255);">zone.gg</span></span>
+                
+                <span class="separator" style="margin: 0 5px; color: #555;">•</span>
+                <span class="id" style="color: #FFFF55; font-family: monospace;">${currentCommandId}</span>
+            </p>
+            <p class="text-xs mt-1" style="margin-top: 5px; font-size: 11px; color: #666;">
+                Gerado em ${new Date().toLocaleDateString('pt-BR')}
+            </p>
         </div>
     `;
 
+    // 4. Aplicar estilos específicos para captura
     tempCaptureArea.style.width = '800px';
     tempCaptureArea.style.minHeight = '400px';
     tempCaptureArea.style.padding = '30px';
     tempCaptureArea.style.margin = '0 auto';
+    tempCaptureArea.style.backgroundColor = '#1e1e1e'; 
     tempCaptureArea.classList.add('capturing');
 
+    // 5. Capturar o elemento temporário
     setTimeout(() => {
         html2canvas(tempCaptureArea, {
             backgroundColor: null,
@@ -294,22 +314,29 @@ function captureModal() {
             windowWidth: 800,
             windowHeight: tempCaptureArea.scrollHeight
         }).then(canvas => {
+            // 6. Criar e disparar o download
             const link = document.createElement('a');
             link.download = `comando-${currentCommandId}-${new Date().toISOString().slice(0, 10)}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
 
+            // 7. Limpeza: remover o elemento temporário
             document.body.removeChild(tempCaptureArea);
 
+            // 8. Liberar o botão de captura
             captureBtn.disabled = false;
             captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }).catch(error => {
             console.error('Erro ao capturar:', error);
+
+            // Limpeza em caso de erro
             document.body.removeChild(tempCaptureArea);
+
+            // Liberar o botão de captura
             captureBtn.disabled = false;
             captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         });
-    }, 200);
+    }, 300); // Delay aumentado para garantir renderização
 }
 
 /**
