@@ -268,21 +268,15 @@ function captureModal() {
                 <p class="text-sm mc-gray">Comando do Servidor</p>
             </div>
         </div>
-        <div class="command-content">
-            <div class="text-2xl font-bold mb-4 break-words">
-                ${parseMCString(command.command || '')}
+            <div class="command-content">
+                <div id="modal-command" class="text-2xl font-bold mb-4 break-words">
+                    ${parseMCString(command.command || '')}
+                </div>
+                <div id="modal-description" class="text-lg mc-gray break-words">
+                    ${parseMCString(command.description || '')}
+                </div>
             </div>
-            <div class="text-lg mc-gray break-words">
-                ${parseMCString(command.description || '')}
-            </div>
-        </div>
-        <div class="capture-footer" style="
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #333;
-            color: #888;
-            font-size: 14px;
-        ">
+        <div class="capture-footer">
             <p style="margin: 0;">
                 <span class="ip" style="color: #FF5555;">nerd<span class="ip2" style="color:rgb(255, 255, 255);">zone.gg</span></span>
                 
@@ -300,7 +294,7 @@ function captureModal() {
     tempCaptureArea.style.minHeight = '400px';
     tempCaptureArea.style.padding = '30px';
     tempCaptureArea.style.margin = '0 auto';
-    tempCaptureArea.style.backgroundColor = '#1e1e1e'; 
+    tempCaptureArea.style.backgroundColor = '#1e1e1e';
     tempCaptureArea.classList.add('capturing');
 
     // 5. Capturar o elemento temporário
