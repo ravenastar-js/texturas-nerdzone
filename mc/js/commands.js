@@ -1,4 +1,8 @@
-// Color mapping and parsing functions
+/**
+ * 🎨 Color mapping object with Minecraft color codes to CSS class mapping
+ * @type {Object<string, string>}
+ * @description Contains mappings for all Minecraft color codes (both § and & formats)
+ */
 const colorMap = (() => {
     const baseColors = {
         '§0': 'mc-black',
@@ -28,19 +32,27 @@ const colorMap = (() => {
     return extendedColors;
 })();
 
+/**
+ * ✨ Parses Minecraft formatted string into HTML with color spans
+ * @param {string} text - The Minecraft formatted string to parse
+ * @returns {string} - HTML string with color spans
+ * @description Converts Minecraft color codes (§ or &) to HTML spans with appropriate classes
+ */
 function parseMCString(text) {
     if (!text) return '';
+
     const withEntities = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     const result = withEntities
         .replace(/[§&][0-9a-f]/g, match => {
             const normalizedKey = '§' + match[1];
             return `</span><span class="${colorMap[normalizedKey] || ''}">`;
         })
         .replace(/<\/span>/g, '', 1) + '</span>';
+
     return result.replace(/<span class=""><\/span>/g, '');
 }
 
-// DOM elements
 const commandsContainer = document.getElementById('commands-container');
 const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
@@ -50,8 +62,14 @@ const closeModalBtn = document.getElementById('close-modal');
 const captureBtn = document.getElementById('capture-btn');
 const captureArea = document.getElementById('capture-area');
 
+/**
+ * 🖼️ Renders command cards based on search filter
+ * @param {string} [filter=''] - The search filter string
+ * @description Displays all commands that match the filter, or a "no results" message
+ */
 function renderCommands(filter = '') {
     commandsContainer.innerHTML = '';
+
     const filteredCommands = commands.filter(cmd =>
         cmd.command.toLowerCase().includes(filter.toLowerCase()) ||
         cmd.description.toLowerCase().includes(filter.toLowerCase())
@@ -59,12 +77,12 @@ function renderCommands(filter = '') {
 
     if (filteredCommands.length === 0) {
         commandsContainer.innerHTML = `
-            <div class="col-span-full text-center py-8 mc-gray">
-                <i class="fas fa-search-minus text-5xl mb-4 block"></i>
-                <p class="text-xl">Nenhum comando encontrado para "${filter}"</p>
-                <p class="text-sm mt-2">Tente usar termos diferentes</p>
-            </div>
-        `;
+                <div class="col-span-full text-center py-8 mc-gray">
+                    <i class="fas fa-search-minus text-5xl mb-4 block"></i>
+                    <p class="text-xl">Nenhum comando encontrado para "${filter}"</p>
+                    <p class="text-sm mt-2">Tente usar termos diferentes</p>
+                </div>
+            `;
         return;
     }
 
@@ -76,43 +94,48 @@ function renderCommands(filter = '') {
         const parsedDescription = parseMCString(cmd.description);
 
         commandElement.innerHTML = `
-            <div class="p-5 cursor-pointer command-header">
-                <div class="flex justify-between items-start">
-                    <div class="flex-1 command-text">
-                        <h3 class="text-xl font-bold mb-2">${parsedCommand}</h3>
-                    </div>
-                    <div class="tooltip-container">
-                        <button class="info-btn ml-2 p-1 text-gray-400 hover:text-yellow-400 transition-colors duration-300" data-id="${cmd.id}">
-                            <i class="fas fa-info-circle text-xl"></i>
-                        </button>
-                        <span class="tooltip">Mais detalhes</span>
-                    </div>
-                </div>
-            </div>
-            <div class="command-drawer">
-                <div class="command-drawer-content p-4">
-                    <p class="text-gray-300 mb-4 command-text">${parsedDescription}</p>
-                    <div class="flex justify-between items-center text-sm mc-gray">
-                        <span class="bg-[#2e2d2d] px-2 py-1 rounded flex items-center gap-1">
-                              <span class="text-white">ID:</span>
-                              <span class="text-yellow-400 font-mono">${cmd.id}</span>
-                        </span>
+                <div class="p-5 cursor-pointer command-header">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1 command-text">
+                            <h3 class="text-xl font-bold mb-2">${parsedCommand}</h3>
+                        </div>
                         <div class="tooltip-container">
-                            <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
-                                <i class="fas fa-copy mr-1"></i>Copiar comando
+                            <button class="info-btn ml-2 p-1 text-gray-400 hover:text-yellow-400 transition-colors duration-300" data-id="${cmd.id}">
+                                <i class="fas fa-info-circle text-xl"></i>
                             </button>
-                            <span class="tooltip">Copiar para área de transferência</span>
+                            <span class="tooltip">Mais detalhes</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
+                <div class="command-drawer">
+                    <div class="command-drawer-content p-4">
+                        <p class="text-gray-300 mb-4 command-text">${parsedDescription}</p>
+                        <div class="flex justify-between items-center text-sm mc-gray">
+                            <span class="bg-[#2e2d2d] px-2 py-1 rounded flex items-center gap-1">
+                                  <span class="text-white">ID:</span>
+                                  <span class="text-yellow-400 font-mono">${cmd.id}</span>
+                            </span>
+                            <div class="tooltip-container">
+                                <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
+                                    <i class="fas fa-copy mr-1"></i>Copiar comando
+                                </button>
+                                <span class="tooltip">Copiar para área de transferência</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
 
         commandElement.addEventListener('click', (e) => {
-            if (e.target.closest('.info-btn') || e.target.closest('.copy-btn') || e.target.closest('.tooltip')) return;
+            if (e.target.closest('.info-btn') ||
+                e.target.closest('.copy-btn') ||
+                e.target.closest('.tooltip')) {
+                return;
+            }
 
             const drawer = commandElement.querySelector('.command-drawer');
             drawer.classList.toggle('open');
+
             document.querySelectorAll('.command-drawer').forEach(d => {
                 if (d !== drawer && d.classList.contains('open')) {
                     d.classList.remove('open');
@@ -120,28 +143,31 @@ function renderCommands(filter = '') {
             });
         });
 
-        commandElement.querySelector('.info-btn').addEventListener('click', (e) => {
+        const infoBtn = commandElement.querySelector('.info-btn');
+        infoBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             openModal(cmd.id);
         });
 
         const copyBtn = commandElement.querySelector('.copy-btn');
-        copyBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const commandText = copyBtn.getAttribute('data-command');
-            navigator.clipboard.writeText(commandText);
+        if (copyBtn) {
+            copyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const commandText = copyBtn.getAttribute('data-command');
+                navigator.clipboard.writeText(commandText);
 
-            const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Copiado!';
-            copyBtn.classList.replace('bg-[#2e2d2d]', 'bg-green-600');
-            copyBtn.classList.replace('hover:bg-gray-600', 'hover:bg-green-700');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Copiado!';
+                copyBtn.classList.remove('bg-[#2e2d2d]', 'hover:bg-gray-600');
+                copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
 
-            setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-                copyBtn.classList.replace('bg-green-600', 'bg-[#2e2d2d]');
-                copyBtn.classList.replace('hover:bg-green-700', 'hover:bg-gray-600');
-            }, 2000);
-        });
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    copyBtn.classList.add('bg-[#2e2d2d]', 'hover:bg-gray-600');
+                }, 2000);
+            });
+        }
 
         commandsContainer.appendChild(commandElement);
     });
@@ -149,13 +175,20 @@ function renderCommands(filter = '') {
     setupTooltipPositioning();
 }
 
+/**
+ * 🛠️ Configures smart positioning for tooltips
+ * @description Ensures tooltips stay visible by positioning them above or below their parent element
+ */
 function setupTooltipPositioning() {
     document.querySelectorAll('.tooltip-container').forEach(container => {
         const tooltip = container.querySelector('.tooltip');
+
         container.addEventListener('mouseenter', function () {
             const containerRect = container.getBoundingClientRect();
             const tooltipRect = tooltip.getBoundingClientRect();
+
             tooltip.classList.remove('bottom');
+
             if (containerRect.top - tooltipRect.height < 10) {
                 tooltip.classList.add('bottom');
             }
@@ -164,39 +197,66 @@ function setupTooltipPositioning() {
 }
 
 let currentCommandId = null;
+
+/**
+ * 🪟 Opens modal with detailed command information
+ * @param {string} cmdId - The ID of the command to display
+ * @description Shows a modal with the full command details and updates browser history
+ */
 function openModal(cmdId) {
     currentCommandId = cmdId;
     const command = commands.find(cmd => cmd.id === cmdId);
+
     if (!command) {
+        modalCommand.innerHTML = '';
+        modalDescription.innerHTML = '';
         closeModal();
         return;
     }
 
     history.pushState(null, null, `?m=${cmdId}`);
 
-    modalCommand.innerHTML = parseMCString(command.command);
-    modalDescription.innerHTML = parseMCString(command.description);
+    const parsedCommand = parseMCString(command.command);
+    const parsedDescription = parseMCString(command.description);
+
+    modalCommand.innerHTML = parsedCommand;
+    modalDescription.innerHTML = parsedDescription;
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
 
+/**
+ * ❌ Closes the modal dialog
+ * @description Hides the modal and restores browser history state
+ */
 function closeModal() {
     modal.classList.remove('open');
     history.pushState(null, null, window.location.pathname);
     document.body.style.overflow = '';
 }
 
+/**
+ * 📸 Captures the command details as a PNG image
+ * @description Creates a styled screenshot of the command details for sharing
+ */
 function captureModal() {
+    if (!currentCommandId) return;
+
     captureBtn.disabled = true;
     captureBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
-    const commandId = currentCommandId || 'command';
-    const command = commands.find(cmd => cmd.id === commandId) || {};
+    const tempCaptureArea = document.createElement('div');
+    tempCaptureArea.id = 'temp-capture-area';
+    tempCaptureArea.className = captureArea.className;
+    tempCaptureArea.style.position = 'fixed';
+    tempCaptureArea.style.left = '-9999px';
+    tempCaptureArea.style.top = '0';
+    document.body.appendChild(tempCaptureArea);
 
-    const tempDiv = document.createElement('div');
-    tempDiv.className = 'capture-wrapper';
-    tempDiv.innerHTML = `
+    const command = commands.find(cmd => cmd.id === currentCommandId) || {};
+
+    tempCaptureArea.innerHTML = `
         <div class="capture-header">
             <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="capture-logo">
             <div>
@@ -213,57 +273,74 @@ function captureModal() {
             </div>
         </div>
         <div class="capture-footer">
-            <p><span class="ip">nerd</span><span class="ip2">zone.gg</span><span class="separator">•</span><span class="id">${commandId}</span></p>
+            <p><span class="ip">nerd</span><span class="ip2">zone.gg</span><span class="separator">•</span><span class="id">${currentCommandId}</span></p>
             <p class="text-xs mt-1">Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
         </div>
     `;
 
-    document.body.appendChild(tempDiv);
-    tempDiv.classList.add('capturing');
-    tempDiv.style.width = '800px';
-    tempDiv.style.padding = '30px';
-    tempDiv.style.margin = '0 auto';
+    tempCaptureArea.style.width = '800px';
+    tempCaptureArea.style.minHeight = '400px';
+    tempCaptureArea.style.padding = '30px';
+    tempCaptureArea.style.margin = '0 auto';
+    tempCaptureArea.classList.add('capturing');
 
     setTimeout(() => {
-        html2canvas(tempDiv, {
+        html2canvas(tempCaptureArea, {
             backgroundColor: null,
             scale: 2,
             logging: false,
             useCORS: true,
             allowTaint: true,
             windowWidth: 800,
-            windowHeight: tempDiv.scrollHeight
+            windowHeight: tempCaptureArea.scrollHeight
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `comando-${commandId}-${new Date().toISOString().slice(0, 10)}.png`;
+            link.download = `comando-${currentCommandId}-${new Date().toISOString().slice(0, 10)}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
 
-            tempDiv.remove();
-            openModal(commandId);
+            document.body.removeChild(tempCaptureArea);
+
             captureBtn.disabled = false;
             captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }).catch(error => {
             console.error('Erro ao capturar:', error);
-            tempDiv.remove();
+            document.body.removeChild(tempCaptureArea);
             captureBtn.disabled = false;
             captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         });
-    }, 100);
+    }, 200);
 }
 
+/**
+ * 🔍 Checks URL for modal parameter on page load
+ * @description Opens a command modal if the URL contains a command ID parameter
+ */
 function checkUrlForModal() {
     const params = new URLSearchParams(window.location.search);
     const cmdId = params.get('m');
-    if (cmdId) openModal(cmdId);
+    if (cmdId) {
+        openModal(cmdId);
+    }
 }
 
-searchInput.addEventListener('input', (e) => renderCommands(e.target.value));
+searchInput.addEventListener('input', (e) => {
+    renderCommands(e.target.value);
+});
+
 closeModalBtn.addEventListener('click', closeModal);
 captureBtn.addEventListener('click', captureModal);
-modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+    }
 });
 
 renderCommands();
@@ -271,7 +348,15 @@ checkUrlForModal();
 
 const style = document.createElement('style');
 for (let i = 0; i < commands.length; i++) {
-    style.innerHTML += `.delay-${i} { animation-delay: ${i * 0.1}s; }`;
+    style.innerHTML += `
+            .delay-${i} {
+                animation-delay: ${i * 0.1}s;
+            }
+        `;
 }
-style.innerHTML += `.capturing { box-shadow: 0 0 0 2px #48bb78; }`;
+style.innerHTML += `
+        .capturing {
+            box-shadow: 0 0 0 2px #48bb78;
+        }
+    `;
 document.head.appendChild(style);
