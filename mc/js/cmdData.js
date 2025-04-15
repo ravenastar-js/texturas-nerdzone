@@ -20,6 +20,11 @@ const commands = [
         description: '&fAcessa o menu de warps disponíveis no servidor.'
     },
     {
+        id: 'warpspawners',
+        command: '&f/warp spawners',
+        description: '&fÉ iniciante no servidor? Acesse a farm pública e comece a subir seu rank!'
+    },
+    {
         id: 'mina',
         command: '&f/mina',
         description: '&fAcesse as minas do servidor, onde você pode coletar recursos e enfrentar outros jogadores na mina PvP.'
@@ -75,6 +80,16 @@ const commands = [
         description: '&fVer booster de nível ativo e o tempo restante.'
     },
     {
+        id: 'skillsvernivel',
+        command: '&f/skills vernivel',
+        description: '&fVer booster de nível ativo e o tempo restante.'
+    },
+    {
+        id: 'skillsplayer',
+        command: '&f/skills &6<jogador>',
+        description: '&fPara ver os níveis de outro jogador!'
+    },
+    {
         id: 'kit',
         command: '&f/kit',
         description: '&fAcessa os kits disponíveis para seu rank e os resgata conforme os cooldowns.'
@@ -98,6 +113,11 @@ const commands = [
         id: 'homes',
         command: '&f/homes',
         description: '&fVejas suas homes.'
+    },
+    {
+        id: 'moneypay',
+        command: '&f/money pay &6<nick> <valor>',
+        description: '&fEnvie money para outros jogadores.'
     },
     {
         id: 'sethome',
@@ -178,6 +198,21 @@ const commands = [
         id: 'plotauto',
         command: '&f/plot auto',
         description: '&fObtém automaticamente uma plot disponível em localização aleatória.'
+    },
+    {
+        id: 'plotclaim',
+        command: '&f/plot claim',
+        description: '&fVá em uma plot sem dono e obtenha-a.'
+    },
+    {
+        id: 'pot',
+        command: '&f/pot',
+        description: '&fPara agrupar suas poções!'
+    },
+    {
+        id: 'verkit',
+        command: '&f/verkit &6<nome>',
+        description: '&fVeja o que há no kit de cada rank. Exemplo: &6/verkit creeper.'
     },
     {
         id: 'changepass',

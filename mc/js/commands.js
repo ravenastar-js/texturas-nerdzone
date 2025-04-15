@@ -1,3 +1,18 @@
+
+/**
+ * 🔀 Shuffles an array in place using Fisher-Yates algorithm
+ * @param {Array} array - The array to shuffle
+ * @returns {Array} - The shuffled array
+ */
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
 /**
  * 🎨 Color mapping object with Minecraft color codes to CSS class mapping
  * @type {Object<string, string>}
@@ -70,10 +85,15 @@ const captureArea = document.getElementById('capture-area');
 function renderCommands(filter = '') {
     commandsContainer.innerHTML = '';
 
-    const filteredCommands = commands.filter(cmd =>
+    let filteredCommands = commands.filter(cmd =>
         cmd.command.toLowerCase().includes(filter.toLowerCase()) ||
         cmd.description.toLowerCase().includes(filter.toLowerCase())
     );
+
+    // Embaralhar os comandos apenas se não houver filtro aplicado
+    if (filter === '') {
+        filteredCommands = shuffleArray(filteredCommands);
+    }
 
     if (filteredCommands.length === 0) {
         commandsContainer.innerHTML = `
@@ -371,7 +391,7 @@ const style = document.createElement('style');
 for (let i = 0; i < commands.length; i++) {
     style.innerHTML += `
             .delay-${i} {
-                animation-delay: ${i * 0.1}s;
+                animation-delay: ${i * 0.05}s;
             }
         `;
 }
