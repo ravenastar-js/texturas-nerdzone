@@ -1,0 +1,174 @@
+/* Tip Card Estilo Geral (mantido) */
+.tip-card {
+    background-color: rgba(30, 30, 30, 0.7);
+    border-left: 4px solid #FFFF55;
+    padding: 15px 20px;
+    margin: 25px auto;
+    max-width: 800px;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+.tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    pointer-events: none;
+}
+
+.tip-card-content {
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+    position: relative;
+}
+
+.tip-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    color: #FFFF55;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.tip-prefix {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #FFFF55;
+    white-space: nowrap;
+}
+
+.tip-text-container {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.tip-text {
+    display: inline;
+}
+
+/* Cada span do texto animado */
+.tip-text span {
+    font-weight: 600;
+    position: relative;
+    transform-origin: center;
+    opacity: 0;
+    /* Inicia invisível para a animação letterPop */
+}
+
+/* Animações melhoradas */
+@keyframes elegantFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(15px) scale(0.95);
+        filter: blur(2px);
+    }
+}
+
+@keyframes elegantFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-15px) scale(1.05);
+        filter: blur(2px);
+    }
+
+    70% {
+        opacity: 0.8;
+        filter: blur(1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+@keyframes letterPop {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(1);
+    }
+
+    80% {
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes textGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+    }
+
+    50% {
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.elegant-fade-out {
+    animation: elegantFadeOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.elegant-fade-in {
+    animation: elegantFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.text-glowing {
+    animation: textGlow 3s ease-in-out infinite;
+}
+
+/* Animação do ícone melhorada */
+.wave {
+    animation: wave 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform-origin: bottom center;
+}
+
+@keyframes wave {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(15deg);
+    }
+
+    40% {
+        transform: rotate(-10deg);
+    }
+
+    60% {
+        transform: rotate(5deg);
+    }
+
+    80% {
+        transform: rotate(-5deg);
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .tip-card-content {
+        flex-direction: column;
+    }
+}

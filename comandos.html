@@ -31,13 +31,14 @@
     <link rel="stylesheet" href="mc/css/commands.css">
     <link rel="stylesheet" href="mc/css/footer.css">
     <link rel="stylesheet" href="mc/css/regras.css">
+    <link rel="stylesheet" href="mc/css/tip.css">
 </head>
 
 <body class="bg-mc-dark text-gray-100 min-h-screen font-sans overflow-x-hidden">
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
-         
-        <header class="mb-12 text-center t-center">
+
+        <header class="mb-5 text-center t-center">
             <div class="p3 mb-6 rounded-lg bg-mc-darker title">
                 <i class="fas fa-cubes text-3xl mc-yellow mr-3"></i>
                 <h1 class="text-4xl md:text-5xl font-bold inline-block">
@@ -48,6 +49,17 @@
             <p class="text-xl mc-gray max-w-2xl mx-auto">
                 Todos os comandos essenciais do servidor em um só lugar
             </p>
+
+            <!-- Tip Card -->
+            <div class="tip-card">
+                <div class="tip-card-content">
+                    <i class="fas fa-lightbulb tip-icon"></i>
+                    <span class="tip-prefix">DICA:</span>
+                    <div class="tip-text-container">
+                        <div class="tip-text" id="tip-text"></div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <!-- Search Bar -->
@@ -159,6 +171,7 @@
     <script src="mc/js/commands.js"></script>
     <script src="mc/js/goHome.js"></script>
     <script src="mc/js/footer.js"></script>
-
+    <script src="mc/js/tip.js"></script>
 </body>
+
 </html>

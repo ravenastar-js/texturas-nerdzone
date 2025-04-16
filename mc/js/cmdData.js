@@ -210,6 +210,11 @@ const commands = [
         description: '&fVá em uma plot sem dono e obtenha-a.'
     },
     {
+        id: 'plothome',
+        command: '&f/plot home &6<nome>',
+        description: '&fVá para a plot de um jogador. Se o jogador possuir várias plots e desejar ir para uma específica, utilize &e/p h:2 <nome>&f.'
+    },
+    {
         id: 'pot',
         command: '&f/pot',
         description: '&fPara agrupar suas poções!'
@@ -217,7 +222,7 @@ const commands = [
     {
         id: 'pref',
         command: '&f/pref',
-        description: '&fPara ativar/desativar recursos, como: chat local, chat global, transferências, vendas com a tecla Shift, vendas automáticas e outros.'
+        description: '&fPara ativar/desativar preferências, como: chat local, chat global, transferências, vendas com a tecla Shift, vendas automáticas e outros. &eAs preferências de venda requerem nível de mineração.'
     },
     {
         id: 'heads',
