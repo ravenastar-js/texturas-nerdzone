@@ -177,7 +177,7 @@ const commands = [
     {
         id: 'plotdispose',
         command: '&f/plot dispose',
-        description: '&fUse este comando para deletar uma plot: é necessário estar dentro da plot que deseja excluir e, logo em seguida, usar &6/plot confirm&f.'
+        description: '&fUse este comando para deletar uma plot: é necessário estar dentro da plot que deseja excluir e, logo em seguida, usar &e/plot confirm&f.'
     },
     {
         id: 'leilaoanunciar',
@@ -217,7 +217,7 @@ const commands = [
     {
         id: 'verkit',
         command: '&f/verkit &6<nome>',
-        description: '&fVeja o que há no kit de cada rank. Exemplo: &6/verkit creeper.'
+        description: '&fVeja o que há no kit de cada rank. Exemplo: &e/verkit creeper.'
     },
     {
         id: 'changepass',
