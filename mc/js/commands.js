@@ -1,4 +1,3 @@
-
 /**
  * 🔀 Shuffles an array in place using Fisher-Yates algorithm
  * @param {Array} array - The array to shuffle
@@ -68,6 +67,8 @@ function parseMCString(text) {
     return result.replace(/<span class=""><\/span>/g, '');
 }
 
+const STARRED_KEY = 'starredCommands';
+let starredCommands = JSON.parse(localStorage.getItem(STARRED_KEY)) || [];
 const commandsContainer = document.getElementById('commands-container');
 const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
@@ -78,9 +79,53 @@ const captureBtn = document.getElementById('capture-btn');
 const captureArea = document.getElementById('capture-area');
 
 /**
+ * ⭐ Toggle star status for a command
+ * @param {string} cmdId - The command ID to star/unstar
+ */
+function toggleStar(cmdId) {
+    const index = starredCommands.indexOf(cmdId);
+    if (index === -1) {
+        starredCommands.push(cmdId);
+        // Feedback visual
+        const starBtn = document.querySelector(`.star-btn[data-id="${cmdId}"]`);
+        if (starBtn) {
+            starBtn.innerHTML = '<i class="fas fa-star text-xl"></i>';
+            starBtn.classList.remove('text-gray-400', 'hover:text-yellow-200');
+            starBtn.classList.add('text-yellow-400');
+
+            // Efeito de pulso
+            starBtn.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                starBtn.style.transform = 'scale(1)';
+            }, 300);
+        }
+    } else {
+        starredCommands.splice(index, 1);
+        // Feedback visual
+        const starBtn = document.querySelector(`.star-btn[data-id="${cmdId}"]`);
+        if (starBtn) {
+            starBtn.innerHTML = '<i class="far fa-star text-xl"></i>';
+            starBtn.classList.remove('text-yellow-400');
+            starBtn.classList.add('text-gray-400', 'hover:text-yellow-200');
+        }
+    }
+    localStorage.setItem(STARRED_KEY, JSON.stringify(starredCommands));
+    renderCommands(searchInput.value);
+}
+
+/**
+ * 🌟 Check if a command is starred
+ * @param {string} cmdId - The command ID to check
+ * @returns {boolean} - True if the command is starred
+ */
+function isStarred(cmdId) {
+    return starredCommands.includes(cmdId);
+}
+
+/**
  * 🖼️ Renders command cards based on search filter
  * @param {string} [filter=''] - The search filter string
- * @description Displays all commands that match the filter, or a "no results" message
+ * @description Displays all commands that match the filter, with starred commands first
  */
 function renderCommands(filter = '') {
     commandsContainer.innerHTML = '';
@@ -90,19 +135,26 @@ function renderCommands(filter = '') {
         cmd.description.toLowerCase().includes(filter.toLowerCase())
     );
 
-    // Embaralhar os comandos apenas se não houver filtro aplicado
+    // Separar comandos com estrelas
+    const starredCmds = filteredCommands.filter(cmd => isStarred(cmd.id));
+    let unstarredCmds = filteredCommands.filter(cmd => !isStarred(cmd.id));
+
+    // Embaralhar apenas os não estrelados se não houver filtro
     if (filter === '') {
-        filteredCommands = shuffleArray(filteredCommands);
+        unstarredCmds = shuffleArray(unstarredCmds);
     }
+
+    // Combinar comandos (estrelados primeiro)
+    filteredCommands = [...starredCmds, ...unstarredCmds];
 
     if (filteredCommands.length === 0) {
         commandsContainer.innerHTML = `
-                <div class="col-span-full text-center py-8 mc-gray">
-                    <i class="fas fa-search-minus text-5xl mb-4 block"></i>
-                    <p class="text-xl">Nenhum comando encontrado para "${filter}"</p>
-                    <p class="text-sm mt-2">Tente usar termos diferentes</p>
-                </div>
-            `;
+            <div class="col-span-full text-center py-8 mc-gray">
+                <i class="fas fa-search-minus text-5xl mb-4 block"></i>
+                <p class="text-xl">Nenhum comando encontrado para "${filter}"</p>
+                <p class="text-sm mt-2">Tente usar termos diferentes</p>
+            </div>
+        `;
         return;
     }
 
@@ -110,14 +162,27 @@ function renderCommands(filter = '') {
         const commandElement = document.createElement('div');
         commandElement.className = `command-card rounded-lg transition-all duration-300 animate-fade-in delay-${index}`;
 
+        // Adicionar classe para comandos com estrela
+        if (isStarred(cmd.id)) {
+            commandElement.classList.add('starred');
+            commandElement.style.order = '-1'; // Garante que fique no topo
+        }
+
         const parsedCommand = parseMCString(cmd.command);
         const parsedDescription = parseMCString(cmd.description);
 
         commandElement.innerHTML = `
-                <div class="p-5 cursor-pointer command-header">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1 command-text">
-                            <h3 class="text-xl font-bold mb-2">${parsedCommand}</h3>
+            <div class="p-5 cursor-pointer command-header">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1 command-text">
+                        <h3 class="text-xl font-bold mb-2">${parsedCommand}</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="tooltip-container">
+                            <button class="star-btn ml-2 p-1 ${isStarred(cmd.id) ? 'text-yellow-400' : 'text-gray-400 hover:text-yellow-200'} transition-colors duration-300" data-id="${cmd.id}">
+                                <i class="${isStarred(cmd.id) ? 'fas' : 'far'} fa-star text-xl"></i>
+                            </button>
+                            <span class="tooltip">${isStarred(cmd.id) ? 'Remover estrela' : 'Adicionar estrela'}</span>
                         </div>
                         <div class="tooltip-container">
                             <button class="info-btn ml-2 p-1 text-gray-400 hover:text-yellow-400 transition-colors duration-300" data-id="${cmd.id}">
@@ -127,29 +192,31 @@ function renderCommands(filter = '') {
                         </div>
                     </div>
                 </div>
-                <div class="command-drawer">
-                    <div class="command-drawer-content p-4">
-                        <p class="text-gray-300 mb-4 command-text">${parsedDescription}</p>
-                        <div class="flex justify-between items-center text-sm mc-gray">
-                            <span class="bg-[#2e2d2d] px-2 py-1 rounded flex items-center gap-1">
-                                  <span class="text-white">ID:</span>
-                                  <span class="text-yellow-400 font-mono">${cmd.id}</span>
-                            </span>
-                            <div class="tooltip-container">
-                                <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
-                                    <i class="fas fa-copy mr-1"></i>Copiar comando
-                                </button>
-                                <span class="tooltip">Copiar para área de transferência</span>
-                            </div>
+            </div>
+            <div class="command-drawer">
+                <div class="command-drawer-content p-4">
+                    <p class="text-gray-300 mb-4 command-text">${parsedDescription}</p>
+                    <div class="flex justify-between items-center text-sm mc-gray">
+                        <span class="bg-[#2e2d2d] px-2 py-1 rounded flex items-center gap-1">
+                            <span class="text-white">ID:</span>
+                            <span class="text-yellow-400 font-mono">${cmd.id}</span>
+                        </span>
+                        <div class="tooltip-container">
+                            <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
+                                <i class="fas fa-copy mr-1"></i>Copiar comando
+                            </button>
+                            <span class="tooltip">Copiar para área de transferência</span>
                         </div>
                     </div>
                 </div>
-            `;
+            </div>
+        `;
 
         commandElement.addEventListener('click', (e) => {
             if (e.target.closest('.info-btn') ||
                 e.target.closest('.copy-btn') ||
-                e.target.closest('.tooltip')) {
+                e.target.closest('.tooltip') ||
+                e.target.closest('.star-btn')) {
                 return;
             }
 
@@ -167,6 +234,13 @@ function renderCommands(filter = '') {
         infoBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             openModal(cmd.id);
+        });
+
+        const starBtn = commandElement.querySelector('.star-btn');
+        starBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const cmdId = starBtn.getAttribute('data-id');
+            toggleStar(cmdId);
         });
 
         const copyBtn = commandElement.querySelector('.copy-btn');
@@ -203,13 +277,25 @@ function setupTooltipPositioning() {
     document.querySelectorAll('.tooltip-container').forEach(container => {
         const tooltip = container.querySelector('.tooltip');
 
+        // Verificar se é um tooltip de estrela
+        const isStarTooltip = container.querySelector('.star-btn') !== null;
+
         container.addEventListener('mouseenter', function () {
             const containerRect = container.getBoundingClientRect();
             const tooltipRect = tooltip.getBoundingClientRect();
 
-            tooltip.classList.remove('bottom');
+            tooltip.classList.remove('bottom', 'left', 'right');
 
-            if (containerRect.top - tooltipRect.height < 10) {
+            // Posicionamento especial para tooltips de estrela
+            if (isStarTooltip) {
+                if (containerRect.right + tooltipRect.width > window.innerWidth) {
+                    tooltip.classList.add('left');
+                } else {
+                    tooltip.classList.add('right');
+                }
+            }
+            // Posicionamento padrão para outros tooltips
+            else if (containerRect.top - tooltipRect.height < 10) {
                 tooltip.classList.add('bottom');
             }
         });
@@ -288,14 +374,14 @@ function captureModal() {
                 <h3 class="mc-red">nerd<span class="mc-white">zone.gg</span></h3>
             </div>
         </div>
-            <div class="command-content">
-                <div id="modal-command" class="text-2xl font-bold mb-4 break-words">
-                    ${parseMCString(command.command || '')}
-                </div>
-                <div id="modal-description" class="text-lg mc-gray break-words">
-                    ${parseMCString(command.description || '')}
-                </div>
+        <div class="command-content">
+            <div id="modal-command" class="text-2xl font-bold mb-4 break-words">
+                ${parseMCString(command.command || '')}
             </div>
+            <div id="modal-description" class="text-lg mc-gray break-words">
+                ${parseMCString(command.description || '')}
+            </div>
+        </div>
         <div class="capture-footer">
             <p class="text-xs mt-1" style="margin-top: 5px; font-size: 11px; color: #8ad4ff;">
                 texturas-nerdzone.pages.dev/comandos?m=${currentCommandId}
@@ -344,7 +430,7 @@ function captureModal() {
             captureBtn.disabled = false;
             captureBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         });
-    }, 300); // Delay aumentado para garantir renderização
+    }, 300);
 }
 
 /**
@@ -359,6 +445,7 @@ function checkUrlForModal() {
     }
 }
 
+// Event Listeners
 searchInput.addEventListener('input', (e) => {
     renderCommands(e.target.value);
 });
@@ -378,20 +465,17 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Initialize
 renderCommands();
 checkUrlForModal();
 
 const style = document.createElement('style');
 for (let i = 0; i < commands.length; i++) {
     style.innerHTML += `
-            .delay-${i} {
-                animation-delay: ${i * 0.05}s;
-            }
-        `;
-}
-style.innerHTML += `
-        .capturing {
-            box-shadow: 0 0 0 2px #48bb78;
+        .delay-${i} {
+            animation-delay: ${i * 0.05}s;
         }
     `;
+}
+
 document.head.appendChild(style);

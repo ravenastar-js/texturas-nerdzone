@@ -17,6 +17,24 @@
     --mc-white: #FFFFFF;
 }
 
+/* Adicionar ao seu arquivo CSS existente */
+
+
+.star-btn {
+    transition: all 0.3s ease;
+}
+
+.star-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Adicionar ao CSS */
+.tooltip.left {
+    top: 50%;
+    right: calc(100% + 10px);
+    transform: translateY(-50%);
+}
+
 /* Cores do Minecraft */
 .mc-black {
     color: #000000;
