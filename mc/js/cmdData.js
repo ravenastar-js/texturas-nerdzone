@@ -175,6 +175,11 @@ const commands = [
         description: '&fDefina onde será o local de spawn da sua plot.'
     },
     {
+        id: 'plotdispose',
+        command: '&f/plot dispose',
+        description: '&fUse este comando para deletar uma plot: é necessário estar dentro da plot que deseja excluir e, logo em seguida, usar &6/plot confirm&f.'
+    },
+    {
         id: 'leilaoanunciar',
         command: '&f/leilao anunciar &6<valor>',
         description: '&fPara negociar seus itens com outros jogadores.'
