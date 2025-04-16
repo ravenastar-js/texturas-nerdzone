@@ -215,6 +215,16 @@ const commands = [
         description: '&fPara agrupar suas poções!'
     },
     {
+        id: 'pref',
+        command: '&f/pref',
+        description: '&fPara ativar/desativar recursos, como: chat local, chat global, transferências, vendas com a tecla Shift, vendas automáticas e outros.'
+    },
+    {
+        id: 'heads',
+        command: '&f/heads',
+        description: '&fPara stackar cabeça de mobs.'
+    },
+    {
         id: 'verkit',
         command: '&f/verkit &6<nome>',
         description: '&fVeja o que há no kit de cada rank. Exemplo: &e/verkit creeper.'
