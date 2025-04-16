@@ -284,7 +284,7 @@ function captureModal() {
         <div class="capture-header">
             <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="capture-logo">
             <div>
-                <h3 class="mc-red">Nerd<span class="mc-white">zone</span></h3>
+                <h3 class="mc-red">nerd<span class="mc-white">zone.gg</span></h3>
                 <p class="text-sm mc-gray">Comando do Servidor</p>
             </div>
         </div>
@@ -297,14 +297,8 @@ function captureModal() {
                 </div>
             </div>
         <div class="capture-footer">
-            <p style="margin: 0;">
-                <span class="ip" style="color: #FF5555;">nerd<span class="ip2" style="color:rgb(255, 255, 255);">zone.gg</span></span>
-                
-                <span class="separator" style="margin: 0 5px; color: #555;">•</span>
-                <span class="id" style="color: #FFFF55; font-family: monospace;">${currentCommandId}</span>
-            </p>
-            <p class="text-xs mt-1" style="margin-top: 5px; font-size: 11px; color: #666;">
-                Gerado em ${new Date().toLocaleDateString('pt-BR')}
+            <p class="text-xs mt-1" style="margin-top: 5px; font-size: 11px; color: #8ad4ff;">
+                comandos?m=${currentCommandId}
             </p>
         </div>
     `;
