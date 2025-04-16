@@ -109,8 +109,10 @@ function toggleStar(cmdId) {
             starBtn.classList.add('text-gray-400', 'hover:text-yellow-200');
         }
     }
+
     localStorage.setItem(STARRED_KEY, JSON.stringify(starredCommands));
     renderCommands(searchInput.value);
+
 }
 
 /**
@@ -146,6 +148,13 @@ function renderCommands(filter = '') {
 
     // Combinar comandos (estrelados primeiro)
     filteredCommands = [...starredCmds, ...unstarredCmds];
+
+// Atualiza o contador de comandos no widget fixo
+const count = filteredCommands.length;
+const counterWidget = document.getElementById('command-count');
+if (counterWidget) {
+    counterWidget.textContent = `${count}`;
+}
 
     if (filteredCommands.length === 0) {
         commandsContainer.innerHTML = `

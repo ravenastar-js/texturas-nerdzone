@@ -16,6 +16,13 @@
     --mc-yellow: #FFFF55;
     --mc-white: #FFFFFF;
 }
+#command-counter-widget {
+    font-family: 'Minecraftia', monospace;
+    transition: transform 0.2s ease;
+}
+#command-counter-widget:hover {
+    transform: scale(1.05);
+}
 
 /* Adicionar ao seu arquivo CSS existente */
 

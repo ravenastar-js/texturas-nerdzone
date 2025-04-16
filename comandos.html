@@ -71,7 +71,11 @@
                     <i class="fas fa-search text-xl"></i>
                 </div>
                 <div class="absolute right-3 top-3 text-gray-400">
-                    <i class="fas fa-slash text-xl transform rotate-90"></i>
+                    <div id="command-counter-widget"
+                        class="text-white flex items-center gap-2">
+                        <i class="fas fa-terminal text-yellow-400"></i>
+                        <span id="command-count">0</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,6 +131,7 @@
 
             </div>
     </div>
+
     </footer>
     <!-- Modal -->
     <div id="modal"
