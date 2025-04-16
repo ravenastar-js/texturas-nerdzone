@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tipIcon = document.querySelector('.tip-icon');
     const tips = [
         "&fVocê pode digitar &b[item] &fpara mostrar os detalhes do seu item no chat!",
-        "&fPara o jogador ir à sua plot apenas clicando no chat, basta usar &b[plot] &fou &b[plot:2]&f.",
-        "&fUse &b/pot &fpara agrupar suas poções!"
+        "&fPara o jogador ir à sua plot apenas clicando no chat, basta usar &b[plot]&f."
     ];
 
     let currentTipIndex = 0;
