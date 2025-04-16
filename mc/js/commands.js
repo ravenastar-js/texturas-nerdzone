@@ -298,7 +298,7 @@ function captureModal() {
             </div>
         <div class="capture-footer">
             <p class="text-xs mt-1" style="margin-top: 5px; font-size: 11px; color: #8ad4ff;">
-                comandos?m=${currentCommandId}
+                texturas-nerdzone.pages.dev/comandos?m=${currentCommandId}
             </p>
         </div>
     `;
