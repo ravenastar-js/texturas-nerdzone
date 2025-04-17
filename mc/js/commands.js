@@ -326,51 +326,6 @@ function openModal(cmdId) {
 function copyCommandUrl() {
     if (!currentCommandId) return;
     
-    const copyUrlBtn = document.getElementById('copy-url-btn');
-    if (!copyUrlBtn || copyUrlBtn.classList.contains('copying')) return;
-    
-    // Adiciona classe de bloqueio
-    copyUrlBtn.disabled = true;
-    copyUrlBtn.classList.add('opacity-50', 'cursor-not-allowed');
-    
-    const originalText = copyUrlBtn.innerHTML;
-    const originalClasses = copyUrlBtn.className;
-    
-    // Atualiza visualmente para estado de cópia
-    copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
-    copyUrlBtn.className = 'px-4 py-2 rounded-lg flex items-center text-white font-medium bg-green-600 hover:bg-green-700';
-    
-    const url = `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`;
-    
-    navigator.clipboard.writeText(url).then(() => {
-        setTimeout(() => {
-            // Restaura o estado original
-            copyUrlBtn.innerHTML = originalText;
-            copyUrlBtn.className = originalClasses;
-            copyUrlBtn.disabled = false;
-            copyUrlBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        }, 2000);
-    }).catch(err => {
-        console.error('Erro ao copiar URL:', err);
-        // Restaura mesmo em caso de erro
-        copyUrlBtn.innerHTML = '<i class="fas fa-times mr-2"></i> Erro ao copiar';
-        setTimeout(() => {
-            copyUrlBtn.innerHTML = originalText;
-            copyUrlBtn.className = originalClasses;
-            copyUrlBtn.disabled = false;
-            copyUrlBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        }, 2000);
-    });
-}
-/**
- * ❌ Closes the modal dialog
- * @description Hides the modal and restores browser history state
- *//**
- * 📋 Copies the unique command URL to clipboard
- */
-function copyCommandUrl() {
-    if (!currentCommandId) return;
-    
     const url = `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`;
     
     navigator.clipboard.writeText(url).then(() => {
@@ -380,11 +335,14 @@ function copyCommandUrl() {
             copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
             copyUrlBtn.classList.remove('copy-url-btn','bg-blue-600', 'hover:bg-blue-700');
             copyUrlBtn.classList.add('btn-capture');
-
+            copyUrlBtn.disabled = true;
+            copyUrlBtn.classList.add('opacity-50', 'cursor-not-allowed');
             setTimeout(() => {
                 copyUrlBtn.innerHTML = originalText;
                 copyUrlBtn.classList.remove('btn-capture');
                 copyUrlBtn.classList.add('copy-url-btn','bg-blue-600', 'hover:bg-blue-700');
+                copyUrlBtn.disabled = false;
+                copyUrlBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }, 2000);
         }
     }).catch(err => {
@@ -394,16 +352,6 @@ function copyCommandUrl() {
 /**
  * ❌ Closes the modal dialog
  * @description Hides the modal and restores browser history state
- */
-function closeModal() {
-    modal.classList.remove('open');
-    history.pushState(null, null, window.location.pathname);
-    document.body.style.overflow = '';
-}
-
-/**
- * 📸 Captures the command details as a PNG image
- * @description Creates a styled screenshot of the command details for sharing
  */
 function closeModal() {
     modal.classList.remove('open');
