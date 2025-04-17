@@ -327,33 +327,39 @@ function copyCommandUrl() {
     if (!currentCommandId) return;
     
     const copyUrlBtn = document.getElementById('copy-url-btn');
-    if (!copyUrlBtn) return;
+    if (!copyUrlBtn || copyUrlBtn.classList.contains('copying')) return;
     
-    // Desabilita o botão durante o processo
-    copyUrlBtn.disabled = true;
+    // Adiciona classe de bloqueio
+    copyUrlBtn.classList.add('copying');
     copyUrlBtn.style.pointerEvents = 'none';
+    
+    const originalText = copyUrlBtn.innerHTML;
+    const originalClasses = copyUrlBtn.className;
+    
+    // Atualiza visualmente para estado de cópia
+    copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
+    copyUrlBtn.className = 'px-4 py-2 rounded-lg flex items-center text-white font-medium bg-green-600 hover:bg-green-700';
     
     const url = `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`;
     
     navigator.clipboard.writeText(url).then(() => {
-        const originalText = copyUrlBtn.innerHTML;
-        const originalClass = copyUrlBtn.className;
-        
-        copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
-        copyUrlBtn.className = 'btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium';
-        
         setTimeout(() => {
+            // Restaura o estado original
             copyUrlBtn.innerHTML = originalText;
-            copyUrlBtn.className = originalClass;
-            // Reabilita o botão após o timeout
-            copyUrlBtn.disabled = false;
+            copyUrlBtn.className = originalClasses;
+            copyUrlBtn.classList.remove('copying');
             copyUrlBtn.style.pointerEvents = '';
         }, 2000);
     }).catch(err => {
         console.error('Erro ao copiar URL:', err);
-        // Reabilita o botão em caso de erro
-        copyUrlBtn.disabled = false;
-        copyUrlBtn.style.pointerEvents = '';
+        // Restaura mesmo em caso de erro
+        copyUrlBtn.innerHTML = '<i class="fas fa-times mr-2"></i> Erro ao copiar';
+        setTimeout(() => {
+            copyUrlBtn.innerHTML = originalText;
+            copyUrlBtn.className = originalClasses;
+            copyUrlBtn.classList.remove('copying');
+            copyUrlBtn.style.pointerEvents = '';
+        }, 2000);
     });
 }
 /**
