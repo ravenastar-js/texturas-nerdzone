@@ -20,7 +20,10 @@
     font-family: 'Minecraftia', monospace;
     transition: transform 0.2s ease;
 }
-
+.copying {
+    cursor: not-allowed !important;
+    opacity: 0.9 !important;
+}
 
 /* Adicionar ao seu arquivo CSS existente */
 
