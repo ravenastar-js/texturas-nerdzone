@@ -225,6 +225,11 @@ const commands = [
         description: '&fPara stackar cabeça de mobs.'
     },
     {
+        id: 'warpfarm',
+        command: '&f/warp farm',
+        description: '&fAproveite as altas da bolsa para vender suas plantações!'
+    },
+    {
         id: 'verkit',
         command: '&f/verkit &6<nome>',
         description: '&fVeja o que há no kit de cada rank. Exemplo: &e/verkit creeper.'
