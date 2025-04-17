@@ -149,12 +149,12 @@ function renderCommands(filter = '') {
     // Combinar comandos (estrelados primeiro)
     filteredCommands = [...starredCmds, ...unstarredCmds];
 
-// Atualiza o contador de comandos no widget fixo
-const count = filteredCommands.length;
-const counterWidget = document.getElementById('command-count');
-if (counterWidget) {
-    counterWidget.textContent = `${count}`;
-}
+    // Atualiza o contador de comandos no widget fixo
+    const count = filteredCommands.length;
+    const counterWidget = document.getElementById('command-count');
+    if (counterWidget) {
+        counterWidget.textContent = `${count}`;
+    }
 
     if (filteredCommands.length === 0) {
         commandsContainer.innerHTML = `
@@ -275,41 +275,8 @@ if (counterWidget) {
         commandsContainer.appendChild(commandElement);
     });
 
-    setupTooltipPositioning();
 }
 
-/**
- * 🛠️ Configures smart positioning for tooltips
- * @description Ensures tooltips stay visible by positioning them above or below their parent element
- */
-function setupTooltipPositioning() {
-    document.querySelectorAll('.tooltip-container').forEach(container => {
-        const tooltip = container.querySelector('.tooltip');
-
-        // Verificar se é um tooltip de estrela
-        const isStarTooltip = container.querySelector('.star-btn') !== null;
-
-        container.addEventListener('mouseenter', function () {
-            const containerRect = container.getBoundingClientRect();
-            const tooltipRect = tooltip.getBoundingClientRect();
-
-            tooltip.classList.remove('bottom', 'left', 'right');
-
-            // Posicionamento especial para tooltips de estrela
-            if (isStarTooltip) {
-                if (containerRect.right + tooltipRect.width > window.innerWidth) {
-                    tooltip.classList.add('left');
-                } else {
-                    tooltip.classList.add('right');
-                }
-            }
-            // Posicionamento padrão para outros tooltips
-            else if (containerRect.top - tooltipRect.height < 10) {
-                tooltip.classList.add('bottom');
-            }
-        });
-    });
-}
 
 let currentCommandId = null;
 
@@ -337,10 +304,49 @@ function openModal(cmdId) {
     modalCommand.innerHTML = parsedCommand;
     modalDescription.innerHTML = parsedDescription;
 
+    // Adiciona o botão de copiar URL se não existir
+    if (!document.getElementById('copy-url-btn')) {
+        const copyUrlBtn = document.createElement('button');
+        copyUrlBtn.id = 'copy-url-btn';
+        copyUrlBtn.className = 'copy-url-btn px-4 py-2 rounded-lg flex items-center text-white font-medium';
+        copyUrlBtn.innerHTML = '<i class="fa-solid fa-copy mr-2"></i> URL do comando';
+        
+        // Insere o botão antes do botão de captura
+        captureBtn.parentNode.insertBefore(copyUrlBtn, captureBtn);
+        
+        // Adiciona o evento de clique
+        copyUrlBtn.addEventListener('click', copyCommandUrl);
+    }
+
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
+/**
+ * 📋 Copies the unique command URL to clipboard
+ */
+function copyCommandUrl() {
+    if (!currentCommandId) return;
+    
+    const url = `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`;
+    
+    navigator.clipboard.writeText(url).then(() => {
+        const copyUrlBtn = document.getElementById('copy-url-btn');
+        if (copyUrlBtn) {
+            const originalText = copyUrlBtn.innerHTML;
+            copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
+            copyUrlBtn.classList.remove('copy-url-btn','bg-blue-600', 'hover:bg-blue-700');
+            copyUrlBtn.classList.add('btn-capture');
 
+            setTimeout(() => {
+                copyUrlBtn.innerHTML = originalText;
+                copyUrlBtn.classList.remove('btn-capture');
+                copyUrlBtn.classList.add('copy-url-btn','bg-blue-600', 'hover:bg-blue-700');
+            }, 2000);
+        }
+    }).catch(err => {
+        console.error('Erro ao copiar URL:', err);
+    });
+}
 /**
  * ❌ Closes the modal dialog
  * @description Hides the modal and restores browser history state

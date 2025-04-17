@@ -438,7 +438,17 @@
         padding: 1.25rem;
     }
 }
+.copy-url-btn {
+    background: linear-gradient(145deg, #3854a1, #2f5185);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
+.copy-url-btn:hover {
+    background: linear-gradient(145deg, #487abb, #3854a1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
 /* Botões */
 .btn-capture {
     background: linear-gradient(145deg, #38a169, #2f855a);
@@ -487,8 +497,11 @@
 
 /* Tooltip corrigido */
 .tooltip-container {
+    gap: 10px;
+    display: flex;
     position: relative;
-    display: inline-block;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .tooltip {
