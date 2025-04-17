@@ -80,11 +80,6 @@ const commands = [
         description: '&fVer booster de nível ativo e o tempo restante.'
     },
     {
-        id: 'skillsvernivel',
-        command: '&f/skills vernivel',
-        description: '&fVer booster de nível ativo e o tempo restante.'
-    },
-    {
         id: 'skillsplayer',
         command: '&f/skills &6<jogador>',
         description: '&fPara ver os níveis de outro jogador!'
