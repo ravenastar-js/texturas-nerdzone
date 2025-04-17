@@ -326,6 +326,45 @@ function openModal(cmdId) {
 function copyCommandUrl() {
     if (!currentCommandId) return;
     
+    const copyUrlBtn = document.getElementById('copy-url-btn');
+    if (!copyUrlBtn) return;
+    
+    // Desabilita o botão durante o processo
+    copyUrlBtn.disabled = true;
+    copyUrlBtn.style.pointerEvents = 'none';
+    
+    const url = `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`;
+    
+    navigator.clipboard.writeText(url).then(() => {
+        const originalText = copyUrlBtn.innerHTML;
+        const originalClass = copyUrlBtn.className;
+        
+        copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
+        copyUrlBtn.className = 'btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium';
+        
+        setTimeout(() => {
+            copyUrlBtn.innerHTML = originalText;
+            copyUrlBtn.className = originalClass;
+            // Reabilita o botão após o timeout
+            copyUrlBtn.disabled = false;
+            copyUrlBtn.style.pointerEvents = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Erro ao copiar URL:', err);
+        // Reabilita o botão em caso de erro
+        copyUrlBtn.disabled = false;
+        copyUrlBtn.style.pointerEvents = '';
+    });
+}
+/**
+ * ❌ Closes the modal dialog
+ * @description Hides the modal and restores browser history state
+ *//**
+ * 📋 Copies the unique command URL to clipboard
+ */
+function copyCommandUrl() {
+    if (!currentCommandId) return;
+    
     const url = `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`;
     
     navigator.clipboard.writeText(url).then(() => {
@@ -349,6 +388,16 @@ function copyCommandUrl() {
 /**
  * ❌ Closes the modal dialog
  * @description Hides the modal and restores browser history state
+ */
+function closeModal() {
+    modal.classList.remove('open');
+    history.pushState(null, null, window.location.pathname);
+    document.body.style.overflow = '';
+}
+
+/**
+ * 📸 Captures the command details as a PNG image
+ * @description Creates a styled screenshot of the command details for sharing
  */
 function closeModal() {
     modal.classList.remove('open');
