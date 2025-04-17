@@ -487,7 +487,7 @@ const style = document.createElement('style');
 for (let i = 0; i < commands.length; i++) {
     style.innerHTML += `
         .delay-${i} {
-            animation-delay: ${i * 0.05}s;
+            animation-delay: ${i * 0.02}s;
         }
     `;
 }
