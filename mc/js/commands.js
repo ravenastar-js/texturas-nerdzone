@@ -214,7 +214,6 @@ function renderCommands(filter = '') {
                             <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
                                 <i class="fas fa-copy mr-1"></i>Copiar comando
                             </button>
-                            <span class="tooltip">Copiar para área de transferência</span>
                         </div>
                     </div>
                 </div>
