@@ -330,8 +330,8 @@ function copyCommandUrl() {
     if (!copyUrlBtn || copyUrlBtn.classList.contains('copying')) return;
     
     // Adiciona classe de bloqueio
-    copyUrlBtn.classList.add('copying');
-    copyUrlBtn.style.pointerEvents = 'none';
+    copyUrlBtn.disabled = true;
+    copyUrlBtn.classList.add('opacity-50', 'cursor-not-allowed');
     
     const originalText = copyUrlBtn.innerHTML;
     const originalClasses = copyUrlBtn.className;
@@ -347,8 +347,8 @@ function copyCommandUrl() {
             // Restaura o estado original
             copyUrlBtn.innerHTML = originalText;
             copyUrlBtn.className = originalClasses;
-            copyUrlBtn.classList.remove('copying');
-            copyUrlBtn.style.pointerEvents = '';
+            copyUrlBtn.disabled = false;
+            copyUrlBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }, 2000);
     }).catch(err => {
         console.error('Erro ao copiar URL:', err);
@@ -357,8 +357,8 @@ function copyCommandUrl() {
         setTimeout(() => {
             copyUrlBtn.innerHTML = originalText;
             copyUrlBtn.className = originalClasses;
-            copyUrlBtn.classList.remove('copying');
-            copyUrlBtn.style.pointerEvents = '';
+            copyUrlBtn.disabled = false;
+            copyUrlBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }, 2000);
     });
 }
