@@ -20,29 +20,84 @@ const commands = [
         description: '&fAcessa o menu de warps disponíveis no servidor.'
     },
     {
-        id: 'warpspawners',
+        id: 'warp-spawners',
         command: '&f/warp spawners',
         description: '&fÉ iniciante no servidor? Acesse a farm pública e comece a subir seu rank!'
     },
     {
-        id: 'clancriar',
+        id: 'clan-criar',
         command: '&f/clan criar &6<nome> <tag>',
-        description: '&fCrie o seu clã utilizando este comando.'
+        description: '&fCrie o seu clan utilizando este comando.'
     },
     {
-        id: 'clandeletar',
+        id: 'clan-chat',
+        command: '&f/clan chat &6<mensagem>',
+        description: '&fEnvie uma mensagem no chat do clan.'
+    },
+    {
+        id: 'a',
+        command: '&f/a &6<mensagem>',
+        description: '&fEnvie uma mensagem no chat de todas alianças do clan.'
+    },
+    {
+        id: 'clan-deletar',
         command: '&f/clan deletar',
-        description: '&fExclua o seu clã ao utilizar este comando.'
+        description: '&fExclua o seu clan ao utilizar este comando.'
     },
     {
-        id: 'clanconvidar',
-        command: '&f/clan convidar &6<nick>',
-        description: '&fConvide alguém para o seu clã ao utilizar este comando.'
+        id: 'clan-convidar',
+        command: '&f/clan convidar &6<jogador>',
+        description: '&fConvide alguém para o seu clan ao utilizar este comando.'
     },
     {
-        id: 'clanexpulsar',
-        command: '&f/clan expulsar &6<nick>',
-        description: '&fExpulse alguém do seu clã ao utilizar este comando.'
+        id: 'clan-expulsar',
+        command: '&f/clan expulsar &6<jogador>',
+        description: '&fExpulse alguém do seu clan ao utilizar este comando.'
+    },
+    {
+        id: 'clan-promover',
+        command: '&f/clan promover &6<jogador> <cargo>',
+        description: '&fPromove um jogador do clan.'
+    },
+    {
+        id: 'clan-aceitar',
+        command: '&f/clan aceitar &6<nome>',
+        description: '&fAceitar um convite de um clan.'
+    },
+    {
+        id: 'clan-negar',
+        command: '&f/clan negar &6<nome>',
+        description: '&fNegar um convite de um clan.'
+    },
+    {
+        id: 'clan-ally-enviar',
+        command: '&f/clan ally enviar &6<nome>',
+        description: '&fEnvia um pedido de aliança para um clan.'
+    },
+    {
+        id: 'clan-ally-negar',
+        command: '&f/clan ally negar &6<nome>',
+        description: '&fNega um pedido de aliança de um clan.'
+    },
+    {
+        id: 'clan-ally-aceitar',
+        command: '&f/clan ally aceitar &6<nome>',
+        description: '&fAceita um pedido de aliança de um clan.'
+    },
+    {
+        id: 'clan-ally-remover',
+        command: '&f/clan ally remover &6<nome>',
+        description: '&fRemove uma aliança com um clan.'
+    },
+    {
+        id: 'clan-rival-adicionar',
+        command: '&f/clan rival adicionar &6<nome>',
+        description: '&fDeclara guerra contra um clan.'
+    },
+    {
+        id: 'clan-rival-remover',
+        command: '&f/clan rival remover &6<nome>',
+        description: '&fEncerra a guerra contra um clan.'
     },
     {
         id: 'mina',
@@ -95,17 +150,17 @@ const commands = [
         description: '&fVisualiza e gerencia suas habilidades no servidor, incluindo progresso e upgrades.'
     },
     {
-        id: 'skillsverbooster',
+        id: 'skills-verbooster',
         command: '&f/skills verbooster',
         description: '&fVer booster de xp ativo e o tempo restante.'
     },
     {
-        id: 'skillsvernivel',
+        id: 'skills-vernivel',
         command: '&f/skills vernivel',
         description: '&fVer booster de nível ativo e o tempo restante.'
     },
     {
-        id: 'skillsplayer',
+        id: 'skills-p',
         command: '&f/skills &6<jogador>',
         description: '&fPara ver os níveis de outro jogador!'
     },
@@ -165,72 +220,72 @@ const commands = [
         description: '&fConverte seu XP acumulado em frascos de XP para armazenamento ou troca.'
     },
     {
-        id: 'plotadd',
+        id: 'plot-add',
         command: '&f/plot add &6<nick>',
         description: '&fAdiciona um jogador à sua plot com permissões limitadas (apenas enquanto você estiver online).'
     },
     {
-        id: 'plotdeny',
+        id: 'plot-deny',
         command: '&f/plot deny &6<nick>',
         description: '&fImpedir que o player entre em sua plot.'
     },
     {
-        id: 'plotdeny*',
+        id: 'plot-deny2',
         command: '&f/plot deny * &6<seu nick>',
         description: '&fImpedir que TODOS os players entrem em sua plot, exceto você.'
     },
     {
-        id: 'plotundeny',
+        id: 'plot-undeny',
         command: '&f/plot undeny &6<nick>',
         description: '&fPermitir que o player entre em sua plot.'
     },
     {
-        id: 'plotundeny*',
+        id: 'plot-undeny2',
         command: '&f/plot undeny * &6<seu nick>',
         description: '&fPermitir que todos os players consigam entrar em sua plot.'
     },
     {
-        id: 'plotsethome',
+        id: 'plot-sethome',
         command: '&f/plot sethome',
         description: '&fDefina onde será o local de spawn da sua plot.'
     },
     {
-        id: 'plotdispose',
+        id: 'plot-dispose',
         command: '&f/plot dispose',
         description: '&fUse este comando para deletar uma plot: é necessário estar dentro da plot que deseja excluir e, logo em seguida, usar &e/plot confirm&f.'
     },
     {
-        id: 'leilaoanunciar',
+        id: 'leilao-anunciar',
         command: '&f/leilao anunciar &6<valor>',
         description: '&fPara negociar seus itens com outros jogadores.'
     },
     {
-        id: 'warpreciclar',
+        id: 'warp-reciclar',
         command: '&f/warp reciclar',
         description: '&fCaso não utilize seus spawners antigos, você pode reciclá-los...'
     },
     {
-        id: 'plottrust',
+        id: 'plot-trust',
         command: '&f/plot trust &6<nick>',
         description: '&fAdiciona um jogador à sua plot com permissões completas (funciona mesmo quando você estiver offline).'
     },
     {
-        id: 'plotalias',
+        id: 'plot-alias',
         command: '&f/plot alias set &6<nome>',
         description: '&fDefine um apelido personalizado para sua plot.'
     },
     {
-        id: 'plotauto',
+        id: 'plot-auto',
         command: '&f/plot auto',
         description: '&fObtém automaticamente uma plot disponível em localização aleatória.'
     },
     {
-        id: 'plotclaim',
+        id: 'plot-claim',
         command: '&f/plot claim',
         description: '&fVá em uma plot sem dono e obtenha-a.'
     },
     {
-        id: 'plothome',
+        id: 'plot-home',
         command: '&f/plot home &6<nome>',
         description: '&fVá para a plot de um jogador. Se o jogador possuir várias plots e desejar ir para uma específica, utilize &e/p h:2 <nome>&f.'
     },
@@ -250,7 +305,7 @@ const commands = [
         description: '&fPara stackar cabeça de mobs.'
     },
     {
-        id: 'warpfarm',
+        id: 'warp-farm',
         command: '&f/warp farm',
         description: '&fAproveite as altas da bolsa para vender suas plantações!'
     },
