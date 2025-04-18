@@ -36,12 +36,12 @@ const commands = [
     },
     {
         id: 'clanconvidar',
-        command: '&f/clan convidar',
+        command: '&f/clan convidar &6<nick>',
         description: '&fConvide alguém para o seu clã ao utilizar este comando.'
     },
     {
         id: 'clanexpulsar',
-        command: '&f/clan expulsar',
+        command: '&f/clan expulsar &6<nick>',
         description: '&fExpulse alguém do seu clã ao utilizar este comando.'
     },
     {
