@@ -50,6 +50,11 @@ const commands = [
         description: '&fAcesse as minas do servidor, onde você pode coletar recursos e enfrentar outros jogadores na mina PvP.'
     },
     {
+        id: 'trocas',
+        command: '&f/trocas',
+        description: '&fTroque itens no servidor, como cacau, cacto, cenouras, entre outros.'
+    },
+    {
         id: 'vantagens',
         command: '&f/vantagens',
         description: '&fVisualiza todas as vantagens e benefícios do seu rank atual no servidor.'
