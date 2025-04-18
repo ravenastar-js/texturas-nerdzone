@@ -25,6 +25,26 @@ const commands = [
         description: '&fÉ iniciante no servidor? Acesse a farm pública e comece a subir seu rank!'
     },
     {
+        id: 'clancriar',
+        command: '&f/clan criar &6<nome> <tag>',
+        description: '&fCrie o seu clã utilizando este comando.'
+    },
+    {
+        id: 'clandeletar',
+        command: '&f/clan deletar',
+        description: '&fExclua o seu clã ao utilizar este comando.'
+    },
+    {
+        id: 'clanconvidar',
+        command: '&f/clan convidar',
+        description: '&fConvide alguém para o seu clã ao utilizar este comando.'
+    },
+    {
+        id: 'clanexpulsar',
+        command: '&f/clan expulsar',
+        description: '&fExpulse alguém do seu clã ao utilizar este comando.'
+    },
+    {
         id: 'mina',
         command: '&f/mina',
         description: '&fAcesse as minas do servidor, onde você pode coletar recursos e enfrentar outros jogadores na mina PvP.'
