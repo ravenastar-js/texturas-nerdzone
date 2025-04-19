@@ -16,6 +16,9 @@
     --mc-yellow: #FFFF55;
     --mc-white: #FFFFFF;
 }
+footer {
+     font-family: 'Press Start 2P', cursive;
+}
 #command-counter-widget {
     font-family: 'Minecraftia', monospace;
     transition: transform 0.2s ease;
