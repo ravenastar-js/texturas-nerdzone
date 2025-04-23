@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const tipIcon = document.querySelector('.tip-icon');
     const tips = [
         "&fVocê pode digitar &6[item] &fpara mostrar os detalhes do seu item no chat!",
-        "&fPara o jogador ir à sua plot apenas clicando no chat, basta digitar &6[&eplot&6:&enúmero&6] &f.",
-        "&fPara marcar a plot de outro jogador no chat, basta digitar &6[&eplot&6:&enúmero&6:&enick&6] &f.",
+        "&fPara o jogador ir à sua plot apenas clicando no chat, basta digitar &6[plot:&e<número>&6]",
+        "&fPara marcar a plot de outro jogador no chat, basta digitar &6[plot:&e<número>&6:&e<nick>&6]",
         "&fAo morrer no &6/skygrid &fvocê não perderá seus itens."
     ];
 
