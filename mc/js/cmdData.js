@@ -225,6 +225,11 @@ const commands = [
         description: '&fAdiciona um jogador à sua plot com permissões limitadas (apenas enquanto você estiver online).'
     },
     {
+        id: "plot-remove",
+        command: "&f/plot remove &6<nick>",
+        description: "&fRemove um jogador que você adicionou em sua plot."
+    },
+    {
         id: 'plot-deny',
         command: '&f/plot deny &6<nick>',
         description: '&fImpedir que o player entre em sua plot.'
