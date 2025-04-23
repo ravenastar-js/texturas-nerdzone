@@ -91,7 +91,7 @@ let currentCommandId = null;
  */
 function toggleStar(cmdId) {
     const index = starredCommands.indexOf(cmdId);
-    
+
     if (index === -1) {
         // Adiciona estrela
         starredCommands.push(cmdId);
@@ -119,7 +119,7 @@ function updateStarButtonUI(cmdId, isStarred) {
         starBtn.innerHTML = '<i class="fas fa-star text-xl"></i>';
         starBtn.classList.replace('text-gray-400', 'text-yellow-400');
         starBtn.classList.remove('hover:text-yellow-200');
-        
+
         // Efeito de destaque
         starBtn.style.transform = 'scale(1.3)';
         setTimeout(() => starBtn.style.transform = 'scale(1)', 300);
@@ -278,7 +278,7 @@ function createCommandCard(cmd, index) {
 function setupCommandCardInteractions(element, cmd) {
     // Abrir/fechar drawer
     element.addEventListener('click', (e) => {
-        if (e.target.closest('.info-btn') || e.target.closest('.copy-btn') || 
+        if (e.target.closest('.info-btn') || e.target.closest('.copy-btn') ||
             e.target.closest('.tooltip') || e.target.closest('.star-btn')) {
             return;
         }
@@ -396,13 +396,14 @@ function copyCommandUrl() {
         if (copyUrlBtn) {
             const originalText = copyUrlBtn.innerHTML;
             copyUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> URL copiada!';
-            copyUrlBtn.classList.replace('bg-blue-600', 'btn-capture');
+            copyUrlBtn.classList.remove('copy-url-btn', 'bg-blue-600', 'hover:bg-blue-700');
+            copyUrlBtn.classList.add('btn-capture');
             copyUrlBtn.disabled = true;
             copyUrlBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            
             setTimeout(() => {
                 copyUrlBtn.innerHTML = originalText;
-                copyUrlBtn.classList.replace('btn-capture', 'bg-blue-600');
+                copyUrlBtn.classList.remove('btn-capture');
+                copyUrlBtn.classList.add('copy-url-btn', 'bg-blue-600', 'hover:bg-blue-700');
                 copyUrlBtn.disabled = false;
                 copyUrlBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }, 2000);
@@ -421,7 +422,7 @@ function captureModal() {
 
     // Feedback visual
     const originalText = captureBtn.innerHTML;
-    captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processando...';
+    captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Gerando...';
     captureBtn.disabled = true;
     captureBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
@@ -485,20 +486,20 @@ function checkUrlForModal() {
 function setupEventListeners() {
     // Pesquisa
     searchInput.addEventListener('input', (e) => renderCommands(e.target.value));
-    
+
     // Modal
     closeModalBtn.addEventListener('click', closeModal);
     captureBtn.addEventListener('click', captureModal);
     modal.addEventListener('click', (e) => e.target === modal && closeModal());
-    
+
     // Teclado
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) {
             closeModal();
         }
     });
-    
-    
+
+
     // Copiar URL
     document.getElementById('copy-url-btn')?.addEventListener('click', copyCommandUrl);
 }
