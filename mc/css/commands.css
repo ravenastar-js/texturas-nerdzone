@@ -16,13 +16,42 @@
     --mc-yellow: #FFFF55;
     --mc-white: #FFFFFF;
 }
-footer {
-     font-family: 'Press Start 2P', cursive;
+
+
+/* Estilo da área de captura */
+#capture-area {
+    background-color: #1e1e1e;
+    background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23374151' fill-opacity='0.2'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
+
+/* Responsividade */
+@media (max-width: 640px) {
+    .modal-content {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    #capture-area {
+        padding: 15px;
+    }
+
+    .copy-url-btn,
+    .share-btn,
+    .btn-capture {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+footer {
+    font-family: 'Press Start 2P', cursive;
+}
+
 #command-counter-widget {
     font-family: 'Minecraftia', monospace;
     transition: transform 0.2s ease;
 }
+
 .copying {
     cursor: not-allowed !important;
     opacity: 0.9 !important;
@@ -195,6 +224,10 @@ footer {
 }
 
 /* Modal estilizado */
+.modal.open .modal-content {
+    transform: translateY(0);
+}
+
 .modal {
     transition: all 0.3s ease;
     opacity: 0;
@@ -222,6 +255,8 @@ footer {
     max-width: calc(100vw - 2rem);
     width: auto;
     overflow: visible !important;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
 }
 
 /* Cards de comando */
@@ -365,12 +400,13 @@ footer {
     font-size: 0.75rem;
     text-align: center;
     position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .capture-footer::before {
     content: '';
     position: absolute;
-    top: -1px;
+    top: -2px;
     left: 50%;
     transform: translateX(-50%);
     width: 100px;
@@ -444,6 +480,7 @@ footer {
         padding: 1.25rem;
     }
 }
+
 .copy-url-btn {
     background: linear-gradient(145deg, #3854a1, #2f5185);
     transition: all 0.3s ease;
@@ -455,6 +492,7 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
+
 /* Botões */
 .btn-capture {
     background: linear-gradient(145deg, #38a169, #2f855a);

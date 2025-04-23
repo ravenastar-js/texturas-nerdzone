@@ -133,40 +133,56 @@
 
     </footer>
     <!-- Modal -->
-    <div id="modal"
-        class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
-        <div class="modal-content rounded-lg w-auto max-h-[90vh] mx-4 overflow-y-auto">
-            <div class="p-6 w-full">
-                <div class="flex justify-between items-center mb-4 gap-[10px]">
-                    <h3 class="text-2xl font-bold mc-yellow">
-                        <i class="fas fa-info-circle mr-2"></i>Detalhes do Comando (modal)
-                    </h3>
-                    <div class="tooltip-container">
-                        <button id="close-modal" class="text-gray-400 hover:text-white transition-colors duration-300">
-                            <i class="fas fa-times text-xl"></i>
-                        </button>
-                        <span class="tooltip">Fechar modal</span>
-                    </div>
-                </div>
+   <div id="modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
+    <div class="modal-content bg-[#1e1e1e] rounded-lg w-full max-w-3xl mx-4 overflow-hidden transition-all duration-300">
+        <!-- Cabeçalho do Modal (não será capturado) -->
+        <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+            <h3 class="text-xl font-bold mc-yellow">
+                <i class="fas fa-info-circle mr-2"></i> Detalhes do Comando
+            </h3>
+            <button id="close-modal" class="text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
 
-                <!-- Área de captura -->
-                <div id="capture-area" class="capture-area">
-                    <div id="modal-command" class="text-2xl font-bold mb-4 break-words"></div>
-                    <div id="modal-description" class="text-lg mc-gray break-words"></div>
-                </div>
-
-                <div class="flex justify-end mt-4">
-                    <div class="tooltip-container">
-                        <button id="capture-btn"
-                            class="btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium">
-                            <i class="fas fa-camera mr-2"></i>Capturar
-                        </button>
-
-                    </div>
+        <!-- Área de captura (idêntica ao commands.js) -->
+        <div id="capture-area" class="p-6">
+            <div class="capture-header flex items-center gap-4 mb-4">
+                <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="w-12 h-12">
+                <div>
+                    <p class="text-sm mc-gray">Comando do Servidor</p>
+                    <h3 class="mc-red text-xl font-bold">nerd<span class="mc-white">zone.gg</span></h3>
                 </div>
             </div>
+
+            <div class="command-content">
+                <div id="modal-command" class="text-2xl font-bold mb-4 break-words mc-yellow"></div>
+                <div id="modal-description" class="text-lg mc-gray break-words"></div>
+            </div>
+
+            <div class="capture-footer mt-4 pt-4">
+                <p class="text-xs" style="color: #8ad4ff;">
+                    <span id="modal-command-url"></span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Rodapé com botões de ação (não será capturado) -->
+        <div class="p-4 border-t border-gray-700 flex flex-wrap justify-end gap-3">
+            <button id="copy-url-btn" class="copy-url-btn px-4 py-2 rounded-lg flex items-center text-white font-medium  transition-colors">
+                <i class="fa-solid fa-copy mr-2"></i> Copiar URL
+            </button>
+            
+            <button id="share-btn" class="share-btn px-4 py-2 rounded-lg flex items-center text-white font-medium bg-purple-600 hover:bg-purple-700 transition-colors hidden">
+                <i class="fas fa-share-alt mr-2"></i> Compartilhar
+            </button>
+            
+            <button id="capture-btn" class="btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium bg-green-600 hover:bg-green-700 transition-colors">
+                <i class="fas fa-camera mr-2"></i> Capturar
+            </button>
         </div>
     </div>
+</div>
 
 
 
