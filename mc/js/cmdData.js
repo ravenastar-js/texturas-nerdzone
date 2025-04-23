@@ -267,7 +267,7 @@ const commands = [
     {
         id: 'tempovip',
         command: '&f/tempovip',
-        description: '&fUse este comando para verificar o tempo do seu VIP.'
+        description: '&fUse este comando para verificar o tempo do VIP.'
     },
     {
         id: 'leilao-anunciar',
