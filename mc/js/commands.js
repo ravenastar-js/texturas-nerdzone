@@ -435,6 +435,12 @@ function captureModal() {
     tempCaptureArea.style.padding = '30px';
     tempCaptureArea.style.backgroundColor = '#1e1e1e';
     tempCaptureArea.style.backgroundImage = `url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23374151' fill-opacity='0.2'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+
+    tempCaptureArea.style.borderRadius = '12px';
+    tempCaptureArea.style.width = '800px';
+    tempCaptureArea.style.height = 'auto';
+    tempCaptureArea.style.overflow = 'hidden';
+
     document.body.appendChild(tempCaptureArea);
 
     // Captura a imagem
@@ -442,11 +448,18 @@ function captureModal() {
         html2canvas(tempCaptureArea, {
             scale: 2,
             logging: false,
-            useCORS: true
+            useCORS: true,
+            backgroundColor: null,
+            removeContainer: true,
+            windowWidth: tempCaptureArea.scrollWidth,
+            windowHeight: tempCaptureArea.scrollHeight,
+            width: tempCaptureArea.offsetWidth,
+            height: tempCaptureArea.offsetHeight
         }).then(canvas => {
+            const roundedCanvas = applyRoundedCorners(canvas, 24);
             const link = document.createElement('a');
             link.download = `comando-${currentCommandId}.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.href = roundedCanvas.toDataURL('image/png');
             link.click();
 
             // Limpeza
@@ -459,7 +472,35 @@ function captureModal() {
         });
     }, 300);
 }
+function applyRoundedCorners(sourceCanvas, radius) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
+    // Mantém as mesmas dimensões do canvas original
+    canvas.width = sourceCanvas.width;
+    canvas.height = sourceCanvas.height;
+
+    // Cria um caminho com bordas arredondadas
+    ctx.beginPath();
+    ctx.moveTo(radius, 0);
+    ctx.lineTo(canvas.width - radius, 0);
+    ctx.quadraticCurveTo(canvas.width, 0, canvas.width, radius);
+    ctx.lineTo(canvas.width, canvas.height - radius);
+    ctx.quadraticCurveTo(canvas.width, canvas.height, canvas.width - radius, canvas.height);
+    ctx.lineTo(radius, canvas.height);
+    ctx.quadraticCurveTo(0, canvas.height, 0, canvas.height - radius);
+    ctx.lineTo(0, radius);
+    ctx.quadraticCurveTo(0, 0, radius, 0);
+    ctx.closePath();
+
+    // Recorta o desenho para a área arredondada
+    ctx.clip();
+
+    // Desenha a imagem original no canvas recortado
+    ctx.drawImage(sourceCanvas, 0, 0);
+
+    return canvas;
+}
 /**
  * 🔄 Restaura o botão de captura ao estado original
  * @param {string} originalText - O texto original do botão
