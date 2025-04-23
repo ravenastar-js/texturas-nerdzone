@@ -368,11 +368,6 @@ function openModal(cmdId) {
     document.getElementById('modal-command-url').textContent =
         `texturas-nerdzone.pages.dev/comandos?m=${cmdId}`;
 
-    // Mostra botão de compartilhar se suportado
-    if (navigator.share) {
-        document.getElementById('share-btn').classList.remove('hidden');
-    }
-
     // Exibe modal
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -503,19 +498,6 @@ function setupEventListeners() {
         }
     });
     
-    // Compartilhamento
-    document.getElementById('share-btn')?.addEventListener('click', async () => {
-        try {
-            const command = commands.find(cmd => cmd.id === currentCommandId);
-            await navigator.share({
-                title: `Comando ${command.command.replace(/§[0-9a-f]/g, '')}`,
-                text: command.description.replace(/§[0-9a-f]/g, ''),
-                url: `${window.location.origin}${window.location.pathname}?m=${currentCommandId}`
-            });
-        } catch (err) {
-            console.log('Compartilhamento cancelado:', err);
-        }
-    });
     
     // Copiar URL
     document.getElementById('copy-url-btn')?.addEventListener('click', copyCommandUrl);
