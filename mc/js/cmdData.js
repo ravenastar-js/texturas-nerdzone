@@ -260,6 +260,11 @@ const commands = [
         description: '&fUse este comando para deletar uma plot: é necessário estar dentro da plot que deseja excluir e, logo em seguida, usar &e/plot confirm&f.'
     },
     {
+        id: 'plot-music',
+        command: '&f/plot music',
+        description: '&fUse este comando para música em sua plot.'
+    },
+    {
         id: 'venderfarm',
         command: '&f/venderfarm',
         description: '&fUse este comando dentro do &e/warp farm&f, para facilitar a abertura do menu de venda.'
