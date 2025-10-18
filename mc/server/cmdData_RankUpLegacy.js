@@ -155,11 +155,6 @@ const commands = [
         description: '&fCompacta itens no inventário (ex: minérios → blocos) para economizar espaço.'
     },
     {
-        id: 'vendas',
-        command: '&f/vendas',
-        description: '&fMostra o tempo restante do &ebooster de vendas&f ativo.'
-    },
-    {
         id: 'skygrid',
         command: '&f/skygrid',
         description: '&fTeleporta para o mundo &eSkygrid&f com blocos flutuantes e recursos especiais.'
@@ -178,16 +173,6 @@ const commands = [
         id: 'skills',
         command: '&f/skills',
         description: '&fAbre o menu de habilidades para gerenciar upgrades e ver progresso.'
-    },
-    {
-        id: 'skills-verbooster',
-        command: '&f/skills verbooster',
-        description: '&fMostra o &ebooster de XP&f ativo e tempo restante.'
-    },
-    {
-        id: 'skills-vernivel',
-        command: '&f/skills vernivel',
-        description: '&fMostra o &ebooster de nível&f ativo e tempo restante.'
     },
     {
         id: 'skills-p',
