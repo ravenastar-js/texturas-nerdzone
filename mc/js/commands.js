@@ -250,6 +250,8 @@ function createCommandCard(cmd, index) {
     const parsedCommand = parseMCString(cmd.command);
     const parsedDescription = parseMCString(cmd.description);
 
+    const sanitizedId = sanitizeHTML(cmd.id);
+
     commandElement.innerHTML = `
         <div class="p-5 cursor-pointer command-header">
             <div class="flex justify-between items-start">
@@ -258,13 +260,13 @@ function createCommandCard(cmd, index) {
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="tooltip-container">
-                        <button class="star-btn ml-2 p-1 ${isStarred(cmd.id) ? 'text-yellow-400' : 'text-gray-400 hover:text-yellow-200'} transition-colors duration-300" data-id="${cmd.id}">
+                        <button class="star-btn ml-2 p-1 ${isStarred(cmd.id) ? 'text-yellow-400' : 'text-gray-400 hover:text-yellow-200'} transition-colors duration-300" data-id="${sanitizedId}">
                             <i class="${isStarred(cmd.id) ? 'fas' : 'far'} fa-star text-xl"></i>
                         </button>
                         <span class="tooltip">${isStarred(cmd.id) ? 'Remover estrela' : 'Adicionar estrela'}</span>
                     </div>
                     <div class="tooltip-container">
-                        <button class="info-btn ml-2 p-1 text-gray-400 hover:text-yellow-400 transition-colors duration-300" data-id="${cmd.id}">
+                        <button class="info-btn ml-2 p-1 text-gray-400 hover:text-yellow-400 transition-colors duration-300" data-id="${sanitizedId}">
                             <i class="fas fa-info-circle text-xl"></i>
                         </button>
                         <span class="tooltip">Mais detalhes</span>
@@ -278,10 +280,10 @@ function createCommandCard(cmd, index) {
                 <div class="flex justify-between items-center text-sm mc-gray">
                     <span class="bg-[#2e2d2d] px-2 py-1 rounded flex items-center gap-1">
                         <span class="text-white">ID:</span>
-                        <span class="text-yellow-400 font-mono">${cmd.id}</span>
+                        <span class="text-yellow-400 font-mono">${sanitizedId}</span> <!-- ✅ CORRIGIDO -->
                     </span>
                     <div class="tooltip-container">
-                        <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/[§&][0-9a-fk-or]/g, '')}">
+                        <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${sanitizeHTML(cmd.command.replace(/[§&][0-9a-fk-or]/g, ''))}">
                             <i class="fas fa-copy mr-1"></i>Copiar comando
                         </button>
                     </div>
@@ -292,6 +294,17 @@ function createCommandCard(cmd, index) {
 
     setupCommandCardInteractions(commandElement, cmd);
     commandsContainer.appendChild(commandElement);
+}
+
+/**
+ * 🛡️ Sanitiza HTML para prevenir XSS
+ * @param {string} str - String a ser sanitizada
+ * @returns {string} - String sanitizada
+ */
+function sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
 }
 
 /**
