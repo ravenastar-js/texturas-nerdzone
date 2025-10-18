@@ -228,7 +228,7 @@ function showNoResultsMessage(filter) {
 
     commandsContainer.innerHTML = `
         <div class="col-span-full text-center py-8 mc-gray">
-            <i class="fas fa-search-minus text-5xl mb-4 block"></i>
+            <i class="fas fa-search-minus text-5xl mb-4"></i>
             <p class="text-xl">Nenhum comando encontrado para "${safeFilter}"</p>
             <p class="text-sm mt-2">Tente usar termos diferentes</p>
         </div>

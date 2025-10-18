@@ -10,6 +10,17 @@ const commands = [
         description: '&fExibe o menu de ajuda.'
     },
     {
+        id: 'saque',
+        command: '&f/saque',
+        description: '&fVocê pode saquear cidades para conquistar recompensas valiosas como crates, lucky blocks e muito mais!\n&eAs recompensas vão para o &b/correios'
+    },
+
+    {
+        id: 'correios',
+        command: '&f/correios',
+        description: '&fAs recompensas obtidas por meio do &e/saque&f, assim como aquelas adquiridas quando o presidente realiza compras, podem ser acessadas através do comando &e/correios&f.'
+    },
+    {
         id: 'votar',
         command: '&f/votar &6<jogador>',
         description: '&fVote em um jogador para escolhê-lo como presidente do servidor.\n&eVocê precisa ser nível 8 do /passe para votar.'
