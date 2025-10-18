@@ -37,7 +37,6 @@ const colorMap = (() => {
         '§f': 'mc-white'
     };
 
-    // Adiciona variações com & (alternativa ao §)
     const extendedColors = {};
     for (const [key, value] of Object.entries(baseColors)) {
         extendedColors[key] = value;
@@ -56,22 +55,61 @@ const colorMap = (() => {
 function parseMCString(text) {
     if (!text) return '';
 
-    // Substitui caracteres especiais para evitar XSS
-    const withEntities = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-    // Processa os códigos de cores
-    const result = withEntities
+    let processedText = text;
+    processedText = processedText.replace(/\n/g, '<br>');
+    processedText = processedText
         .replace(/[§&][0-9a-f]/g, match => {
             const normalizedKey = '§' + match[1];
             return `</span><span class="${colorMap[normalizedKey] || ''}">`;
         })
-        .replace(/<\/span>/g, '', 1) + '</span>';
+        .replace(/[§&][k-o]/g, match => {
+            const formatKey = '§' + match[1];
+            return `</span><span class="${formatMap[formatKey] || ''}">`;
+        });
 
-    // Remove spans vazios
-    return result.replace(/<span class=""><\/span>/g, '');
+    let result = processedText.replace(/<\/span>/g, '', 1) + '</span>';
+    result = result.replace(/<span class=""><\/span>/g, '');
+
+    result = result
+        .replace(/<(?!(br|\/span|span class="[^"]*"))/gi, '&lt;')
+        .replace(/(?<!(br|\/span|span class="[^"]*"))>/gi, '&gt;');
+
+    return result;
 }
 
-// Constantes do aplicativo
+/**
+ * 🎭 Processa descrições com emojis Font Awesome e formatação
+ * @param {string} description - Descrição com códigos de formatação
+ * @returns {string} - HTML processado
+ */
+function processDescription(description) {
+    if (!description) return '';
+
+    const withIcons = description
+        .replace(/&f fas-([a-z-]+)/g, '<i class="fas fa-$1"></i>')
+        .replace(/&f far-([a-z-]+)/g, '<i class="far fa-$1"></i>')
+        .replace(/&f fab-([a-z-]+)/g, '<i class="fab fa-$1"></i>');
+
+    return parseMCString(withIcons);
+}
+
+/**
+ * 🎨 Mapeamento de formatação do Minecraft para classes CSS
+ * @type {Object<string, string>}
+ */
+const formatMap = {
+    '§k': 'mc-obfuscated',
+    '§l': 'mc-bold',
+    '§m': 'mc-strikethrough',
+    '§n': 'mc-underline',
+    '§o': 'mc-italic',
+    '§r': 'mc-reset'
+};
+
+for (const [key, value] of Object.entries(formatMap)) {
+    formatMap['&' + key[1]] = value;
+}
+
 const STARRED_KEY = 'starredCommands';
 let starredCommands = JSON.parse(localStorage.getItem(STARRED_KEY)) || [];
 const commandsContainer = document.getElementById('commands-container');
@@ -93,11 +131,9 @@ function toggleStar(cmdId) {
     const index = starredCommands.indexOf(cmdId);
 
     if (index === -1) {
-        // Adiciona estrela
         starredCommands.push(cmdId);
         updateStarButtonUI(cmdId, true);
     } else {
-        // Remove estrela
         starredCommands.splice(index, 1);
         updateStarButtonUI(cmdId, false);
     }
@@ -120,7 +156,6 @@ function updateStarButtonUI(cmdId, isStarred) {
         starBtn.classList.replace('text-gray-400', 'text-yellow-400');
         starBtn.classList.remove('hover:text-yellow-200');
 
-        // Efeito de destaque
         starBtn.style.transform = 'scale(1.3)';
         setTimeout(() => starBtn.style.transform = 'scale(1)', 300);
     } else {
@@ -147,34 +182,27 @@ function isStarred(cmdId) {
 function renderCommands(filter = '') {
     commandsContainer.innerHTML = '';
 
-    // Filtra comandos
     let filteredCommands = commands.filter(cmd =>
         cmd.command.toLowerCase().includes(filter.toLowerCase()) ||
         cmd.description.toLowerCase().includes(filter.toLowerCase())
     );
 
-    // Separa comandos favoritos
     const starredCmds = filteredCommands.filter(cmd => isStarred(cmd.id));
     let unstarredCmds = filteredCommands.filter(cmd => !isStarred(cmd.id));
 
-    // Embaralha comandos não favoritos se não houver filtro
     if (filter === '') {
         unstarredCmds = shuffleArray(unstarredCmds);
     }
 
-    // Combina comandos (favoritos primeiro)
     filteredCommands = [...starredCmds, ...unstarredCmds];
 
-    // Atualiza contador
     updateCommandCounter(filteredCommands.length);
 
-    // Exibe mensagem se nenhum comando for encontrado
     if (filteredCommands.length === 0) {
         showNoResultsMessage(filter);
         return;
     }
 
-    // Renderiza cada comando
     filteredCommands.forEach((cmd, index) => {
         createCommandCard(cmd, index);
     });
@@ -214,17 +242,14 @@ function createCommandCard(cmd, index) {
     const commandElement = document.createElement('div');
     commandElement.className = `command-card rounded-lg transition-all duration-300 animate-fade-in delay-${index}`;
 
-    // Destaca comandos favoritos
     if (isStarred(cmd.id)) {
         commandElement.classList.add('starred');
         commandElement.style.order = '-1';
     }
 
-    // Prepara conteúdo
     const parsedCommand = parseMCString(cmd.command);
     const parsedDescription = parseMCString(cmd.description);
 
-    // Estrutura do cartão
     commandElement.innerHTML = `
         <div class="p-5 cursor-pointer command-header">
             <div class="flex justify-between items-start">
@@ -256,7 +281,7 @@ function createCommandCard(cmd, index) {
                         <span class="text-yellow-400 font-mono">${cmd.id}</span>
                     </span>
                     <div class="tooltip-container">
-                        <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/&[0-9a-f]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}">
+                        <button class="copy-btn px-3 py-1 bg-[#2e2d2d] text-white hover:bg-gray-600 rounded text-xs" data-command="${cmd.command.replace(/[§&][0-9a-fk-or]/g, '')}">
                             <i class="fas fa-copy mr-1"></i>Copiar comando
                         </button>
                     </div>
@@ -265,7 +290,6 @@ function createCommandCard(cmd, index) {
         </div>
     `;
 
-    // Configura interações
     setupCommandCardInteractions(commandElement, cmd);
     commandsContainer.appendChild(commandElement);
 }
@@ -276,7 +300,6 @@ function createCommandCard(cmd, index) {
  * @param {Object} cmd - O objeto do comando
  */
 function setupCommandCardInteractions(element, cmd) {
-    // Abrir/fechar drawer
     element.addEventListener('click', (e) => {
         if (e.target.closest('.info-btn') || e.target.closest('.copy-btn') ||
             e.target.closest('.tooltip') || e.target.closest('.star-btn')) {
@@ -286,7 +309,6 @@ function setupCommandCardInteractions(element, cmd) {
         const drawer = element.querySelector('.command-drawer');
         drawer.classList.toggle('open');
 
-        // Fecha outros drawers abertos
         document.querySelectorAll('.command-drawer').forEach(d => {
             if (d !== drawer && d.classList.contains('open')) {
                 d.classList.remove('open');
@@ -294,21 +316,18 @@ function setupCommandCardInteractions(element, cmd) {
         });
     });
 
-    // Botão de informações
     const infoBtn = element.querySelector('.info-btn');
     infoBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         openModal(cmd.id);
     });
 
-    // Botão de estrela
     const starBtn = element.querySelector('.star-btn');
     starBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleStar(cmd.id);
     });
 
-    // Botão de copiar
     const copyBtn = element.querySelector('.copy-btn');
     if (copyBtn) {
         copyBtn.addEventListener('click', (e) => {
@@ -323,10 +342,11 @@ function setupCommandCardInteractions(element, cmd) {
  * @param {HTMLElement} button - O botão de copiar
  */
 function copyCommandText(button) {
-    const commandText = button.getAttribute('data-command');
+    let commandText = button.getAttribute('data-command')
+        .replace(/[§&][0-9a-fk-or]/g, '');
+
     navigator.clipboard.writeText(commandText);
 
-    // Feedback visual
     const originalText = button.innerHTML;
     button.innerHTML = '<i class="fas fa-check mr-1"></i>Copiado!';
     button.classList.replace('bg-[#2e2d2d]', 'bg-green-600');
@@ -338,6 +358,58 @@ function copyCommandText(button) {
         button.classList.replace('hover:bg-green-700', 'hover:bg-gray-600');
     }, 2000);
 }
+
+/**
+ * 📝 Cria templates de descrição com formatação consistente
+ * @param {Object} options - Opções de formatação
+ * @returns {string} - Descrição formatada
+ */
+function createDescriptionTemplate(options) {
+    const {
+        icon = 'fas-info-circle',
+        title,
+        color = 'f',
+        sections = [],
+        warnings = []
+    } = options;
+
+    let description = `&${color}&l${icon} &${color}&l${title}\n\n`;
+
+    sections.forEach(section => {
+        description += `&${section.color || 'e'}&l${section.icon} &${section.color || 'e'}&l${section.title}\n`;
+        section.items.forEach(item => {
+            description += `&a✔ &${item.color || 'f'}${item.icon} &7${item.text}\n`;
+        });
+        description += '\n';
+    });
+
+    if (warnings.length > 0) {
+        description += `&c&lfas-exclamation-triangle &4Atenção:\n`;
+        warnings.forEach(warning => {
+            description += `&7${warning}\n`;
+        });
+    }
+
+    return description;
+}
+
+const descricaoExemplo = createDescriptionTemplate({
+    icon: 'fas-lock',
+    title: 'Sistema de Recompensas',
+    color: '6',
+    sections: [
+        {
+            icon: 'fas-gem',
+            title: 'Recompensas',
+            color: 'e',
+            items: [
+                { icon: 'fas-star', text: 'Itens lendários raros', color: 'f' },
+                { icon: 'fas-coins', text: 'Bônus de economia', color: 'f' }
+            ]
+        }
+    ],
+    warnings: ['Recompensas resetam semanalmente!', 'Não acumule suas recompensas']
+});
 
 /**
  * 🪟 Abre o modal com detalhes do comando
@@ -353,22 +425,17 @@ function openModal(cmdId) {
         return;
     }
 
-    // Atualiza histórico
     history.pushState({ modal: true, cmdId }, null, `?m=${cmdId}`);
 
-    // Prepara conteúdo
     const parsedCommand = parseMCString(command.command);
     const parsedDescription = parseMCString(command.description);
 
-    // Atualiza modal
     modalCommand.innerHTML = parsedCommand;
     modalDescription.innerHTML = parsedDescription;
 
-    // Atualiza URL no rodapé
     document.getElementById('modal-command-url').textContent =
         `texturas-nerdzone.pages.dev/comandos?m=${cmdId}`;
 
-    // Exibe modal
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -420,13 +487,11 @@ function copyCommandUrl() {
 function captureModal() {
     if (!currentCommandId) return;
 
-    // Feedback visual
     const originalText = captureBtn.innerHTML;
     captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Gerando...';
     captureBtn.disabled = true;
     captureBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
-    // Cria área de captura temporária
     const tempCaptureArea = document.createElement('div');
     tempCaptureArea.innerHTML = captureArea.innerHTML;
     tempCaptureArea.style.position = 'fixed';
@@ -443,7 +508,6 @@ function captureModal() {
 
     document.body.appendChild(tempCaptureArea);
 
-    // Captura a imagem
     setTimeout(() => {
         html2canvas(tempCaptureArea, {
             scale: 2,
@@ -462,7 +526,6 @@ function captureModal() {
             link.href = roundedCanvas.toDataURL('image/png');
             link.click();
 
-            // Limpeza
             document.body.removeChild(tempCaptureArea);
             resetCaptureButton(originalText);
         }).catch(err => {
@@ -476,11 +539,9 @@ function applyRoundedCorners(sourceCanvas, radius) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    // Mantém as mesmas dimensões do canvas original
     canvas.width = sourceCanvas.width;
     canvas.height = sourceCanvas.height;
 
-    // Cria um caminho com bordas arredondadas
     ctx.beginPath();
     ctx.moveTo(radius, 0);
     ctx.lineTo(canvas.width - radius, 0);
@@ -493,10 +554,8 @@ function applyRoundedCorners(sourceCanvas, radius) {
     ctx.quadraticCurveTo(0, 0, radius, 0);
     ctx.closePath();
 
-    // Recorta o desenho para a área arredondada
     ctx.clip();
 
-    // Desenha a imagem original no canvas recortado
     ctx.drawImage(sourceCanvas, 0, 0);
 
     return canvas;
@@ -523,17 +582,14 @@ function checkUrlForModal() {
     }
 }
 
-// Configuração de eventos
+
 function setupEventListeners() {
-    // Pesquisa
     searchInput.addEventListener('input', (e) => renderCommands(e.target.value));
 
-    // Modal
     closeModalBtn.addEventListener('click', closeModal);
     captureBtn.addEventListener('click', captureModal);
     modal.addEventListener('click', (e) => e.target === modal && closeModal());
 
-    // Teclado
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) {
             closeModal();
@@ -541,24 +597,21 @@ function setupEventListeners() {
     });
 
 
-    // Copiar URL
     document.getElementById('copy-url-btn')?.addEventListener('click', copyCommandUrl);
 }
 
-// Inicialização
+
 function init() {
-    // Cria estilos para animações
     const style = document.createElement('style');
     for (let i = 0; i < commands.length; i++) {
         style.innerHTML += `.delay-${i} { animation-delay: ${i * 0.02}s; }`;
     }
     document.head.appendChild(style);
 
-    // Configura eventos e renderiza
     setupEventListeners();
     renderCommands();
     checkUrlForModal();
 }
 
-// Inicia o aplicativo
+
 init();

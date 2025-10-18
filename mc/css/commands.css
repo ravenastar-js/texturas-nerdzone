@@ -17,7 +17,41 @@
     --mc-white: #FFFFFF;
 }
 
+/* Formatação Minecraft */
+.mc-obfuscated { 
+    font-family: 'Minecraft', monospace;
+    letter-spacing: 0.1em;
+}
+.mc-bold { font-weight: bold; }
+.mc-strikethrough { text-decoration: line-through; }
+.mc-underline { text-decoration: underline; }
+.mc-italic { font-style: italic; }
+.mc-reset { 
+    font-weight: normal; 
+    text-decoration: none; 
+    font-style: normal;
+}
 
+/* Emojis Font Awesome integrados */
+.fas, .far, .fab {
+    display: inline-block;
+    margin: 0 2px;
+    width: 1em;
+    text-align: center;
+}
+
+/* Quebras de linha e espaçamento */
+.command-text br {
+    content: "";
+    display: block;
+    margin: 0.5em 0;
+}
+
+/* Layout multi-linha melhorado */
+.command-drawer-content p {
+    line-height: 1.6;
+    white-space: pre-line;
+}
 /* Estilo da área de captura */
 #capture-area {
     border-radius: 12px;

@@ -10,6 +10,26 @@ const commands = [
         description: '&fExibe o menu de ajuda.'
     },
     {
+        id: 'votar',
+        command: '&f/votar &6<jogador>',
+        description: '&fVote em um jogador para escolhê-lo como presidente do servidor.\n&eVocê precisa ser nível 8 do /passe para votar.'
+    },
+    {
+        id: 'lucky',
+        command: '&f/lucky',
+        description: '&fVeja as recompensas da LuckyBlcoks.'
+    },
+    {
+        id: 'passe',
+        command: '&f/passe',
+        description: '&fO passe de batalha tem suas tarefas que podem ser concluídas para que você ganhe seus EXP e upe de nível para recolher suas diversas recompensas! '
+    },
+    {
+        id: 'recompensas',
+        command: '&f/recompensas',
+        description: '&fVeja as recompensas das skins e alguns itens.'
+    },
+    {
         id: 'rankup',
         command: '&f/rankup',
         description: '&fEvolui para o próximo rank. Requer quantidade específica de &ecabeças de mobs e money&f.'
