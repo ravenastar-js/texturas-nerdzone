@@ -148,7 +148,12 @@ const commands = [
     {
         id: 'trocas',
         command: '&f/trocas',
-        description: '&fAbre o menu de trocas de itens (cacau, cacto, cenouras, etc).'
+        description: '&fAbre o menu de trocas de itens (Areia da Alma, funil, etc).'
+    },
+    {
+        id: 'boosters',
+        command: '&f/boosters',
+        description: '&fVeja seus boosters ativos.'
     },
     {
         id: 'vantagens',
