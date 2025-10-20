@@ -30,15 +30,17 @@ const data = [
     {
         content: 'textura',
         nome: "§6RavenaStar §bSkyGrid §cNerd§fzone",
-        link: "https://www.mediafire.com/file/ww0ttzfwkykzcr3/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/2_v2.png",
-        desc: "§b【V1】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, minérios e areias.§f & §eÉ necessário optifine.",
+        link: "https://www.mediafire.com/file/hbrrgoztetaza2h/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        icone: "mc/img/icon/2_v5_low.png",
+        desc: "§b【V1】 §dravenastar.link §f𖥔 §aMadeira da carvalho, minérios e areias.§f & §eÉ necessário optifine.",
         v: "1.8.x",
         ct: "SkyGrid",
-        obs: "§fTextura ideal para localizar madeira da selva, minérios e areias com facilidade no Skygrid.",
+        obs: "§fTextura ideal para localizar madeira da carvalho, minérios, areias e afins, com facilidade no Skygrid.",
         blocks: [
-            "mc/img/blocks/Jungle_Log.png",
+            "mc/img/blocks/Oak_Log.png",
             "mc/img/blocks/Sand.png",
+            "mc/img/blocks/Soul_Sand.png",
+            "mc/img/blocks/Nether_Wart_Age.png",
             // minérios
             "mc/img/blocks/Gold_Ore.png",
             "mc/img/blocks/Redstone_Ore.png",
@@ -51,38 +53,6 @@ const data = [
             "mc/img/blocks/Block_of_Coal.png",
             "mc/img/blocks/Bloco_de_ferro.png",
             "mc/img/blocks/Block_of_Diamond.png",
-            "mc/img/blocks/Bloco_de_redstone.png"
-        ]
-    },
-    {
-        content: 'textura',
-        nome: "§6RavenaStar §bSkyGrid V2 §cNerd§fzone",
-        link: "https://www.mediafire.com/file/brgihlh4u3btaqx/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/2_v3.png",
-        desc: "§b【V2】 §dbit.ly/ravenastar",
-        v: "1.8.x",
-        ct: "SkyGrid",
-        obs: "§fTextura ideal para localizar areias com facilidade no Skygrid.",
-        blocks: [
-            "mc/img/blocks/Sand.png",
-        ]
-    },
-    {
-        content: 'textura',
-        nome: "§6RavenaStar §bSkyGrid V3 §cNerd§fzone",
-        link: "https://www.mediafire.com/file/nx5z5b84itfpfas/%25C2%25A76RavenaStar_%25C2%25A7bSkyGrid_V3_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/2_v4.png",
-        desc: "§b【V3】 §dbit.ly/ravenastar §f𖥔 §aMadeira da selva, alguns minérios e areias.§f & §eÉ necessário optifine.",
-        v: "1.8.x",
-        ct: "SkyGrid",
-        obs: "§fTextura ideal para localizar madeira de selva, alguns minérios e areias com facilidade no Skygrid.",
-        blocks: [
-            "mc/img/blocks/Jungle_Log.png",
-            "mc/img/blocks/Sand.png",
-            // minérios
-            "mc/img/blocks/Redstone_Ore.png",
-            // blocos
-            "mc/img/blocks/Bloco_de_ferro.png",
             "mc/img/blocks/Bloco_de_redstone.png"
         ]
     },
