@@ -77,6 +77,53 @@ function parseMCString(text) {
     return result;
 }
 
+function renderCommands(filter = '') {
+    if (window.currentCategory && window.currentCategory !== 'all') {
+        const category = window.categories?.find(cat => cat.id === window.currentCategory);
+        let filteredCommands = commands;
+
+        if (category && category.filter) {
+            filteredCommands = commands.filter(category.filter);
+        }
+
+        if (filter) {
+            filteredCommands = filteredCommands.filter(cmd =>
+                cmd.command.toLowerCase().includes(filter.toLowerCase()) ||
+                cmd.description.toLowerCase().includes(filter.toLowerCase())
+            );
+        }
+
+        const starredCmds = filteredCommands.filter(cmd => isStarred(cmd.id));
+        let unstarredCmds = filteredCommands.filter(cmd => !isStarred(cmd.id));
+
+        filteredCommands = [...starredCmds, ...unstarredCmds];
+        renderFilteredCommands(filteredCommands);
+    } else {
+        let filteredCommands = commands.filter(cmd =>
+            cmd.command.toLowerCase().includes(filter.toLowerCase()) ||
+            cmd.description.toLowerCase().includes(filter.toLowerCase())
+        );
+
+        const starredCmds = filteredCommands.filter(cmd => isStarred(cmd.id));
+        let unstarredCmds = filteredCommands.filter(cmd => !isStarred(cmd.id));
+
+        if (filter === '') {
+            unstarredCmds = shuffleArray(unstarredCmds);
+        }
+
+        filteredCommands = [...starredCmds, ...unstarredCmds];
+        updateCommandCounter(filteredCommands.length);
+
+        if (filteredCommands.length === 0) {
+            showNoResultsMessage(filter);
+            return;
+        }
+
+        filteredCommands.forEach((cmd, index) => {
+            createCommandCard(cmd, index);
+        });
+    }
+}
 /**
  * 🎭 Processa descrições com emojis Font Awesome e formatação
  * @param {string} description - Descrição com códigos de formatação

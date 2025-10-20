@@ -14,7 +14,6 @@ const commands = [
         command: '&f/saque',
         description: '&fVocê pode saquear cidades para conquistar recompensas valiosas como crates, lucky blocks e muito mais!\n&eAs recompensas vão para o &b/correios'
     },
-
     {
         id: 'correios',
         command: '&f/correios',
