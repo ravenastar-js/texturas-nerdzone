@@ -35,7 +35,7 @@ const data = [
         desc: "§b【V1】 §dravenastar.link §f𖥔 §aMadeira da carvalho, minérios e areias.§f & §eÉ necessário optifine.",
         v: "1.8.x",
         ct: "SkyGrid",
-        obs: "§fTextura ideal para localizar madeira da carvalho, minérios, areias e afins, com facilidade no Skygrid.",
+        obs: "§fTextura ideal para localizar madeira de carvalho, minérios, areias e afins, com facilidade no Skygrid.",
         blocks: [
             "mc/img/blocks/Oak_Log.png",
             "mc/img/blocks/Sand.png",
