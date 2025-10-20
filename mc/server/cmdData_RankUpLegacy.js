@@ -144,10 +144,15 @@ const commands = [
         command: '&f/mina',
         description: '&fTeleporta para as minas do servidor para coleta de recursos e &ePvP&f.'
     },
-        {
+    {
         id: 'alugar',
         command: '&f/alugar',
-        description: '&fTeleporta para as minas do servidor para coleta de recursos e &ePvP&f.'
+        description: '&fAcesse o sistema de aluguel.'
+    },
+    {
+        id: 'vendas',
+        command: '&f/vendas',
+        description: '&fAcesse o menu de vendas.'
     },
     {
         id: 'trocas',
