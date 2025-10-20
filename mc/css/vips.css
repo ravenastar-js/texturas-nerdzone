@@ -2,7 +2,7 @@
             --color-basic: #55FF55;
             --color-mvp: #55FFFF;
             --color-mvp-plus: linear-gradient(90deg, #55FFFF, #FFAA00);
-            --color-origin: #FFAA00;
+            --color-legacy: #FFAA00;
             --color-last: #FF55FF;
         }
 
@@ -242,15 +242,15 @@
             color: transparent;
         }
 
-        .vip-origin {
-            color: var(--color-origin);
+        .vip-legacy {
+            color: var(--color-legacy);
         }
 
-        .vip-origin .vip-header {
+        .vip-legacy .vip-header {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);
         }
 
-        .vip-origin .vip-button {
+        .vip-legacy .vip-button {
             background: linear-gradient(to bottom, #cc8800, #a36d00);
             color: white;
         }
