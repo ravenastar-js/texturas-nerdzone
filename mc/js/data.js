@@ -169,12 +169,13 @@ const data = [
 
 const staffMembers = [
     { nome: "§f[Fundador] Nerdstone_", hasMinecraftOriginal: true, yt: "https://www.youtube.com/channel/UCaBRJK6udj3C6TZLv34OQJg" },
-    { nome: "§6[Diretor] WiintterSJ", hasMinecraftOriginal: true },
-    { nome: "§4[Gerente] Deadzin_", hasMinecraftOriginal: true },
-    { nome: "§4[Gerente] ILighttz", hasMinecraftOriginal: true },
-    { nome: "§4[Gerente] KahRevolution", hasMinecraftOriginal: true },
-    { nome: "§5[Coordenador] ColdsOpSs", hasMinecraftOriginal: true },
-    { nome: "§c[Administrador] TodKx", hasMinecraftOriginal: true },
+    { nome: "§6[Diretora] KahRevolution", hasMinecraftOriginal: true },
+    { nome: "§6[Diretor] KevinDev", hasMinecraftOriginal: false },
+    { nome: "§6[Diretor] Pedro A.", hasMinecraftOriginal: true },
+    { nome: "§c[Administrador] StenzelOff", hasMinecraftOriginal: true },
+    { nome: "§c[Administrador] DonaldoAbolve", hasMinecraftOriginal: false },
+    { nome: "§c[Administrador] jotavegfds", hasMinecraftOriginal: true },
+    { nome: "§c[Administrador] Golinhos_", hasMinecraftOriginal: true },
 ];
 
 
