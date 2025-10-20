@@ -152,7 +152,7 @@ const commands = [
     {
         id: 'boosters',
         command: '&f/boosters',
-        description: '&fVeja seus boosters ativos.'
+        description: '&fPara verificar o tempo restante dos seus Boosters.'
     },
     {
         id: 'vantagens',
