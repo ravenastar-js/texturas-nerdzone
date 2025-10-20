@@ -2,29 +2,14 @@ const data = [
     {
         content: 'textura',
         nome: "§6RavenaStar §aX-Ray §cNerd§fzone",
-        link: "https://www.mediafire.com/file/e5886z0cks8elle/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/1.png",
-        desc: "§b【V1】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
+        link: "https://www.mediafire.com/file/ag1k832svnrswgn/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
+        icone: "mc/img/icon/xray.png",
+        desc: "§b【V1】 §dravenastar.link§f & §eÉ necessário optifine.",
         v: "1.8.x",
         ct: "X-Ray",
-        obs: "§fTextura ideal para encontrar beacon e minério de quartzo.",
+        obs: "§fTextura ideal para encontrar minérios na escavação.",
         blocks: [
-            "mc/img/blocks/Quartz_Ore.webp",
-            "mc/img/blocks/Beacon.webp"
-        ]
-    },
-    {
-        content: 'textura',
-        nome: "§6RavenaStar §aX-Ray v2 §cNerd§fzone",
-        link: "https://www.mediafire.com/file/l9n4vr157j0nz2d/%25C2%25A76RavenaStar_%25C2%25A7aX-Ray_v2_%25C2%25A7cNerd%25C2%25A7fzone.zip/file",
-        icone: "mc/img/icon/1_v2.png",
-        desc: "§b【V2】 §dbit.ly/ravenastar§f & §eÉ necessário optifine.",
-        v: "1.8.x",
-        ct: "X-Ray",
-        obs: "§fTextura ideal para localizar beacons e minérios de quartzo.",
-        blocks: [
-            "mc/img/blocks/Quartz_Ore.webp",
-            "mc/img/blocks/Beacon.webp"
+            "mc/img/blocks/Diamond_Ore.png"
         ]
     },
     {
