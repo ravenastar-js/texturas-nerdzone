@@ -17,23 +17,389 @@
     --mc-white: #FFFFFF;
 }
 
+#encantamentos-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#open-encantamentos-modal {
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    background: #2e2d2d;
+    border-left: 4px solid #48bb78;
+    border-left-width: 4px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+#open-encantamentos-modal:hover::before {
+    opacity: 1;
+}
+
+#open-encantamentos-modal:active {
+    transform: translateY(-2px);
+}
+
+/* Efeito de brilho interno no hover */
+#open-encantamentos-modal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(72, 187, 120, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+#open-encantamentos-modal:hover::after {
+    left: 100%;
+}
+
+/* Ícones do botão */
+#open-encantamentos-modal i {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+
+#open-encantamentos-modal:hover i:first-child {
+    color: #6cd98f;
+}
+
+#open-encantamentos-modal:hover i:last-child {
+    color: #f8e789;
+    transform: translateX(2px) scale(1.1);
+}
+
+/* Texto do botão */
+#open-encantamentos-modal span {
+    position: relative;
+    z-index: 2;
+}
+
+/* Remove as classes do Tailwind que podem estar conflitando */
+#open-encantamentos-modal.bg-gradient-to-br {
+    background: #2e2d2d !important;
+}
+
+#open-encantamentos-modal.from-green-500 {
+    background: #2e2d2d !important;
+}
+
+#open-encantamentos-modal.to-green-700 {
+    background: #2e2d2d !important;
+}
+
+
+#open-encantamentos-modal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    border-left-color: #68d391;
+    background: #3a3939;
+}
+
+#open-encantamentos-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #48bb78, #68d391, #48bb78, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+#encantamentos-modal.open {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content-encantamentos {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
+    border: 2px solid #48bb78;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow: hidden;
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(72, 187, 120, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+#encantamentos-modal.open .modal-content-encantamentos {
+    transform: scale(1);
+}
+
+/* Header do Modal */
+.modal-header-encantamentos {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.05) 100%);
+    padding: 2rem;
+    border-bottom: 1px solid rgba(72, 187, 120, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-header-encantamentos::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #48bb78, transparent);
+}
+
+.modal-title-encantamentos {
+    color: #48bb78;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.modal-title-encantamentos i {
+    margin-right: 12px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Botão Fechar */
+.close-btn-encantamentos {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(72, 187, 120, 0.1);
+    border: 1px solid rgba(72, 187, 120, 0.3);
+    color: #48bb78;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.close-btn-encantamentos:hover {
+    color: #f88989;
+    background: rgba(187, 72, 72, 0.2);
+    border-color: #f88989;
+    transform: rotate(90deg);
+    box-shadow: 0 0 20px rgba(187, 72, 72, 0.3);
+}
+
+/* Conteúdo do Modal */
+.modal-body-encantamentos {
+    padding: 2rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: rgba(30, 30, 30, 0.5);
+}
+
+/* Scrollbar personalizada */
+.modal-body-encantamentos::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body-encantamentos::-webkit-scrollbar-track {
+    background: rgba(72, 187, 120, 0.1);
+    border-radius: 4px;
+}
+
+.modal-body-encantamentos::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    border-radius: 4px;
+}
+
+.modal-body-encantamentos::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #68d391, #48bb78);
+}
+
+/* Introdução */
+.encantamento-intro {
+    color: #ccc;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    padding: 1.5rem;
+    background: rgba(72, 187, 120, 0.05);
+    border-radius: 12px;
+    border-left: 3px solid #48bb78;
+}
+
+/* Cards de Encantamentos */
+.encantamento-card {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(50, 50, 50, 0.8) 100%);
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.encantamento-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #48bb78, transparent);
+}
+
+.encantamento-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(72, 187, 120, 0.4);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(72, 187, 120, 0.1);
+}
+
+.encantamento-card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.encantamento-icon {
+    font-size: 2rem;
+    color: #48bb78;
+    min-width: 50px;
+    text-align: center;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.encantamento-text {
+    flex: 1;
+}
+
+.encantamento-title {
+    color: #48bb78;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.encantamento-description {
+    color: #e2e8f0;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.encantamento-detail {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.5;
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(72, 187, 120, 0.1);
+}
+
+
+/* Efeitos de brilho */
+.encantamento-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(72, 187, 120, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.encantamento-card:hover::after {
+    opacity: 1;
+    transform: rotate(45deg) translate(50%, 50%);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #encantamentos-modal {
+        padding: 1rem;
+    }
+
+    .modal-content-encantamentos {
+        max-height: 90vh;
+    }
+
+    .modal-title-encantamentos {
+        font-size: 1.5rem;
+    }
+
+    .encantamento-card-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .encantamento-icon {
+        margin-bottom: 0.5rem;
+    }
+}
+
 /* Formatação Minecraft */
-.mc-obfuscated { 
+.mc-obfuscated {
     font-family: 'Minecraft', monospace;
     letter-spacing: 0.1em;
 }
-.mc-bold { font-weight: bold; }
-.mc-strikethrough { text-decoration: line-through; }
-.mc-underline { text-decoration: underline; }
-.mc-italic { font-style: italic; }
-.mc-reset { 
-    font-weight: normal; 
-    text-decoration: none; 
+
+.mc-bold {
+    font-weight: bold;
+}
+
+.mc-strikethrough {
+    text-decoration: line-through;
+}
+
+.mc-underline {
+    text-decoration: underline;
+}
+
+.mc-italic {
+    font-style: italic;
+}
+
+.mc-reset {
+    font-weight: normal;
+    text-decoration: none;
     font-style: normal;
 }
 
 /* Emojis Font Awesome integrados */
-.fas, .far, .fab {
+.fas,
+.far,
+.fab {
     display: inline-block;
     margin: 0 2px;
     width: 1em;
@@ -52,6 +418,7 @@
     line-height: 1.6;
     white-space: pre-line;
 }
+
 /* Estilo da área de captura */
 #capture-area {
     border-radius: 12px;

@@ -27,7 +27,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
     <link rel="stylesheet" href="mc/css/commands.css">
     <link rel="stylesheet" href="mc/css/footer.css">
     <link rel="stylesheet" href="mc/css/regras.css">
@@ -39,6 +39,17 @@
         <!-- Header -->
 
         <header class="mb-5 text-center t-center">
+            <!-- Botão para abrir o modal de encantamentos -->
+            <div class="mt-6 mb-6">
+                <button id="open-encantamentos-modal"
+                    class="text-white group relative font-bold py-4 px-8 rounded-xl overflow-hidden w-full max-w-md text-center flex items-center justify-center gap-3"
+                    style="order: -1;">
+                    <i class="fa-solid fa-paper-plane-top mr-2"></i>
+                    <span>Encantamentos da Mineração</span>
+                    <i class="fa-solid fa-pickaxe text-xl"></i>
+                </button>
+            </div>
+
             <div class="p3 mb-6 rounded-lg bg-mc-darker title">
                 <i class="fas fa-cubes text-3xl mc-yellow mr-3"></i>
                 <h1 class="text-4xl md:text-5xl font-bold inline-block">
@@ -60,6 +71,8 @@
                     </div>
                 </div>
             </div>
+
+
         </header>
 
         <!-- Search Bar -->
@@ -133,58 +146,150 @@
 
     </footer>
     <!-- Modal -->
-   <div id="modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
-    <div class="modal-content bg-[#1e1e1e] rounded-lg w-full max-w-3xl mx-4 overflow-hidden transition-all duration-300">
-        <!-- Cabeçalho do Modal (não será capturado) -->
-        <div class="p-4 border-b border-gray-700 flex justify-between items-center">
-            <h3 class="text-xl font-bold mc-yellow">
-                <i class="fas fa-info-circle mr-2"></i> Detalhes do Comando
-            </h3>
-            <button id="close-modal" class="text-gray-400 hover:text-white transition-colors duration-300">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-        </div>
+    <div id="modal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 overflow-y-auto">
+        <div
+            class="modal-content bg-[#1e1e1e] rounded-lg w-full max-w-3xl mx-4 overflow-hidden transition-all duration-300">
+            <!-- Cabeçalho do Modal (não será capturado) -->
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-bold mc-yellow">
+                    <i class="fas fa-info-circle mr-2"></i> Detalhes do Comando
+                </h3>
+                <button id="close-modal" class="text-gray-400 hover:text-[#f88989;] transition-colors duration-300">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
 
-        <!-- Área de captura (idêntica ao commands.js) -->
-        <div id="capture-area" class="p-6">
-            <div class="capture-header flex items-center gap-4 mb-4">
-                <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="w-12 h-12">
-                <div>
-                    <p class="text-sm mc-gray">Comando do Servidor</p>
-                    <h3 class="mc-red text-xl font-bold">nerd<span class="mc-white">zone.gg</span></h3>
+            <!-- Área de captura (idêntica ao commands.js) -->
+            <div id="capture-area" class="p-6">
+                <div class="capture-header flex items-center gap-4 mb-4">
+                    <img src="https://i.imgur.com/gSomY9Z.png" alt="Nerdzone Logo" class="w-12 h-12">
+                    <div>
+                        <p class="text-sm mc-gray">Comando do Servidor</p>
+                        <h3 class="mc-red text-xl font-bold">nerd<span class="mc-white">zone.gg</span></h3>
+                    </div>
+                </div>
+
+                <div class="command-content">
+                    <div id="modal-command" class="text-2xl font-bold mb-4 break-words mc-yellow"></div>
+                    <div id="modal-description" class="text-lg mc-gray break-words"></div>
+                </div>
+
+                <div class="capture-footer mt-4 pt-4">
+                    <p class="text-xs" style="color: #8ad4ff;">
+                        <span id="modal-command-url"></span>
+                    </p>
                 </div>
             </div>
 
-            <div class="command-content">
-                <div id="modal-command" class="text-2xl font-bold mb-4 break-words mc-yellow"></div>
-                <div id="modal-description" class="text-lg mc-gray break-words"></div>
-            </div>
+            <!-- Rodapé com botões de ação (não será capturado) -->
+            <div class="p-4 border-t border-gray-700 flex flex-wrap justify-end gap-3">
+                <button id="copy-url-btn"
+                    class="copy-url-btn px-4 py-2 rounded-lg flex items-center text-white font-medium  transition-colors">
+                    <i class="fa-solid fa-copy mr-2"></i> Copiar URL
+                </button>
 
-            <div class="capture-footer mt-4 pt-4">
-                <p class="text-xs" style="color: #8ad4ff;">
-                    <span id="modal-command-url"></span>
-                </p>
+                <button id="capture-btn"
+                    class="btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium bg-green-600 hover:bg-green-700 transition-colors">
+                    <i class="fas fa-camera mr-2"></i> Capturar
+                </button>
             </div>
-        </div>
-
-        <!-- Rodapé com botões de ação (não será capturado) -->
-        <div class="p-4 border-t border-gray-700 flex flex-wrap justify-end gap-3">
-            <button id="copy-url-btn" class="copy-url-btn px-4 py-2 rounded-lg flex items-center text-white font-medium  transition-colors">
-                <i class="fa-solid fa-copy mr-2"></i> Copiar URL
-            </button>
-            
-            <button id="capture-btn" class="btn-capture px-4 py-2 rounded-lg flex items-center text-white font-medium bg-green-600 hover:bg-green-700 transition-colors">
-                <i class="fas fa-camera mr-2"></i> Capturar
-            </button>
         </div>
     </div>
-</div>
 
 
+    <!-- Modal de Encantamentos -->
+    <div id="encantamentos-modal">
+        <div class="modal-content-encantamentos">
+            <!-- Header -->
+            <div class="modal-header-encantamentos">
+                <button id="close-encantamentos-modal" class="close-btn-encantamentos">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="modal-title-encantamentos">
+                    <i class="fas fa-gem"></i>Encantamentos da Mineração
+                </h3>
+            </div>
+
+            <!-- Conteúdo -->
+            <div class="modal-body-encantamentos">
+
+                <!-- Aurora -->
+                <div class="encantamento-card">
+                    <div class="encantamento-card-content">
+                        <i class="fas fa-sun encantamento-icon"></i>
+                        <div class="encantamento-text">
+                            <div class="encantamento-title">Aurora</div>
+                            <div class="encantamento-description">
+                                O encantamento Aurora quando ativado, você recebe um bônus de skills (multiplicador) por
+                                X segundos.
+                            </div>
+                            <div class="encantamento-detail">
+                                O tempo e a chance de ativar varia de acordo com o nível, quanto maior o nível, maior o
+                                tempo e a chance.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cristalizador -->
+                <div class="encantamento-card">
+                    <div class="encantamento-card-content">
+                        <i class="fas fa-gem encantamento-icon"></i>
+                        <div class="encantamento-text">
+                            <div class="encantamento-title">Cristalizador</div>
+                            <div class="encantamento-description">
+                                O encantamento Cristalizador quando ativado você recebe 1 aura.
+                            </div>
+                            <div class="encantamento-detail">
+                                Quanto maior o nível, maior a chance de ativar.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Martelo Titânico -->
+                <div class="encantamento-card">
+                    <div class="encantamento-card-content">
+                        <i class="fas fa-hammer encantamento-icon"></i>
+                        <div class="encantamento-text">
+                            <div class="encantamento-title">Martelo Titânico</div>
+                            <div class="encantamento-description">
+                                O encantamento Martelo Titânico quando ativado você quebra uma linha de blocos na frente
+                                do bloco quebrado.
+                            </div>
+                            <div class="encantamento-detail">
+                                Quanto maior o nível, maior a linha afetada.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Corrida da Sorte -->
+                <div class="encantamento-card">
+                    <div class="encantamento-card-content">
+                        <i class="fas fa-clover encantamento-icon"></i>
+                        <div class="encantamento-text">
+                            <div class="encantamento-title">Corrida da Sorte</div>
+                            <div class="encantamento-description">
+                                O encantamento Corrida da Sorte quando ativado você recebe um multiplicador de todos os
+                                drops minerados por X segundos.
+                            </div>
+                            <div class="encantamento-detail">
+                                Quanto maior o nível, maior o tempo e a chance.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
     </div>
     <script src="mc/server/cmdData_RankUpLegacy.js"></script>
     <script src="mc/js/commands.js"></script>
+    <script src="mc/js/encantamentos.js"></script>
     <script src="mc/js/goHome.js"></script>
     <script src="mc/js/footer.js"></script>
     <script src="mc/js/tip.js"></script>
