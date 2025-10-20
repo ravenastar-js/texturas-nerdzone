@@ -333,7 +333,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(72, 187, 120, 0.1), transparent);
+    background: linear-gradient(45deg, transparent, rgba(145, 145, 145, 0.1), transparent);
     transform: rotate(45deg);
     transition: all 0.6s ease;
     opacity: 0;
@@ -548,6 +548,10 @@ footer {
 
 .mc-dark-blue {
     color: var(--mc-dark-blue);
+}
+
+.mc-blue-alt {
+    color: #85b6ffff
 }
 
 .mc-dark-green {
