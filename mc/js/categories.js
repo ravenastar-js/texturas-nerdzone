@@ -1,8 +1,88 @@
 
 /**
- * 🗂️ Sistema de Categorias para Comandos
- * @description Filtra e organiza comandos por categorias com URLs exclusivas
+ * 🔍 Definição dos termos de busca por categoria
+ * @type {Object<string, Object>}
  */
+const categoryTerms = {
+    'clan': {
+        ids: ['clan'],
+        commands: ['/clan'],
+        descriptions: ['clan']
+    },
+
+    'economy': {
+        ids: ['money', 'vender', 'leilao'],
+        commands: ['/money', '/vender'],
+        descriptions: ['money', 'vender', 'economia', 'bolsa']
+    },
+
+    'warps': {
+        ids: ['warp', 'home'],
+        commands: ['/warp', '/home'],
+        descriptions: ['warp', 'teleport']
+    },
+
+    'utilidades': {
+        ids: ['kit', 'fly', 'compactar', 'pot', 'heads', 'lixeira'],
+        commands: ['/kit', '/pref', '/fly', '/xp'],
+        descriptions: ['kit', 'utilidade']
+    },
+
+    'progressao': {
+        ids: ['rank', 'skills', 'passe'],
+        commands: ['/rank', '/skills'],
+        descriptions: ['rank', 'evoluir', 'progresso']
+    },
+
+    'minigames': {
+        ids: ['mina', 'pesca', 'skygrid', 'saque', 'lucky'],
+        commands: [],
+        descriptions: ['minigame', 'pesca', 'skygrid']
+    },
+
+    'informacao': {
+        ids: ['ajuda', 'site', 'verkit', 'recompensas', 'vantagens'],
+        commands: ['/ajuda', '/site', '/boosters'],
+        descriptions: ['ajuda', 'informação']
+    },
+
+    'plot': {
+        ids: ['plot'],
+        commands: ['/plot'],
+        descriptions: ['plot']
+    }
+};
+
+/**
+ * 🔍 Função auxiliar para criar filtros baseados em arrays
+ * @param {Object} terms - Objeto com arrays de termos
+ * @returns {Function} Função de filtro
+ */
+function createFilter(terms) {
+    return cmd => {
+        const hasId = terms.ids.some(term => cmd.id.includes(term));
+        const hasCommand = terms.commands.some(term => cmd.command.includes(term));
+        const hasDescription = terms.descriptions.some(term => cmd.description.includes(term));
+
+        return hasId || hasCommand || hasDescription;
+    };
+}
+
+/**
+ * 🔍 Definição dos filtros por categoria
+ * @type {Object<string, Function>}
+ */
+const categoryFilters = {
+    'clan': createFilter(categoryTerms.clan),
+    'economy': createFilter(categoryTerms.economy),
+    'warps': createFilter(categoryTerms.warps),
+    'utilidades': createFilter(categoryTerms.utilidades),
+    'progressao': createFilter(categoryTerms.progressao),
+    'minigames': createFilter(categoryTerms.minigames),
+    'informacao': createFilter(categoryTerms.informacao),
+    'plot': createFilter(categoryTerms.plot),
+    'starred': cmd => starredCommands.includes(cmd.id)
+};
 
 /**
  * 📊 Definição das categorias disponíveis
@@ -24,7 +104,7 @@ const categories = [
         description: 'Comandos relacionados a clans e alianças',
         color: 'blue',
         shortName: 'Clan',
-        filter: cmd => cmd.id.includes('clan') || cmd.command.includes('/clan') || cmd.description.includes('clan')
+        filter: categoryFilters.clan
     },
     {
         id: 'economy',
@@ -33,11 +113,7 @@ const categories = [
         description: 'Comandos de money, trocas e economia',
         color: 'yellow',
         shortName: 'Economia',
-        filter: cmd => 
-            cmd.id.includes('money') || cmd.id.includes('vender') || cmd.id.includes('leilao') ||
-            cmd.command.includes('/money') || cmd.command.includes('/vender') ||
-            cmd.description.includes('money') || cmd.description.includes('vender') ||
-            cmd.description.includes('economia') || cmd.description.includes('bolsa')
+        filter: categoryFilters.economy
     },
     {
         id: 'warps',
@@ -46,10 +122,7 @@ const categories = [
         description: 'Comandos de teleporte e localizações',
         color: 'green',
         shortName: 'Warps',
-        filter: cmd => 
-            cmd.id.includes('warp') || cmd.id.includes('home') || 
-            cmd.command.includes('/warp') || cmd.command.includes('/home') ||
-            cmd.description.includes('warp') || cmd.description.includes('teleport')
+        filter: categoryFilters.warps
     },
     {
         id: 'utilidades',
@@ -58,11 +131,7 @@ const categories = [
         description: 'Comandos úteis do dia a dia',
         color: 'purple',
         shortName: 'Utilidades',
-        filter: cmd => 
-            cmd.id.includes('kit') || cmd.id.includes('fly') || cmd.id.includes('compactar') ||
-            cmd.id.includes('pot') || cmd.id.includes('heads') || cmd.id.includes('lixeira') ||
-            cmd.command.includes('/kit') || cmd.command.includes('/fly') ||
-            cmd.description.includes('kit') || cmd.description.includes('utilidade')
+        filter: categoryFilters.utilidades
     },
     {
         id: 'progressao',
@@ -71,11 +140,7 @@ const categories = [
         description: 'Comandos de rank, skills e progressão',
         color: 'orange',
         shortName: 'Progressão',
-        filter: cmd => 
-            cmd.id.includes('rank') || cmd.id.includes('skills') || cmd.id.includes('passe') ||
-            cmd.command.includes('/rank') || cmd.command.includes('/skills') ||
-            cmd.description.includes('rank') || cmd.description.includes('evoluir') ||
-            cmd.description.includes('progresso')
+        filter: categoryFilters.progressao
     },
     {
         id: 'minigames',
@@ -84,11 +149,7 @@ const categories = [
         description: 'Comandos de minigames e sistemas especiais',
         color: 'red',
         shortName: 'Minigames',
-        filter: cmd => 
-            cmd.id.includes('mina') || cmd.id.includes('pesca') || cmd.id.includes('skygrid') ||
-            cmd.id.includes('saque') || cmd.id.includes('lucky') ||
-            cmd.description.includes('minigame') || cmd.description.includes('pesca') ||
-            cmd.description.includes('skygrid')
+        filter: categoryFilters.minigames
     },
     {
         id: 'informacao',
@@ -97,11 +158,7 @@ const categories = [
         description: 'Comandos informativos e de ajuda',
         color: 'aqua',
         shortName: 'Info',
-        filter: cmd => 
-            cmd.id.includes('ajuda') || cmd.id.includes('site') || cmd.id.includes('verkit') ||
-            cmd.id.includes('recompensas') || cmd.id.includes('vantagens') ||
-            cmd.command.includes('/ajuda') || cmd.command.includes('/site') ||
-            cmd.description.includes('ajuda') || cmd.description.includes('informação')
+        filter: categoryFilters.informacao
     },
     {
         id: 'plot',
@@ -110,10 +167,7 @@ const categories = [
         description: 'Comandos específicos do sistema de plots',
         color: 'pink',
         shortName: 'Plot',
-        filter: cmd => 
-            cmd.id.includes('plot') || 
-            cmd.command.includes('/plot') ||
-            cmd.description.includes('plot')
+        filter: categoryFilters.plot
     },
     {
         id: 'starred',
@@ -122,7 +176,7 @@ const categories = [
         description: 'Seus comandos favoritos',
         color: 'yellow',
         shortName: 'Favoritos',
-        filter: cmd => starredCommands.includes(cmd.id)
+        filter: categoryFilters.starred
     }
 ];
 
@@ -283,14 +337,14 @@ function renderCategoriesInHeader() {
         button.setAttribute('data-category', cat.id);
         button.setAttribute('data-color', cat.color);
         button.setAttribute('title', cat.description);
-        
+
         applyCategoryStyle(button, cat.color, cat.id === currentCategory);
-        
+
         button.innerHTML = `
             <i class="${cat.icon}"></i>
             <span>${cat.shortName}</span>
         `;
-        
+
         categoriesRow.appendChild(button);
     });
 
@@ -306,11 +360,11 @@ function renderCategoriesInHeader() {
 function applyCategoryStyle(button, color, isActive) {
     const style = categoryStyles[color] || categoryStyles.gray;
     const state = isActive ? style.active : style.inactive;
-    
+
     button.style.backgroundImage = state.bg;
     button.style.borderColor = state.border;
     button.style.color = state.text;
-    
+
     if (isActive) {
         button.classList.add('scale-105', 'shadow-lg');
         button.classList.remove('hover:brightness-110');
@@ -318,7 +372,7 @@ function applyCategoryStyle(button, color, isActive) {
         button.classList.remove('scale-105', 'shadow-lg');
         button.classList.add('hover:brightness-110');
     }
-    
+
     setTimeout(() => {
         const icon = button.querySelector('i');
         if (icon) {
@@ -346,7 +400,7 @@ function setupCategoryEventListeners() {
  */
 function selectCategory(categoryId) {
     currentCategory = categoryId;
-    
+
     updateCategoryUrl(categoryId);
     updateCategoryUI();
     filterCommandsByCategory();
@@ -358,15 +412,15 @@ function selectCategory(categoryId) {
  */
 function updateCategoryUrl(categoryId) {
     const url = new URL(window.location);
-    
+
     if (categoryId === 'all') {
         url.searchParams.delete('c');
     } else {
         url.searchParams.set('c', categoryId);
     }
-    
+
     url.searchParams.delete('m');
-    
+
     history.replaceState({}, '', url);
 }
 
@@ -378,9 +432,9 @@ function updateCategoryUI() {
         const btnCategory = btn.getAttribute('data-category');
         const btnColor = btn.getAttribute('data-color');
         const isActive = btnCategory === currentCategory;
-        
+
         applyCategoryStyle(btn, btnColor, isActive);
-        
+
         if (isActive) {
             btn.classList.add('category-active');
         } else {
@@ -408,11 +462,11 @@ function filterCommandsByCategory() {
 
     const starredCmds = filteredCommands.filter(cmd => isStarred(cmd.id));
     let unstarredCmds = filteredCommands.filter(cmd => !isStarred(cmd.id));
-    
+
     if (currentCategory === 'all') {
         unstarredCmds = shuffleArray(unstarredCmds);
     }
-    
+
     filteredCommands = [...starredCmds, ...unstarredCmds];
 
     renderFilteredCommands(filteredCommands);
@@ -441,12 +495,46 @@ function renderFilteredCommands(filteredCommands) {
 }
 
 /**
+ * 🔢 Atualiza o contador de comandos
+ * @param {number} count - Número de comandos encontrados
+ */
+function updateCommandCounter(count) {
+    const counterElement = document.getElementById('command-counter');
+    if (counterElement) {
+        counterElement.textContent = `${count} ${count === 1 ? 'comando encontrado' : 'comandos encontrados'}`;
+    }
+}
+
+/**
+ * 🔀 Embaralha um array (Fisher-Yates shuffle)
+ * @param {Array} array - Array a ser embaralhado
+ * @returns {Array} Array embaralhado
+ */
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
+/**
+ * ⭐ Verifica se um comando é favorito
+ * @param {string} cmdId - ID do comando
+ * @returns {boolean} True se for favorito
+ */
+function isStarred(cmdId) {
+    return starredCommands.includes(cmdId);
+}
+
+/**
  * 📭 Mensagem quando nenhum comando é encontrado na categoria
  */
 function showNoCategoryResultsMessage() {
     const category = categories.find(cat => cat.id === currentCategory);
     const commandsContainer = document.getElementById('commands-container');
-    
+
     if (!commandsContainer) return;
 
     commandsContainer.innerHTML = `
@@ -493,7 +581,7 @@ function getNoResultsSubmessage() {
 function checkUrlForCategory() {
     const params = new URLSearchParams(window.location.search);
     const categoryId = params.get('c');
-    
+
     if (categoryId && categories.some(cat => cat.id === categoryId)) {
         currentCategory = categoryId;
     } else {
@@ -516,17 +604,86 @@ function initCategories() {
  */
 function observeStarredChanges() {
     const originalToggleStar = window.toggleStar;
-    window.toggleStar = function(cmdId) {
+    window.toggleStar = function (cmdId) {
         originalToggleStar(cmdId);
-        
+
         if (currentCategory === 'starred') {
             filterCommandsByCategory();
         }
     };
 }
 
+/**
+ * 🛠️ Funções utilitárias para gerenciar termos (opcionais - para uso futuro)
+ */
+
+// Adicionar termo a uma categoria
+function addCategoryTerm(categoryId, type, term) {
+    if (categoryTerms[categoryId] && categoryTerms[categoryId][type]) {
+        if (!categoryTerms[categoryId][type].includes(term)) {
+            categoryTerms[categoryId][type].push(term);
+            categoryFilters[categoryId] = createFilter(categoryTerms[categoryId]);
+        }
+    }
+}
+
+// Remover termo de uma categoria
+function removeCategoryTerm(categoryId, type, term) {
+    if (categoryTerms[categoryId] && categoryTerms[categoryId][type]) {
+        categoryTerms[categoryId][type] = categoryTerms[categoryId][type].filter(t => t !== term);
+        categoryFilters[categoryId] = createFilter(categoryTerms[categoryId]);
+    }
+}
+
+// Verificar se um comando pertence a uma categoria
+function isCommandInCategory(cmd, categoryId) {
+    const filter = categoryFilters[categoryId];
+    return filter ? filter(cmd) : false;
+}
+
+// Obter todas as categorias de um comando
+function getCommandCategories(cmd) {
+    return categories
+        .filter(cat => cat.id !== 'all' && cat.id !== 'starred')
+        .filter(cat => categoryFilters[cat.id](cmd))
+        .map(cat => cat.id);
+}
+
+// Exemplo de uso das funções utilitárias:
+// addCategoryTerm('utilidades', 'ids', 'repair');
+// removeCategoryTerm('economy', 'descriptions', 'bolsa');
+// const categories = getCommandCategories(someCommand);
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCategories);
 } else {
     initCategories();
 }
+
+/**
+ * 📝 Notas de uso:
+ * 
+ * Para adicionar novos termos a uma categoria existente:
+ * addCategoryTerm('utilidades', 'ids', 'novocomando');
+ * 
+ * Para remover termos de uma categoria:
+ * removeCategoryTerm('economy', 'descriptions', 'bolsa');
+ * 
+ * Para verificar em quais categorias um comando se encaixa:
+ * const cmdCategories = getCommandCategories(comando);
+ * 
+ * Para verificar se um comando pertence a uma categoria específica:
+ * const isInCategory = isCommandInCategory(comando, 'economy');
+ */
+
+// Exportar para uso global (se necessário)
+window.categoryManager = {
+    categories,
+    categoryTerms,
+    categoryFilters,
+    addCategoryTerm,
+    removeCategoryTerm,
+    isCommandInCategory,
+    getCommandCategories,
+    getCurrentCategory: () => currentCategory
+};
