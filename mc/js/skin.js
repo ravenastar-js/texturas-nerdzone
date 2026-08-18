@@ -94,6 +94,7 @@ class SkinController {
         };
 
         this.abortController = null;
+        this.currentSkinUrl = null;
     }
 
     /**
@@ -168,11 +169,8 @@ class SkinController {
     setupModal() {
         this.elements.skinImage.addEventListener('click', () => {
             const player = this.elements.skinImage.dataset.player;
-            if (player) {
-                const renderType = this.elements.renderType.value;
-                const renderCrop = this.elements.renderCrop.value;
-                this.elements.modalImage.src = 
-                    `https://starlightskins.lunareclipse.studio/render/${renderType}/${player}/${renderCrop}`;
+            if (player && this.currentSkinUrl) {
+                this.elements.modalImage.src = this.currentSkinUrl;
                 this.elements.modal.style.display = 'block';
             }
         });
@@ -228,6 +226,7 @@ class SkinController {
         this.toggleLoading(true);
         this.elements.resultContainer.style.display = 'none';
         this.elements.skinImage.style.display = 'none';
+        this.currentSkinUrl = null;
 
         try {
             this.abortController = new AbortController();
@@ -254,26 +253,21 @@ class SkinController {
             const renderType = this.elements.renderType.value;
             const renderCrop = this.elements.renderCrop.value;
             
-            // Tenta carregar a skin com a API da Lunar Eclipse
             const imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
             
-            // Faz uma requisição de teste para verificar se a API está respondendo
             const testResponse = await fetch(imageUrl, { 
                 signal: this.abortController.signal,
                 method: 'HEAD' 
             });
 
             if (testResponse.ok) {
-                // Se a API está ok, carrega a imagem normalmente
                 this.loadSkinImage(imageUrl, playerName);
             } else {
-                // Fallback: usa a API do Minecraft para pegar a skin original
                 this.loadFallbackSkin(uuid, playerName);
             }
 
         } catch (error) {
             if (error.name !== 'AbortError') {
-                // Em caso de erro na API, tenta o fallback
                 try {
                     const uuid = this.elements.uuidDisplay.textContent;
                     if (uuid) {
@@ -295,12 +289,13 @@ class SkinController {
      * @method
      */
     loadSkinImage(imageUrl, playerName) {
+        this.currentSkinUrl = imageUrl;
+        
         this.elements.skinImage.onload = () => {
             this.handleImageLoad(playerName);
         };
         
         this.elements.skinImage.onerror = () => {
-            // Se falhar ao carregar, tenta o fallback
             const uuid = this.elements.uuidDisplay.textContent;
             if (uuid) {
                 this.loadFallbackSkin(uuid, playerName);
@@ -320,16 +315,17 @@ class SkinController {
      * @method
      */
     loadFallbackSkin(uuid, playerName) {
-        // Usa a API do Visage para renderizar a skin
         const fallbackUrl = `https://visage.surgeplay.com/full/512/${uuid}`;
+        this.currentSkinUrl = fallbackUrl;
         
         this.elements.skinImage.onload = () => {
             this.handleImageLoad(playerName);
         };
         
         this.elements.skinImage.onerror = () => {
-            // Último recurso: usar a skin padrão do Minecraft
             const defaultSkin = `https://mc-heads.net/avatar/${uuid}/512`;
+            this.currentSkinUrl = defaultSkin;
+            
             this.elements.skinImage.onload = () => {
                 this.handleImageLoad(playerName);
             };
@@ -365,6 +361,7 @@ class SkinController {
         this.toggleLoading(false);
         this.elements.skinImage.style.display = 'none';
         this.elements.resultContainer.style.display = 'none';
+        this.currentSkinUrl = null;
         this.showError(errorMessage);
         this.removeButtons();
     }
@@ -378,6 +375,7 @@ class SkinController {
         this.toggleLoading(false);
         this.elements.resultContainer.style.display = 'none';
         this.elements.skinImage.style.display = 'none';
+        this.currentSkinUrl = null;
         this.showError(errorMessage);
         this.removeButtons();
     }
@@ -403,20 +401,20 @@ class SkinController {
 
         const downloadBtn = document.createElement('button');
         downloadBtn.id = 'downloadBtn';
-        downloadBtn.textContent = '⬇️ Baixar Skin';
         downloadBtn.className = 'action-btn';
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Baixar Skin';
         downloadBtn.onclick = () => this.downloadSkin();
 
         const nameMcBtn = document.createElement('button');
         nameMcBtn.id = 'nameMcBtn';
-        nameMcBtn.textContent = '🌐 NameMC';
         nameMcBtn.className = 'action-btn';
+        nameMcBtn.innerHTML = '<i class="fas fa-globe"></i> NameMC';
         nameMcBtn.onclick = () => window.open(`https://namemc.com/profile/${playerName}`, '_blank');
 
         const copyBtn = document.createElement('button');
         copyBtn.id = 'copyUuidBtn';
-        copyBtn.textContent = '📋 Copiar UUID';
         copyBtn.className = 'action-btn';
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar UUID';
         copyBtn.onclick = () => this.copyUUID();
 
         const container = this.elements.skinDisplay;
@@ -477,10 +475,10 @@ class SkinController {
             .then(() => {
                 const copyBtn = document.getElementById('copyUuidBtn');
                 if (copyBtn) {
-                    const originalText = copyBtn.textContent;
-                    copyBtn.textContent = '✅ Copiado!';
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
                     setTimeout(() => {
-                        copyBtn.textContent = originalText;
+                        copyBtn.innerHTML = originalText;
                     }, 2000);
                 }
             })
