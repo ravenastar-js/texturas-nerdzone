@@ -1,13 +1,19 @@
 /**
- * 🎮 Controlador principal de renderização de skins Minecraft
- * @class
+ * Controlador de skins Minecraft - NerdZone
+ *
+ * Ajustes principais:
+ * - Usa a API do Lunar Eclipse/Starlight diretamente no <img>.
+ *   Isso evita falhas de CORS causadas por fetch() + blob() da imagem.
+ * - UUID consultado separadamente, com fallback.
+ * - Mensagens de erro claras e exibidas na interface.
+ * - Evita requisiÃ§Ãµes concorrentes e trata cancelamento.
+ * - MantÃ©m os tipos de renderizaÃ§Ã£o do projeto.
  */
+
 class SkinController {
-    /**
-     * 🏗️ Construtor inicializando configurações
-     * @constructor
-     */
     constructor() {
+        this.API_BASE = 'https://starlightskins.lunareclipse.studio';
+
         this.elements = {
             playerInput: document.getElementById('playerName'),
             renderType: document.getElementById('renderType'),
@@ -26,9 +32,11 @@ class SkinController {
         this.renderConfig = {
             crops: {
                 full: ['full'],
+                default: ['default'],
                 head: ['full', 'head'],
                 bust: ['full', 'bust']
             },
+
             types: {
                 default: 'full',
                 marching: 'full',
@@ -60,16 +68,17 @@ class SkinController {
                 skin: 'default',
                 profile: 'full'
             },
+
             translations: {
-                default: 'Padrão',
+                default: 'PadrÃ£o',
                 marching: 'Marcha',
                 walking: 'Andando',
                 crouching: 'Agachado',
-                crossed: 'Braços Cruzados',
+                crossed: 'BraÃ§os Cruzados',
                 criss_cross: 'Pernas Cruzadas',
                 ultimate: 'Supremo',
-                isometric: 'Isométrico',
-                head: 'Cabeça',
+                isometric: 'IsomÃ©trico',
+                head: 'CabeÃ§a',
                 custom: 'Personalizado',
                 cheering: 'Torcendo',
                 relaxing: 'Relaxando',
@@ -94,436 +103,583 @@ class SkinController {
         };
 
         this.abortController = null;
+        this.currentRequest = 0;
         this.currentSkinUrl = null;
+
+        this.ensureErrorElement();
     }
 
-    /**
-     * 🚀 Inicializa o controlador
-     * @method
-     */
     initialize() {
+        if (!this.elements.playerInput ||
+            !this.elements.renderType ||
+            !this.elements.renderCrop ||
+            !this.elements.searchBtn ||
+            !this.elements.skinImage) {
+            console.error('[NerdZone Skin] Elementos obrigatÃ³rios nÃ£o encontrados no HTML.');
+            return;
+        }
+
         this.populateRenderTypes();
         this.setupEventListeners();
         this.setupModal();
         this.hideError();
     }
 
-    /**
-     * 📦 Popula os tipos de renderização no select
-     * @method
-     */
+    ensureErrorElement() {
+        if (this.elements.errorMessage) return;
+
+        const anchor =
+            this.elements.searchBtn?.parentElement ||
+            this.elements.playerInput?.parentElement;
+
+        if (!anchor) return;
+
+        const error = document.createElement('div');
+        error.id = 'errorMessage';
+        error.setAttribute('role', 'alert');
+        error.setAttribute('aria-live', 'polite');
+        error.style.display = 'none';
+
+        anchor.insertAdjacentElement('afterend', error);
+        this.elements.errorMessage = error;
+    }
+
     populateRenderTypes() {
         const fragment = document.createDocumentFragment();
 
         Object.entries(this.renderConfig.types).forEach(([type]) => {
             const option = document.createElement('option');
             option.value = type;
-            const translation = this.renderConfig.translations[type] || type;
-            option.textContent = `${type} (${translation})`;
+            option.textContent =
+                `${type} (${this.renderConfig.translations[type] || type})`;
             fragment.appendChild(option);
         });
 
-        this.elements.renderType.appendChild(fragment);
+        this.elements.renderType.replaceChildren(fragment);
         this.updateCropOptions();
     }
 
-    /**
-     * 🔄 Atualiza as opções de crop disponíveis
-     * @method
-     */
     updateCropOptions() {
         const selectedType = this.elements.renderType.value;
         const cropType = this.renderConfig.types[selectedType] || 'full';
         const crops = this.renderConfig.crops[cropType] || ['full'];
 
         const fragment = document.createDocumentFragment();
+
         crops.forEach(crop => {
             const option = document.createElement('option');
             option.value = crop;
-            option.textContent = crop.charAt(0).toUpperCase() + crop.slice(1);
+            option.textContent =
+                crop.charAt(0).toUpperCase() + crop.slice(1);
             fragment.appendChild(option);
         });
 
         this.elements.renderCrop.replaceChildren(fragment);
-        this.elements.renderCrop.style.display = crops.length <= 1 ? 'none' : '';
+        this.elements.renderCrop.style.display =
+            crops.length <= 1 ? 'none' : '';
     }
 
-    /**
-     * 🕹️ Configura os event listeners
-     * @method
-     */
     setupEventListeners() {
-        this.elements.renderType.addEventListener('change', () => this.updateCropOptions());
-        this.elements.searchBtn.addEventListener('click', () => this.fetchSkin());
-        this.elements.playerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+        this.elements.renderType.addEventListener(
+            'change',
+            () => this.updateCropOptions()
+        );
+
+        this.elements.searchBtn.addEventListener(
+            'click',
+            () => this.fetchSkin()
+        );
+
+        this.elements.playerInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
                 this.fetchSkin();
             }
         });
     }
 
-    /**
-     * 🖼️ Configura o modal de visualização
-     * @method
-     */
     setupModal() {
+        if (!this.elements.modal || !this.elements.modalImage) return;
+
         this.elements.skinImage.addEventListener('click', () => {
-            const player = this.elements.skinImage.dataset.player;
-            if (player && this.currentSkinUrl) {
-                this.elements.modalImage.src = this.currentSkinUrl;
-                this.elements.modal.style.display = 'block';
-            }
+            if (!this.currentSkinUrl) return;
+
+            this.elements.modalImage.src = this.currentSkinUrl;
+            this.elements.modal.style.display = 'block';
         });
 
-        document.querySelector('.close-modal').addEventListener('click', () => {
-            this.elements.modal.style.display = 'none';
-        });
+        const closeButton = document.querySelector('.close-modal');
 
-        window.addEventListener('click', (event) => {
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                this.closeModal();
+            });
+        }
+
+        window.addEventListener('click', event => {
             if (event.target === this.elements.modal) {
-                this.elements.modal.style.display = 'none';
+                this.closeModal();
+            }
+        });
+
+        window.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                this.closeModal();
             }
         });
     }
 
-    /**
-     * 🔍 Valida nome de usuário Minecraft
-     * @param {string} username - Nome a validar
-     * @returns {boolean}
-     * @method
-     */
-    isValidUsername(username) {
-        return /^[a-z0-9_]{2,16}$/i.test(username);
+    closeModal() {
+        if (!this.elements.modal) return;
+        this.elements.modal.style.display = 'none';
     }
 
-    /**
-     * ⚡ Gera hexadecimal aleatório para nome de arquivo
-     * @returns {string}
-     * @method
-     */
+    isValidUsername(username) {
+        return /^[a-z0-9_]{3,16}$/i.test(username);
+    }
+
     generateFileHash() {
         return Math.random().toString(16).substring(2, 10);
     }
 
-    /**
-     * 📡 Busca a skin e informações do jogador
-     * @method
-     */
+    buildRenderUrl(type, username, crop) {
+        const safeType = encodeURIComponent(type);
+        const safeUsername = encodeURIComponent(username);
+        const safeCrop = encodeURIComponent(crop);
+
+        return `${this.API_BASE}/render/${safeType}/${safeUsername}/${safeCrop}`;
+    }
+
     async fetchSkin() {
         const playerName = this.elements.playerInput.value.trim();
 
-        if (!this.isValidUsername(playerName)) {
-            this.showError('Nome de usuário inválido. Use 2-16 caracteres (letras, números ou underline).');
+        if (!playerName) {
+            this.showError(
+                'Digite um nome de jogador do Minecraft para fazer a consulta.'
+            );
+            this.elements.playerInput.focus();
             return;
         }
 
-        this.hideError();
+        if (!this.isValidUsername(playerName)) {
+            this.showError(
+                'Nome de jogador invÃ¡lido. Use de 3 a 16 caracteres, apenas letras, nÃºmeros e _.'
+            );
+            this.elements.playerInput.focus();
+            return;
+        }
 
         if (this.abortController) {
             this.abortController.abort();
         }
 
+        const requestId = ++this.currentRequest;
+        this.abortController = new AbortController();
+
+        this.hideError();
+        this.resetResult();
         this.toggleLoading(true);
-        this.elements.resultContainer.style.display = 'none';
-        this.elements.skinImage.style.display = 'none';
-        this.currentSkinUrl = null;
+
+        const renderType = this.elements.renderType.value || 'default';
+        const renderCrop = this.elements.renderCrop.value || 'full';
+        const imageUrl = this.buildRenderUrl(
+            renderType,
+            playerName,
+            renderCrop
+        );
 
         try {
-            this.abortController = new AbortController();
-            
-            const uuidResponse = await fetch(
-                `https://api.minetools.eu/uuid/${playerName}`,
-                { signal: this.abortController.signal }
+            /*
+             * IMPORTANTE:
+             * NÃ£o fazemos fetch() da imagem.
+             *
+             * A API entrega a imagem diretamente. ColocÃ¡-la no <img>
+             * evita depender de CORS para transformar a resposta em Blob.
+             */
+            await this.resolveUUID(
+                playerName,
+                this.abortController.signal
             );
 
-            if (!uuidResponse.ok) {
-                throw new Error('Jogador não encontrado. Verifique o nome e tente novamente.');
-            }
+            if (requestId !== this.currentRequest) return;
 
-            const uuidData = await uuidResponse.json();
-            
-            if (!uuidData.id) {
-                throw new Error('UUID não encontrado para este jogador.');
-            }
+            await this.loadSkinImage(
+                imageUrl,
+                playerName,
+                requestId
+            );
 
-            const uuid = uuidData.id;
-            this.elements.uuidDisplay.textContent = uuid;
-            this.elements.resultContainer.style.display = 'flex';
+            if (requestId !== this.currentRequest) return;
 
-            const renderType = this.elements.renderType.value;
-            const renderCrop = this.elements.renderCrop.value;
-            
-            const imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
-            
-            const testResponse = await fetch(imageUrl, { 
-                signal: this.abortController.signal,
-                method: 'HEAD' 
-            });
-
-            if (testResponse.ok) {
-                this.loadSkinImage(imageUrl, playerName);
-            } else {
-                this.loadFallbackSkin(uuid, playerName);
-            }
+            this.elements.skinImage.dataset.renderType = renderType;
+            this.elements.skinImage.dataset.renderCrop = renderCrop;
 
         } catch (error) {
-            if (error.name !== 'AbortError') {
-                try {
-                    const uuid = this.elements.uuidDisplay.textContent;
-                    if (uuid) {
-                        this.loadFallbackSkin(uuid, playerName);
-                    } else {
-                        throw new Error('Não foi possível carregar a skin.');
-                    }
-                } catch (fallbackError) {
-                    this.handleFetchError(error.message || 'Erro ao buscar informações do jogador.');
-                }
+            if (error?.name === 'AbortError') return;
+
+            console.error('[NerdZone Skin] Falha na consulta:', error);
+
+            this.handleFetchError(error);
+        } finally {
+            if (requestId === this.currentRequest) {
+                this.toggleLoading(false);
             }
         }
     }
 
-    /**
-     * 🖼️ Carrega a imagem da skin
-     * @param {string} imageUrl - URL da imagem
-     * @param {string} playerName - Nome do jogador
-     * @method
-     */
-    loadSkinImage(imageUrl, playerName) {
-        this.currentSkinUrl = imageUrl;
-        
-        this.elements.skinImage.onload = () => {
-            this.handleImageLoad(playerName);
-        };
-        
-        this.elements.skinImage.onerror = () => {
-            const uuid = this.elements.uuidDisplay.textContent;
-            if (uuid) {
-                this.loadFallbackSkin(uuid, playerName);
-            } else {
-                this.handleImageError('Falha ao carregar a imagem da skin.');
+    async resolveUUID(username, signal) {
+        /*
+         * O render da Lunar Eclipse Ã© independente do UUID.
+         * O UUID Ã© apenas uma informaÃ§Ã£o adicional da interface.
+         *
+         * Primeiro usamos Ashcon. Se falhar, tentamos MineTools.
+         * Se ambos falharem, a skin ainda pode ser exibida.
+         */
+        const providers = [
+            {
+                name: 'Ashcon',
+                url: `https://api.ashcon.app/mojang/v2/user/${encodeURIComponent(username)}`
+            },
+            {
+                name: 'MineTools',
+                url: `https://api.minetools.eu/uuid/${encodeURIComponent(username)}`
             }
-        };
+        ];
 
-        this.elements.skinImage.src = imageUrl;
-        this.elements.skinImage.dataset.player = playerName;
+        let lastError = null;
+
+        for (const provider of providers) {
+            try {
+                const response = await fetch(provider.url, {
+                    signal,
+                    headers: {
+                        Accept: 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(
+                        `${provider.name}: HTTP ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+
+                const uuid = this.extractUUID(data);
+
+                if (!uuid) {
+                    throw new Error(
+                        `${provider.name}: UUID nÃ£o encontrado`
+                    );
+                }
+
+                if (this.elements.uuidDisplay) {
+                    this.elements.uuidDisplay.textContent = uuid;
+                }
+
+                return uuid;
+            } catch (error) {
+                if (error?.name === 'AbortError') {
+                    throw error;
+                }
+
+                lastError = error;
+                console.warn(
+                    `[NerdZone Skin] ${provider.name} indisponÃ­vel:`,
+                    error
+                );
+            }
+        }
+
+        /*
+         * NÃ£o bloqueamos a renderizaÃ§Ã£o por causa do UUID.
+         * A skin da Lunar Eclipse pode funcionar normalmente.
+         */
+        if (this.elements.uuidDisplay) {
+            this.elements.uuidDisplay.textContent =
+                'UUID indisponÃ­vel no momento';
+        }
+
+        return null;
     }
 
-    /**
-     * 🔄 Carrega a skin usando API de fallback
-     * @param {string} uuid - UUID do jogador
-     * @param {string} playerName - Nome do jogador
-     * @method
-     */
-    loadFallbackSkin(uuid, playerName) {
-        const fallbackUrl = `https://visage.surgeplay.com/full/512/${uuid}`;
-        this.currentSkinUrl = fallbackUrl;
-        
-        this.elements.skinImage.onload = () => {
-            this.handleImageLoad(playerName);
-        };
-        
-        this.elements.skinImage.onerror = () => {
-            const defaultSkin = `https://mc-heads.net/avatar/${uuid}/512`;
-            this.currentSkinUrl = defaultSkin;
-            
-            this.elements.skinImage.onload = () => {
-                this.handleImageLoad(playerName);
+    extractUUID(data) {
+        if (!data || typeof data !== 'object') return null;
+
+        const candidates = [
+            data.uuid,
+            data.id,
+            data.player?.uuid,
+            data.data?.uuid
+        ];
+
+        for (const value of candidates) {
+            if (typeof value !== 'string') continue;
+
+            const clean = value.replace(/-/g, '').trim();
+
+            if (/^[0-9a-f]{32}$/i.test(clean)) {
+                return clean;
+            }
+        }
+
+        return null;
+    }
+
+    loadSkinImage(imageUrl, playerName, requestId) {
+        return new Promise((resolve, reject) => {
+            const image = this.elements.skinImage;
+
+            image.onload = () => {
+                if (requestId !== this.currentRequest) return;
+
+                this.currentSkinUrl = imageUrl;
+                image.dataset.player = playerName;
+                image.style.display = 'block';
+
+                this.elements.resultContainer &&
+                    (this.elements.resultContainer.style.display = 'flex');
+
+                this.createDownloadButton(imageUrl);
+                this.createNameMCButton(playerName);
+
+                resolve();
             };
-            this.elements.skinImage.onerror = () => {
-                this.handleImageError('Não foi possível carregar a skin do jogador.');
+
+            image.onerror = () => {
+                if (requestId !== this.currentRequest) return;
+
+                reject(
+                    new Error(
+                        'A API do Lunar Eclipse nÃ£o conseguiu gerar a renderizaÃ§Ã£o dessa skin.'
+                    )
+                );
             };
-            this.elements.skinImage.src = defaultSkin;
-        };
 
-        this.elements.skinImage.src = fallbackUrl;
-        this.elements.skinImage.dataset.player = playerName;
-        this.elements.skinImage.dataset.fallback = 'true';
-    }
-
-    /**
-     * ✅ Trata carregamento bem-sucedido da imagem
-     * @param {string} playerName - Nome do jogador
-     * @method
-     */
-    handleImageLoad(playerName) {
-        this.toggleLoading(false);
-        this.elements.skinImage.style.display = 'block';
-        this.createButtons(playerName);
-        this.hideError();
-    }
-
-    /**
-     * 🛑 Trata erro no carregamento da imagem
-     * @param {string} errorMessage - Mensagem de erro
-     * @method
-     */
-    handleImageError(errorMessage) {
-        this.toggleLoading(false);
-        this.elements.skinImage.style.display = 'none';
-        this.elements.resultContainer.style.display = 'none';
-        this.currentSkinUrl = null;
-        this.showError(errorMessage);
-        this.removeButtons();
-    }
-
-    /**
-     * 🚨 Trata erros na requisição
-     * @param {string} errorMessage - Mensagem de erro
-     * @method
-     */
-    handleFetchError(errorMessage) {
-        this.toggleLoading(false);
-        this.elements.resultContainer.style.display = 'none';
-        this.elements.skinImage.style.display = 'none';
-        this.currentSkinUrl = null;
-        this.showError(errorMessage);
-        this.removeButtons();
-    }
-
-    /**
-     * 🎚️ Controla visibilidade do loading
-     * @param {boolean} show - Mostrar/Esconder
-     * @method
-     */
-    toggleLoading(show) {
-        this.elements.loading.style.display = show ? 'flex' : 'none';
-        this.elements.searchBtn.disabled = show;
-        this.elements.searchBtn.textContent = show ? 'Buscando...' : 'Buscar Skin';
-    }
-
-    /**
-     * 🖼️ Cria botões de ação
-     * @param {string} playerName - Nome do jogador
-     * @method
-     */
-    createButtons(playerName) {
-        this.removeButtons();
-
-        const downloadBtn = document.createElement('button');
-        downloadBtn.id = 'downloadBtn';
-        downloadBtn.className = 'action-btn';
-        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Baixar Skin';
-        downloadBtn.onclick = () => this.downloadSkin();
-
-        const nameMcBtn = document.createElement('button');
-        nameMcBtn.id = 'nameMcBtn';
-        nameMcBtn.className = 'action-btn';
-        nameMcBtn.innerHTML = '<i class="fas fa-globe"></i> NameMC';
-        nameMcBtn.onclick = () => window.open(`https://namemc.com/profile/${playerName}`, '_blank');
-
-        const copyBtn = document.createElement('button');
-        copyBtn.id = 'copyUuidBtn';
-        copyBtn.className = 'action-btn';
-        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar UUID';
-        copyBtn.onclick = () => this.copyUUID();
-
-        const container = this.elements.skinDisplay;
-        container.appendChild(downloadBtn);
-        container.appendChild(nameMcBtn);
-        container.appendChild(copyBtn);
-    }
-
-    /**
-     * 🗑️ Remove botões existentes
-     * @method
-     */
-    removeButtons() {
-        const buttons = ['downloadBtn', 'nameMcBtn', 'copyUuidBtn'];
-        buttons.forEach(id => {
-            const btn = document.getElementById(id);
-            if (btn) btn.remove();
+            image.alt = `Skin de ${playerName}`;
+            image.src = imageUrl;
         });
     }
 
-    /**
-     * 💾 Dispara o download da skin
-     * @method
-     */
-    downloadSkin() {
-        const imageUrl = this.elements.skinImage.src;
-        if (!imageUrl || imageUrl === window.location.href) return;
+    resetResult() {
+        this.currentSkinUrl = null;
 
-        fetch(imageUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `skin_${this.generateFileHash()}.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            })
-            .catch(() => {
-                window.open(imageUrl, '_blank');
-            });
+        if (this.elements.skinImage) {
+            this.elements.skinImage.removeAttribute('src');
+            this.elements.skinImage.style.display = 'none';
+            delete this.elements.skinImage.dataset.player;
+            delete this.elements.skinImage.dataset.renderType;
+            delete this.elements.skinImage.dataset.renderCrop;
+        }
+
+        if (this.elements.resultContainer) {
+            this.elements.resultContainer.style.display = 'none';
+        }
+
+        this.removeExistingButtons();
     }
 
-    /**
-     * 📋 Copia o UUID para a área de transferência
-     * @method
-     */
-    copyUUID() {
-        const uuid = this.elements.uuidDisplay.textContent;
-        if (!uuid || uuid === 'Carregando...') {
-            this.showError('Nenhum UUID disponível para copiar.');
+    handleFetchError(error) {
+        this.toggleLoading(false);
+
+        if (this.elements.resultContainer) {
+            this.elements.resultContainer.style.display = 'none';
+        }
+
+        const message = this.getFriendlyErrorMessage(error);
+
+        this.showError(message);
+    }
+
+    getFriendlyErrorMessage(error) {
+        const raw = String(error?.message || '').toLowerCase();
+
+        if (
+            raw.includes('failed to fetch') ||
+            raw.includes('network') ||
+            raw.includes('networkerror')
+        ) {
+            return (
+                'NÃ£o foi possÃ­vel conectar ao serviÃ§o de skins. ' +
+                'Verifique sua conexÃ£o e tente novamente.'
+            );
+        }
+
+        if (
+            raw.includes('lunar eclipse') ||
+            raw.includes('renderizaÃ§Ã£o')
+        ) {
+            return (
+                'A skin foi encontrada, mas o serviÃ§o de renderizaÃ§Ã£o ' +
+                'do Lunar Eclipse nÃ£o conseguiu gerar a imagem. ' +
+                'Tente novamente ou escolha outro tipo de render.'
+            );
+        }
+
+        if (raw.includes('http 429') || raw.includes('too many')) {
+            return (
+                'O serviÃ§o recebeu muitas consultas em pouco tempo. ' +
+                'Aguarde alguns segundos e tente novamente.'
+            );
+        }
+
+        if (raw.includes('http 5')) {
+            return (
+                'O serviÃ§o de skins estÃ¡ temporariamente indisponÃ­vel. ' +
+                'Tente novamente em alguns instantes.'
+            );
+        }
+
+        return (
+            error?.message ||
+            'NÃ£o foi possÃ­vel consultar a skin. Verifique o nome e tente novamente.'
+        );
+    }
+
+    showError(message) {
+        if (!this.elements.errorMessage) {
+            console.error('[NerdZone Skin]', message);
             return;
         }
 
-        navigator.clipboard.writeText(uuid)
-            .then(() => {
-                const copyBtn = document.getElementById('copyUuidBtn');
-                if (copyBtn) {
-                    const originalText = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
-                    setTimeout(() => {
-                        copyBtn.innerHTML = originalText;
-                    }, 2000);
-                }
-            })
-            .catch(() => {
-                const textArea = document.createElement('textarea');
-                textArea.value = uuid;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('UUID copiado para a área de transferência!');
-            });
+        this.elements.errorMessage.textContent = message;
+        this.elements.errorMessage.style.display = 'block';
+        this.elements.errorMessage.hidden = false;
     }
 
-    /**
-     * ⚠️ Exibe mensagem de erro
-     * @param {string} message - Mensagem de erro
-     * @method
-     */
-    showError(message) {
-        const errorElement = this.elements.errorMessage;
-        if (errorElement) {
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-        } else {
-            alert(message);
+    hideError() {
+        if (!this.elements.errorMessage) return;
+
+        this.elements.errorMessage.textContent = '';
+        this.elements.errorMessage.style.display = 'none';
+        this.elements.errorMessage.hidden = true;
+    }
+
+    toggleLoading(show) {
+        if (this.elements.loading) {
+            this.elements.loading.style.display = show ? 'flex' : 'none';
+        }
+
+        if (this.elements.searchBtn) {
+            this.elements.searchBtn.disabled = show;
         }
     }
 
-    /**
-     * 🙈 Oculta mensagem de erro
-     * @method
-     */
-    hideError() {
-        const errorElement = this.elements.errorMessage;
-        if (errorElement) {
-            errorElement.style.display = 'none';
+    createDownloadButton(url) {
+        this.removeButton('downloadBtn');
+
+        const downloadBtn = document.createElement('button');
+        downloadBtn.id = 'downloadBtn';
+        downloadBtn.type = 'button';
+        downloadBtn.textContent = 'Baixar Skin';
+        downloadBtn.addEventListener('click', () => {
+            this.downloadSkin(url);
+        });
+
+        this.elements.skinDisplay?.appendChild(downloadBtn);
+    }
+
+    createNameMCButton(playerName) {
+        this.removeButton('nameMcBtn');
+
+        const nameMcBtn = document.createElement('button');
+        nameMcBtn.id = 'nameMcBtn';
+        nameMcBtn.type = 'button';
+        nameMcBtn.textContent = 'NameMC';
+
+        nameMcBtn.addEventListener('click', () => {
+            window.open(
+                `https://namemc.com/profile/${encodeURIComponent(playerName)}`,
+                '_blank',
+                'noopener,noreferrer'
+            );
+        });
+
+        this.elements.skinDisplay?.appendChild(nameMcBtn);
+    }
+
+    removeButton(id) {
+        document.getElementById(id)?.remove();
+    }
+
+    removeExistingButtons() {
+        this.removeButton('downloadBtn');
+        this.removeButton('nameMcBtn');
+    }
+
+    async downloadSkin(url) {
+        const filename =
+            `skin_${this.generateFileHash()}.png`;
+
+        try {
+            const response = await fetch(url, {
+                mode: 'cors'
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            const blobUrl = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        } catch (error) {
+            /*
+             * Alguns navegadores bloqueiam download cross-origin.
+             * Nesse caso, abrimos a imagem da API em uma nova aba.
+             */
+            console.warn(
+                '[NerdZone Skin] Download por Blob indisponÃ­vel:',
+                error
+            );
+
+            window.open(url, '_blank', 'noopener,noreferrer');
         }
     }
 }
 
 /**
- * 🚀 Inicialização quando o DOM estiver pronto
+ * Compatibilidade com o botÃ£o "Copiar UUID" existente no HTML.
  */
+function copyUUID() {
+    const uuidElement = document.getElementById('result');
+    const uuid = uuidElement?.innerText?.trim();
+
+    if (!uuid || !/^[0-9a-f]{32}$/i.test(uuid.replace(/-/g, ''))) {
+        alert('Nenhum UUID vÃ¡lido disponÃ­vel para copiar.');
+        return;
+    }
+
+    if (!navigator.clipboard) {
+        alert('Seu navegador nÃ£o permite copiar o UUID automaticamente.');
+        return;
+    }
+
+    navigator.clipboard.writeText(uuid)
+        .then(() => {
+            alert('UUID copiado!');
+        })
+        .catch(error => {
+            console.error('[NerdZone Skin] Erro ao copiar UUID:', error);
+            alert('NÃ£o foi possÃ­vel copiar o UUID.');
+        });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const skinController = new SkinController();
     skinController.initialize();
+
+    /*
+     * Disponibiliza a instÃ¢ncia globalmente apenas para facilitar
+     * depuraÃ§Ã£o pelo console do navegador.
+     */
+    window.skinController = skinController;
 });
