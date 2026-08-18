@@ -1,13 +1,10 @@
 /**
- * Controlador de skins Minecraft - NerdZone
- *
- * Ajustes principais:
- * - Usa a API do Lunar Eclipse/Starlight diretamente no <img>.
- *   Isso evita falhas de CORS causadas por fetch() + blob() da imagem.
- * - UUID consultado separadamente, com fallback.
- * - Mensagens de erro claras e exibidas na interface.
- * - Evita requisiÃ§Ãµes concorrentes e trata cancelamento.
- * - MantÃ©m os tipos de renderizaÃ§Ã£o do projeto.
+ * 🎮 Controlador de skins Minecraft - NerdZone
+ * 🖼️ Usa API do Lunar Eclipse/Starlight diretamente no <img>
+ * 🔍 UUID consultado separadamente com fallback
+ * ⚠️ Mensagens de erro claras na interface
+ * 🚫 Evita requisições concorrentes
+ * 🎨 Mantém os tipos de renderização do projeto
  */
 
 class SkinController {
@@ -70,15 +67,15 @@ class SkinController {
             },
 
             translations: {
-                default: 'PadrÃ£o',
+                default: 'Padrão',
                 marching: 'Marcha',
                 walking: 'Andando',
                 crouching: 'Agachado',
-                crossed: 'BraÃ§os Cruzados',
+                crossed: 'Braços Cruzados',
                 criss_cross: 'Pernas Cruzadas',
                 ultimate: 'Supremo',
-                isometric: 'IsomÃ©trico',
-                head: 'CabeÃ§a',
+                isometric: 'Isométrico',
+                head: 'Cabeça',
                 custom: 'Personalizado',
                 cheering: 'Torcendo',
                 relaxing: 'Relaxando',
@@ -115,7 +112,7 @@ class SkinController {
             !this.elements.renderCrop ||
             !this.elements.searchBtn ||
             !this.elements.skinImage) {
-            console.error('[NerdZone Skin] Elementos obrigatÃ³rios nÃ£o encontrados no HTML.');
+            console.error('[NerdZone Skin] Elementos obrigatórios não encontrados no HTML.');
             return;
         }
 
@@ -263,7 +260,7 @@ class SkinController {
 
         if (!this.isValidUsername(playerName)) {
             this.showError(
-                'Nome de jogador invÃ¡lido. Use de 3 a 16 caracteres, apenas letras, nÃºmeros e _.'
+                'Nome de jogador inválido. Use de 3 a 16 caracteres, apenas letras, números e _.'
             );
             this.elements.playerInput.focus();
             return;
@@ -289,13 +286,6 @@ class SkinController {
         );
 
         try {
-            /*
-             * IMPORTANTE:
-             * NÃ£o fazemos fetch() da imagem.
-             *
-             * A API entrega a imagem diretamente. ColocÃ¡-la no <img>
-             * evita depender de CORS para transformar a resposta em Blob.
-             */
             await this.resolveUUID(
                 playerName,
                 this.abortController.signal
@@ -328,13 +318,6 @@ class SkinController {
     }
 
     async resolveUUID(username, signal) {
-        /*
-         * O render da Lunar Eclipse Ã© independente do UUID.
-         * O UUID Ã© apenas uma informaÃ§Ã£o adicional da interface.
-         *
-         * Primeiro usamos Ashcon. Se falhar, tentamos MineTools.
-         * Se ambos falharem, a skin ainda pode ser exibida.
-         */
         const providers = [
             {
                 name: 'Ashcon',
@@ -369,7 +352,7 @@ class SkinController {
 
                 if (!uuid) {
                     throw new Error(
-                        `${provider.name}: UUID nÃ£o encontrado`
+                        `${provider.name}: UUID não encontrado`
                     );
                 }
 
@@ -385,19 +368,15 @@ class SkinController {
 
                 lastError = error;
                 console.warn(
-                    `[NerdZone Skin] ${provider.name} indisponÃ­vel:`,
+                    `[NerdZone Skin] ${provider.name} indisponível:`,
                     error
                 );
             }
         }
 
-        /*
-         * NÃ£o bloqueamos a renderizaÃ§Ã£o por causa do UUID.
-         * A skin da Lunar Eclipse pode funcionar normalmente.
-         */
         if (this.elements.uuidDisplay) {
             this.elements.uuidDisplay.textContent =
-                'UUID indisponÃ­vel no momento';
+                'UUID indisponível no momento';
         }
 
         return null;
@@ -451,7 +430,7 @@ class SkinController {
 
                 reject(
                     new Error(
-                        'A API do Lunar Eclipse nÃ£o conseguiu gerar a renderizaÃ§Ã£o dessa skin.'
+                        'A API do Lunar Eclipse não conseguiu gerar a renderização dessa skin.'
                     )
                 );
             };
@@ -500,39 +479,39 @@ class SkinController {
             raw.includes('networkerror')
         ) {
             return (
-                'NÃ£o foi possÃ­vel conectar ao serviÃ§o de skins. ' +
-                'Verifique sua conexÃ£o e tente novamente.'
+                'Não foi possível conectar ao serviço de skins. ' +
+                'Verifique sua conexão e tente novamente.'
             );
         }
 
         if (
             raw.includes('lunar eclipse') ||
-            raw.includes('renderizaÃ§Ã£o')
+            raw.includes('renderização')
         ) {
             return (
-                'A skin foi encontrada, mas o serviÃ§o de renderizaÃ§Ã£o ' +
-                'do Lunar Eclipse nÃ£o conseguiu gerar a imagem. ' +
+                'A skin foi encontrada, mas o serviço de renderização ' +
+                'do Lunar Eclipse não conseguiu gerar a imagem. ' +
                 'Tente novamente ou escolha outro tipo de render.'
             );
         }
 
         if (raw.includes('http 429') || raw.includes('too many')) {
             return (
-                'O serviÃ§o recebeu muitas consultas em pouco tempo. ' +
+                'O serviço recebeu muitas consultas em pouco tempo. ' +
                 'Aguarde alguns segundos e tente novamente.'
             );
         }
 
         if (raw.includes('http 5')) {
             return (
-                'O serviÃ§o de skins estÃ¡ temporariamente indisponÃ­vel. ' +
+                'O serviço de skins está temporariamente indisponível. ' +
                 'Tente novamente em alguns instantes.'
             );
         }
 
         return (
             error?.message ||
-            'NÃ£o foi possÃ­vel consultar a skin. Verifique o nome e tente novamente.'
+            'Não foi possível consultar a skin. Verifique o nome e tente novamente.'
         );
     }
 
@@ -632,12 +611,8 @@ class SkinController {
 
             setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
         } catch (error) {
-            /*
-             * Alguns navegadores bloqueiam download cross-origin.
-             * Nesse caso, abrimos a imagem da API em uma nova aba.
-             */
             console.warn(
-                '[NerdZone Skin] Download por Blob indisponÃ­vel:',
+                '[NerdZone Skin] Download por Blob indisponível:',
                 error
             );
 
@@ -647,19 +622,19 @@ class SkinController {
 }
 
 /**
- * Compatibilidade com o botÃ£o "Copiar UUID" existente no HTML.
+ * 📋 Compatibilidade com o botão "Copiar UUID" existente no HTML
  */
 function copyUUID() {
     const uuidElement = document.getElementById('result');
     const uuid = uuidElement?.innerText?.trim();
 
     if (!uuid || !/^[0-9a-f]{32}$/i.test(uuid.replace(/-/g, ''))) {
-        alert('Nenhum UUID vÃ¡lido disponÃ­vel para copiar.');
+        alert('Nenhum UUID válido disponível para copiar.');
         return;
     }
 
     if (!navigator.clipboard) {
-        alert('Seu navegador nÃ£o permite copiar o UUID automaticamente.');
+        alert('Seu navegador não permite copiar o UUID automaticamente.');
         return;
     }
 
@@ -669,7 +644,7 @@ function copyUUID() {
         })
         .catch(error => {
             console.error('[NerdZone Skin] Erro ao copiar UUID:', error);
-            alert('NÃ£o foi possÃ­vel copiar o UUID.');
+            alert('Não foi possível copiar o UUID.');
         });
 }
 
@@ -677,9 +652,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const skinController = new SkinController();
     skinController.initialize();
 
-    /*
-     * Disponibiliza a instÃ¢ncia globalmente apenas para facilitar
-     * depuraÃ§Ã£o pelo console do navegador.
-     */
     window.skinController = skinController;
 });
