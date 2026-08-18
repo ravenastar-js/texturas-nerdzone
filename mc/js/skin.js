@@ -227,6 +227,7 @@ class SkinController {
 
         this.toggleLoading(true);
         this.elements.resultContainer.style.display = 'none';
+        this.elements.skinImage.style.display = 'none';
 
         try {
             this.abortController = new AbortController();
@@ -252,24 +253,95 @@ class SkinController {
 
             const renderType = this.elements.renderType.value;
             const renderCrop = this.elements.renderCrop.value;
-            const imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
-
-            this.elements.skinImage.onload = () => {
-                this.handleImageLoad(playerName);
-            };
             
-            this.elements.skinImage.onerror = () => {
-                this.handleImageError('Falha ao carregar a imagem da skin. O jogador pode não ter uma skin definida.');
-            };
+            // Tenta carregar a skin com a API da Lunar Eclipse
+            const imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
+            
+            // Faz uma requisição de teste para verificar se a API está respondendo
+            const testResponse = await fetch(imageUrl, { 
+                signal: this.abortController.signal,
+                method: 'HEAD' 
+            });
 
-            this.elements.skinImage.src = imageUrl;
-            this.elements.skinImage.dataset.player = playerName;
+            if (testResponse.ok) {
+                // Se a API está ok, carrega a imagem normalmente
+                this.loadSkinImage(imageUrl, playerName);
+            } else {
+                // Fallback: usa a API do Minecraft para pegar a skin original
+                this.loadFallbackSkin(uuid, playerName);
+            }
 
         } catch (error) {
             if (error.name !== 'AbortError') {
-                this.handleFetchError(error.message || 'Erro ao buscar informações do jogador.');
+                // Em caso de erro na API, tenta o fallback
+                try {
+                    const uuid = this.elements.uuidDisplay.textContent;
+                    if (uuid) {
+                        this.loadFallbackSkin(uuid, playerName);
+                    } else {
+                        throw new Error('Não foi possível carregar a skin.');
+                    }
+                } catch (fallbackError) {
+                    this.handleFetchError(error.message || 'Erro ao buscar informações do jogador.');
+                }
             }
         }
+    }
+
+    /**
+     * 🖼️ Carrega a imagem da skin
+     * @param {string} imageUrl - URL da imagem
+     * @param {string} playerName - Nome do jogador
+     * @method
+     */
+    loadSkinImage(imageUrl, playerName) {
+        this.elements.skinImage.onload = () => {
+            this.handleImageLoad(playerName);
+        };
+        
+        this.elements.skinImage.onerror = () => {
+            // Se falhar ao carregar, tenta o fallback
+            const uuid = this.elements.uuidDisplay.textContent;
+            if (uuid) {
+                this.loadFallbackSkin(uuid, playerName);
+            } else {
+                this.handleImageError('Falha ao carregar a imagem da skin.');
+            }
+        };
+
+        this.elements.skinImage.src = imageUrl;
+        this.elements.skinImage.dataset.player = playerName;
+    }
+
+    /**
+     * 🔄 Carrega a skin usando API de fallback
+     * @param {string} uuid - UUID do jogador
+     * @param {string} playerName - Nome do jogador
+     * @method
+     */
+    loadFallbackSkin(uuid, playerName) {
+        // Usa a API do Visage para renderizar a skin
+        const fallbackUrl = `https://visage.surgeplay.com/full/512/${uuid}`;
+        
+        this.elements.skinImage.onload = () => {
+            this.handleImageLoad(playerName);
+        };
+        
+        this.elements.skinImage.onerror = () => {
+            // Último recurso: usar a skin padrão do Minecraft
+            const defaultSkin = `https://mc-heads.net/avatar/${uuid}/512`;
+            this.elements.skinImage.onload = () => {
+                this.handleImageLoad(playerName);
+            };
+            this.elements.skinImage.onerror = () => {
+                this.handleImageError('Não foi possível carregar a skin do jogador.');
+            };
+            this.elements.skinImage.src = defaultSkin;
+        };
+
+        this.elements.skinImage.src = fallbackUrl;
+        this.elements.skinImage.dataset.player = playerName;
+        this.elements.skinImage.dataset.fallback = 'true';
     }
 
     /**
