@@ -372,7 +372,7 @@ class SkinController {
     }
 
     /**
-     * 💾 Dispara o download da skin original usando a URL do tipo "skin"
+     * 💾 Dispara o download da skin original
      * @method
      */
     downloadSkin() {
