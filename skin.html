@@ -34,17 +34,19 @@
 
 <body>
     <div class="container">
-        <h1 style="border-bottom: 3px solid #FFF;text-shadow: 3px 3px 0 #FF7979;">Minecraft Player Skin Viewer</h1>
+        <h1 style="border-bottom: 3px solid #FFF;text-shadow: 3px 3px 0 #FF7979;">🎮 Minecraft Player Skin Viewer</h1>
         <div>
             <input type="text" id="playerName" placeholder="Nome do jogador aqui...">
 
-            <select id="renderType" onchange="updateAvailableCrops()">
-                <!-- Populado via JavaScript -->
-            </select>
+            <div class="render-controls">
+                <select id="renderType" onchange="updateAvailableCrops()">
+                    <!-- Populado via JavaScript -->
+                </select>
 
-            <select id="renderCrop">
-                <!-- Populado via JavaScript -->
-            </select>
+                <select id="renderCrop">
+                    <!-- Populado via JavaScript -->
+                </select>
+            </div>
 
             <button id="searchBtn">Pesquisar</button>
 
