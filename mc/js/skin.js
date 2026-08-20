@@ -9,7 +9,6 @@ class SkinController {
      */
     constructor() {
         this.baseUrl = 'https://starlight.lunareclipse.studio/api/v1/render/';
-        this.skinApiUrl = 'https://api.mineatar.io/body/full/';
         
         this.elements = {
             playerInput: document.getElementById('playerName'),
@@ -100,7 +99,7 @@ class SkinController {
         this.currentRequest = null;
         this.currentSkinUrl = null;
         this.currentPlayerName = null;
-        this.currentUuid = null;
+        this.currentRenderType = null;
     }
 
     /**
@@ -237,18 +236,17 @@ class SkinController {
         this.elements.skinImage.style.display = 'none';
         this.currentSkinUrl = null;
         this.currentPlayerName = playerName;
-        this.currentUuid = null;
 
         try {
             const { skinImage, renderType, renderCrop } = this.elements;
             this.abortController = new AbortController();
             this.currentRequest = Symbol();
+            this.currentRenderType = renderType.value;
 
             const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
             if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
 
             const uuidData = await uuidResponse.json();
-            this.currentUuid = uuidData.id;
             this.elements.uuidDisplay.innerText = uuidData.id;
             this.elements.resultContainer.style.display = 'flex';
 
@@ -374,18 +372,18 @@ class SkinController {
     }
 
     /**
-     * 💾 Dispara o download da skin original
+     * 💾 Dispara o download da skin original usando a URL do tipo "skin"
      * @method
      */
     downloadSkin() {
-        if (!this.currentUuid) {
-            this.showError('UUID não disponível para baixar a skin.');
+        if (!this.currentPlayerName) {
+            this.showError('Nome do jogador não disponível.');
             return;
         }
 
-        const skinUrl = `https://api.mineatar.io/skin/${this.currentUuid}`;
+        const downloadUrl = `${this.baseUrl}skin/${this.currentPlayerName}/default`;
         
-        fetch(skinUrl)
+        fetch(downloadUrl)
             .then(response => {
                 if (!response.ok) throw new Error('Erro ao baixar a skin');
                 return response.blob();
@@ -394,7 +392,7 @@ class SkinController {
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `skin_${this.currentPlayerName || 'player'}.png`;
+                link.download = `skin_${this.currentPlayerName}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
