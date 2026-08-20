@@ -26,7 +26,8 @@ class SkinController {
             modal: document.getElementById('skinModal'),
             modalImage: document.getElementById('modalSkinImage'),
             uuidDisplay: document.getElementById('result'),
-            resultContainer: document.querySelector('.result-container')
+            resultContainer: document.querySelector('.result-container'),
+            renderControls: document.querySelector('.render-controls')
         };
 
         this.renderConfig = {
@@ -106,6 +107,7 @@ class SkinController {
         this.currentRenderCrop = null;
         this.currentUuid = null;
         this.isFallbackMode = false;
+        this.apiAvailable = true;
     }
 
     /**
@@ -118,6 +120,52 @@ class SkinController {
         this.setupModal();
         this.hideError();
         this.removeDuplicateCopyButton();
+        this.checkApiStatus();
+    }
+
+    /**
+     * 🔍 Verifica se a API principal está disponível
+     * @method
+     */
+    async checkApiStatus() {
+        try {
+            const response = await fetch(`${this.baseUrl}default/Notch/full`, { 
+                method: 'HEAD',
+                signal: AbortSignal.timeout(5000)
+            });
+            this.apiAvailable = response.ok;
+        } catch {
+            this.apiAvailable = false;
+        }
+        
+        if (!this.apiAvailable) {
+            this.hideRenderControls();
+            this.showError('API de renderização 3D indisponível. Usando modo básico.');
+        }
+    }
+
+    /**
+     * 🙈 Oculta os controles de renderização
+     * @method
+     */
+    hideRenderControls() {
+        if (this.elements.renderControls) {
+            this.elements.renderControls.style.display = 'none';
+        }
+        this.elements.renderType.style.display = 'none';
+        this.elements.renderCrop.style.display = 'none';
+    }
+
+    /**
+     * 👀 Exibe os controles de renderização
+     * @method
+     */
+    showRenderControls() {
+        if (this.elements.renderControls) {
+            this.elements.renderControls.style.display = '';
+        }
+        this.elements.renderType.style.display = '';
+        this.elements.renderCrop.style.display = '';
     }
 
     /**
@@ -271,7 +319,11 @@ class SkinController {
             this.elements.uuidDisplay.innerText = uuidData.id;
             this.elements.resultContainer.style.display = 'flex';
 
-            await this.tryLoadSkin(playerName, renderType.value, renderCrop.value);
+            if (this.apiAvailable) {
+                await this.tryLoadSkin(playerName, renderType.value, renderCrop.value);
+            } else {
+                await this.loadFallbackSkin(playerName);
+            }
 
         } catch (error) {
             this.handleFetchError(error);
@@ -309,6 +361,8 @@ class SkinController {
 
         } catch (error) {
             if (error.name !== 'AbortError') {
+                this.apiAvailable = false;
+                this.hideRenderControls();
                 await this.loadFallbackSkin(playerName);
             }
         }
@@ -321,7 +375,7 @@ class SkinController {
      */
     async loadFallbackSkin(playerName) {
         this.isFallbackMode = true;
-        this.showError('API principal indisponível. Usando fallback...');
+        this.showError('API de renderização 3D indisponível. Usando modo básico.');
 
         const fallbackUrls = [
             `https://visage.surgeplay.com/full/512/${this.currentUuid}`,
