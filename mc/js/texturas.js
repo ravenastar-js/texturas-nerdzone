@@ -193,7 +193,7 @@ function toggleInfoTooltip(tooltip) {
 function getIconURL(username, hasMinecraftOriginal) {
     if (hasMinecraftOriginal) {
         if(username.includes("nerdzone")) return 'mc/img/base/icon.png';
-        return `https://starlight.lunareclipse.studio/api/v1/render/${username}/full`;
+        return `https://starlight.lunareclipse.studio/api/v1/render/head/${username}/full`;
     } else {
         if (username.includes("matheussponchi")) return 'mc/img/staff/matheussponchi.png';
         return 'mc/img/staff/p.png';
