@@ -507,12 +507,6 @@ class SkinController {
         nameMcBtn.innerHTML = '<i class="fas fa-globe"></i> NameMC';
         nameMcBtn.onclick = () => window.open(`https://namemc.com/profile/${playerName}`, '_blank');
 
-        const copyBtn = document.createElement('button');
-        copyBtn.id = 'copyUuidBtn';
-        copyBtn.className = 'action-btn';
-        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar UUID';
-        copyBtn.onclick = () => this.copyUUID();
-
         const apiLinkBtn = document.createElement('button');
         apiLinkBtn.id = 'apiLinkBtn';
         apiLinkBtn.className = 'action-btn';
@@ -523,7 +517,6 @@ class SkinController {
         container.appendChild(downloadSkinBtn);
         container.appendChild(downloadPreviewBtn);
         container.appendChild(nameMcBtn);
-        container.appendChild(copyBtn);
         container.appendChild(apiLinkBtn);
     }
 
@@ -532,7 +525,7 @@ class SkinController {
      * @method
      */
     removeExistingButtons() {
-        const buttons = ['downloadSkinBtn', 'downloadPreviewBtn', 'nameMcBtn', 'copyUuidBtn', 'apiLinkBtn'];
+        const buttons = ['downloadSkinBtn', 'downloadPreviewBtn', 'nameMcBtn', 'apiLinkBtn'];
         buttons.forEach(id => {
             const btn = document.getElementById(id);
             if (btn) btn.remove();
@@ -641,7 +634,7 @@ class SkinController {
 
         navigator.clipboard.writeText(uuid)
             .then(() => {
-                const copyBtn = document.getElementById('copyUuidBtn');
+                const copyBtn = this.elements.resultContainer.querySelector('#copyUuidBtn');
                 if (copyBtn) {
                     const originalText = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
