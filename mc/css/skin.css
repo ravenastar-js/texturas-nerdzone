@@ -8,7 +8,6 @@ body {
     padding: 20px;
 }
 
-
 h1 {
     font-size: 20px;
     color: #ffffff;
@@ -41,7 +40,7 @@ button {
     border-radius: 10px;
 }
 
-/* Estilos para os controles de renderização */
+/* NOVO: Estilos para os controles de renderização */
 .render-controls {
     display: flex;
     gap: 10px;
@@ -60,7 +59,6 @@ button {
     display: none;
 }
 
-/* Estilização Específica para Select */
 select {
     background-image:
         url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff7979' d='M7 10l5 5 5-5z'/></svg>");
@@ -114,7 +112,6 @@ button:hover {
     margin-top: 10px;
 }
 
-/* Minecraft Loader */
 .minecraft-loader {
     display: none;
     flex-direction: column;
@@ -180,12 +177,10 @@ button:hover {
     0% {
         height: 35px;
     }
-
     50% {
         height: 5px;
         background-color: #a52d2d;
     }
-
     100% {
         height: 35px;
     }
@@ -213,7 +208,6 @@ button:hover {
     filter: none;
 }
 
-/* Estilos do Modal */
 .skin-modal {
     display: none;
     position: fixed;
@@ -272,7 +266,7 @@ button#btcp:hover {
     padding: 10px 10px;
 }
 
-/* Botões de ação */
+/* NOVO: Botões de ação */
 .action-btn {
     width: auto;
     min-width: 150px;
@@ -299,7 +293,7 @@ button#btcp:hover {
     font-size: 14px;
 }
 
-/* Container dos botões */
+/* NOVO: Container dos botões */
 .skin-display .action-btn {
-    margin: 5px;
+    margin: 5px; 
 }
