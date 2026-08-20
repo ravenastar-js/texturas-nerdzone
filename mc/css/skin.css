@@ -8,6 +8,7 @@ body {
     padding: 20px;
 }
 
+
 h1 {
     font-size: 20px;
     color: #ffffff;
@@ -16,27 +17,53 @@ h1 {
 input,
 select,
 button {
+    /* Fontes */
     font-family: 'Press Start 2P', "Comic Sans MS", cursive, sans-serif;
+
+    /* Dimensionamento consistente */
     width: 90%;
     -moz-box-sizing: border-box;
+    /* Importante para cálculo correto do width */
     -webkit-box-sizing: border-box;
+    /* Para navegadores WebKit */
     box-sizing: border-box;
+    /* Para Firefox */
+
+    /* Espaçamento */
     margin: 10px 0;
+
+    /* Bordas */
     border: 3px solid #ffffff;
     -webkit-border-radius: 0;
+    /* Reset para Safari/iOS */
     border-radius: 0;
+
+    /* Cores e fundo */
     background: #1b1b1b;
     background-color: #1b1b1b;
+    /* Fallback explícito */
     color: #ff7979;
+
+    /* Alinhamento */
     text-align: center;
+
+    /* Reset de estilos nativos */
     -webkit-appearance: none;
+    /* Remove estilos padrão no iOS/Safari */
     -moz-appearance: none;
+    /* Remove estilos padrão no Firefox */
     appearance: none;
+
+    /* Tipografia */
     font-size: 12px;
+    /* Tamanho mínimo recomendado para acessibilidade */
     line-height: normal;
     height: 45px;
+    /* Altura fixa para consistência */
     line-height: 45px;
+    /* Alinhamento vertical centralizado */
     vertical-align: middle;
+    /* Para Firefox */
     border-radius: 10px;
 }
 
@@ -59,27 +86,36 @@ button {
     display: none;
 }
 
+/* Estilização Específica para Select */
 select {
+    /* Reset completo da seta padrão */
     background-image:
         url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff7979' d='M7 10l5 5 5-5z'/></svg>");
     background-repeat: no-repeat;
     background-position: right 10px center;
     padding-right: 35px !important;
+    /* Espaço para a seta customizada */
+
+    /* Firefox Hack */
     text-indent: 0.01px;
     text-overflow: '';
 }
 
+/* Firefox: Remove outline vermelha inválida */
 select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #ff7979;
 }
 
+/* Chrome: Ajuste de alinhamento */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select {
         padding-top: 0;
+        /* Remove padding extra */
     }
 }
 
+/* Edge/IE11: Remove seta padrão */
 select::-ms-expand {
     display: none;
 }
@@ -94,7 +130,7 @@ button {
 
 button:hover {
     color: white;
-    background: #a52d2d;
+    background: #a52d2d
 }
 
 .skin-display {
@@ -105,6 +141,7 @@ button:hover {
     gap: 20px;
 }
 
+
 #errorMessage {
     display: none;
     color: #ff7979;
@@ -112,6 +149,7 @@ button:hover {
     margin-top: 10px;
 }
 
+/* Minecraft Loader */
 .minecraft-loader {
     display: none;
     flex-direction: column;
@@ -145,6 +183,7 @@ button:hover {
     box-shadow: 0 2px #a52d2d;
 }
 
+/* Animações com delays */
 .l1 {
     animation: minecraftLoader 1s 0s infinite ease;
 }
@@ -177,10 +216,12 @@ button:hover {
     0% {
         height: 35px;
     }
+
     50% {
         height: 5px;
         background-color: #a52d2d;
     }
+
     100% {
         height: 35px;
     }
@@ -199,6 +240,7 @@ button:hover {
 }
 
 #searchBtn:disabled {
+
     cursor: not-allowed;
     opacity: 0.7;
     transform: none;
@@ -208,6 +250,7 @@ button:hover {
     filter: none;
 }
 
+/* Estilos do Modal */
 .skin-modal {
     display: none;
     position: fixed;
@@ -242,17 +285,14 @@ button:hover {
 .close-modal:hover {
     color: #ccc;
 }
-
-button#btcp {
-    color: #212121;
+button#btcp{
+    color: #212121; 
     background: white;
 }
-
-button#btcp:hover {
+button#btcp:hover{
     color: white;
-    background: #212121;
+    background: #212121; 
 }
-
 .result-container {
     width: min(90%, 800px);
     margin-top: 20px;
@@ -295,5 +335,5 @@ button#btcp:hover {
 
 /* NOVO: Container dos botões */
 .skin-display .action-btn {
-    margin: 5px; 
-}
+    margin: 5px;
+ }
