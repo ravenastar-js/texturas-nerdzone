@@ -1,7 +1,7 @@
 
 function getIconURL(username, hasMinecraftOriginal) {
     if (hasMinecraftOriginal) {
-        return `https://starlightskins.lunareclipse.studio/render/head/${username}/full`;
+        return `starlight.lunareclipse.studio/api/v1/render/head/${username}/full`;
     } else {
         if (username.includes("matheussponchi")) return 'mc/img/staff/matheussponchi.png';
         return 'mc/img/staff/p.png';
