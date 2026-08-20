@@ -108,6 +108,7 @@ class SkinController {
         this.currentUuid = null;
         this.isFallbackMode = false;
         this.apiAvailable = true;
+        this.isValidPlayer = false;
     }
 
     /**
@@ -292,6 +293,7 @@ class SkinController {
         }
 
         this.hideError();
+        this.isValidPlayer = false;
 
         if (this.abortController) {
             this.abortController.abort();
@@ -312,9 +314,18 @@ class SkinController {
             this.currentRenderCrop = renderCrop.value;
 
             const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
-            if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
+            
+            if (!uuidResponse.ok) {
+                throw new Error('Jogador não encontrado');
+            }
 
             const uuidData = await uuidResponse.json();
+            
+            if (!uuidData.id) {
+                throw new Error('Jogador não encontrado');
+            }
+
+            this.isValidPlayer = true;
             this.currentUuid = uuidData.id;
             this.elements.uuidDisplay.innerText = uuidData.id;
             this.elements.resultContainer.style.display = 'flex';
@@ -447,7 +458,14 @@ class SkinController {
             this.toggleLoading(false);
             this.elements.resultContainer.style.display = 'none';
             this.currentSkinUrl = null;
-            this.showError(error.message || 'Erro ao buscar informações do jogador.');
+            this.isValidPlayer = false;
+            
+            if (error.message === 'Jogador não encontrado') {
+                this.showError('Jogador não encontrado. Verifique o nome e tente novamente.');
+            } else {
+                this.showError(error.message || 'Erro ao buscar informações do jogador.');
+            }
+            
             this.removeExistingButtons();
         }
     }
