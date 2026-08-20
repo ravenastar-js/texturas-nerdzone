@@ -253,7 +253,7 @@ class SkinController {
             const renderType = this.elements.renderType.value;
             const renderCrop = this.elements.renderCrop.value;
             
-            const imageUrl = `https://starlight.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}`;
+            const imageUrl = `https://starlight.lunareclipse.studio/api/v1/render/${renderType}/${playerName}/${renderCrop}`;
             
             const testResponse = await fetch(imageUrl, { 
                 signal: this.abortController.signal,
