@@ -118,6 +118,18 @@ class SkinController {
         this.setupEventListeners();
         this.setupModal();
         this.hideError();
+        this.removeDuplicateCopyButton();
+    }
+
+    /**
+     * 🗑️ Remove o botão de copiar UUID duplicado do HTML
+     * @method
+     */
+    removeDuplicateCopyButton() {
+        const duplicateBtn = document.getElementById('btcp');
+        if (duplicateBtn) {
+            duplicateBtn.remove();
+        }
     }
 
     /**
