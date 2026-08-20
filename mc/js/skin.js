@@ -513,11 +513,18 @@ class SkinController {
         copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar UUID';
         copyBtn.onclick = () => this.copyUUID();
 
+        const apiLinkBtn = document.createElement('button');
+        apiLinkBtn.id = 'apiLinkBtn';
+        apiLinkBtn.className = 'action-btn';
+        apiLinkBtn.innerHTML = '<i class="fas fa-link"></i> Link Direto';
+        apiLinkBtn.onclick = () => this.openApiLink();
+
         const container = this.elements.skinDisplay;
         container.appendChild(downloadSkinBtn);
         container.appendChild(downloadPreviewBtn);
         container.appendChild(nameMcBtn);
         container.appendChild(copyBtn);
+        container.appendChild(apiLinkBtn);
     }
 
     /**
@@ -525,11 +532,30 @@ class SkinController {
      * @method
      */
     removeExistingButtons() {
-        const buttons = ['downloadSkinBtn', 'downloadPreviewBtn', 'nameMcBtn', 'copyUuidBtn'];
+        const buttons = ['downloadSkinBtn', 'downloadPreviewBtn', 'nameMcBtn', 'copyUuidBtn', 'apiLinkBtn'];
         buttons.forEach(id => {
             const btn = document.getElementById(id);
             if (btn) btn.remove();
         });
+    }
+
+    /**
+     * 🔗 Abre o link direto da API em uma nova aba
+     * @method
+     */
+    openApiLink() {
+        if (!this.currentPlayerName) {
+            this.showError('Nenhum jogador pesquisado.');
+            return;
+        }
+
+        if (this.isFallbackMode) {
+            this.showError('Link direto indisponível em modo fallback.');
+            return;
+        }
+
+        const apiUrl = `${this.baseUrl}${this.currentRenderType}/${this.currentPlayerName}/${this.currentRenderCrop}`;
+        window.open(apiUrl, '_blank');
     }
 
     /**
