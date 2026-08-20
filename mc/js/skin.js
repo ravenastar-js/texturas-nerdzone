@@ -105,6 +105,7 @@ class SkinController {
         this.currentSkinUrl = null;
         this.currentPlayerName = null;
         this.currentRenderType = null;
+        this.currentRenderCrop = null;
         this.currentUuid = null;
         this.isFallbackMode = false;
     }
@@ -262,6 +263,7 @@ class SkinController {
             this.abortController = new AbortController();
             this.currentRequest = Symbol();
             this.currentRenderType = renderType.value;
+            this.currentRenderCrop = renderCrop.value;
 
             const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
             if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
@@ -417,11 +419,17 @@ class SkinController {
     createButtons(playerName) {
         this.removeExistingButtons();
 
-        const downloadBtn = document.createElement('button');
-        downloadBtn.id = 'downloadBtn';
-        downloadBtn.className = 'action-btn';
-        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Baixar Skin';
-        downloadBtn.onclick = () => this.downloadSkin();
+        const downloadSkinBtn = document.createElement('button');
+        downloadSkinBtn.id = 'downloadSkinBtn';
+        downloadSkinBtn.className = 'action-btn';
+        downloadSkinBtn.innerHTML = '<i class="fas fa-file-image"></i> Baixar Skin';
+        downloadSkinBtn.onclick = () => this.downloadSkin();
+
+        const downloadPreviewBtn = document.createElement('button');
+        downloadPreviewBtn.id = 'downloadPreviewBtn';
+        downloadPreviewBtn.className = 'action-btn';
+        downloadPreviewBtn.innerHTML = '<i class="fas fa-image"></i> Baixar Preview';
+        downloadPreviewBtn.onclick = () => this.downloadPreview();
 
         const nameMcBtn = document.createElement('button');
         nameMcBtn.id = 'nameMcBtn';
@@ -436,7 +444,8 @@ class SkinController {
         copyBtn.onclick = () => this.copyUUID();
 
         const container = this.elements.skinDisplay;
-        container.appendChild(downloadBtn);
+        container.appendChild(downloadSkinBtn);
+        container.appendChild(downloadPreviewBtn);
         container.appendChild(nameMcBtn);
         container.appendChild(copyBtn);
     }
@@ -446,7 +455,7 @@ class SkinController {
      * @method
      */
     removeExistingButtons() {
-        const buttons = ['downloadBtn', 'nameMcBtn', 'copyUuidBtn'];
+        const buttons = ['downloadSkinBtn', 'downloadPreviewBtn', 'nameMcBtn', 'copyUuidBtn'];
         buttons.forEach(id => {
             const btn = document.getElementById(id);
             if (btn) btn.remove();
@@ -487,6 +496,39 @@ class SkinController {
             })
             .catch(() => {
                 this.showError('Não foi possível baixar a skin original. Tente novamente.');
+            });
+    }
+
+    /**
+     * 🖼️ Dispara o download da imagem de preview (renderização 3D)
+     * @method
+     */
+    downloadPreview() {
+        if (!this.currentSkinUrl) {
+            this.showError('Nenhuma imagem de preview disponível.');
+            return;
+        }
+
+        const previewUrl = this.currentSkinUrl;
+        
+        fetch(previewUrl)
+            .then(response => {
+                if (!response.ok) throw new Error('Erro ao baixar o preview');
+                return response.blob();
+            })
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                const extension = this.isFallbackMode ? 'png' : 'png';
+                link.download = `preview_${this.currentPlayerName}_${this.currentRenderType}.${extension}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            })
+            .catch(() => {
+                this.showError('Não foi possível baixar o preview. Tente novamente.');
             });
     }
 
