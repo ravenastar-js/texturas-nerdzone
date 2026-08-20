@@ -9,6 +9,11 @@ class SkinController {
      */
     constructor() {
         this.baseUrl = 'https://starlight.lunareclipse.studio/api/v1/render/';
+        this.fallbackUrls = [
+            'https://visage.surgeplay.com/full/512/',
+            'https://mc-heads.net/body/',
+            'https://crafatar.com/renders/body/'
+        ];
         
         this.elements = {
             playerInput: document.getElementById('playerName'),
@@ -100,6 +105,8 @@ class SkinController {
         this.currentSkinUrl = null;
         this.currentPlayerName = null;
         this.currentRenderType = null;
+        this.currentUuid = null;
+        this.isFallbackMode = false;
     }
 
     /**
@@ -236,6 +243,7 @@ class SkinController {
         this.elements.skinImage.style.display = 'none';
         this.currentSkinUrl = null;
         this.currentPlayerName = playerName;
+        this.isFallbackMode = false;
 
         try {
             const { skinImage, renderType, renderCrop } = this.elements;
@@ -247,32 +255,92 @@ class SkinController {
             if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
 
             const uuidData = await uuidResponse.json();
+            this.currentUuid = uuidData.id;
             this.elements.uuidDisplay.innerText = uuidData.id;
             this.elements.resultContainer.style.display = 'flex';
 
-            const imageUrl = `${this.baseUrl}${renderType.value}/${playerName}/${renderCrop.value}`;
-            
-            const response = await fetch(
-                imageUrl,
-                { signal: this.abortController.signal }
-            );
-
-            if (!response.ok) throw new Error('Erro na resposta da API');
-
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            this.currentSkinUrl = url;
-
-            skinImage.onload = () => this.handleImageLoad(url, playerName);
-            skinImage.onerror = () => this.handleImageError(url);
-            skinImage.src = url;
-            skinImage.dataset.player = playerName;
-            skinImage.dataset.renderType = renderType.value;
-            skinImage.dataset.renderCrop = renderCrop.value;
+            await this.tryLoadSkin(playerName, renderType.value, renderCrop.value);
 
         } catch (error) {
             this.handleFetchError(error);
         }
+    }
+
+    /**
+     * 🔄 Tenta carregar a skin com fallback
+     * @param {string} playerName - Nome do jogador
+     * @param {string} renderType - Tipo de renderização
+     * @param {string} renderCrop - Crop da renderização
+     * @method
+     */
+    async tryLoadSkin(playerName, renderType, renderCrop) {
+        const imageUrl = `${this.baseUrl}${renderType}/${playerName}/${renderCrop}`;
+        
+        try {
+            const response = await fetch(imageUrl, { 
+                signal: this.abortController.signal 
+            });
+
+            if (!response.ok) throw new Error('API principal indisponível');
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            this.currentSkinUrl = url;
+            this.isFallbackMode = false;
+
+            this.elements.skinImage.onload = () => this.handleImageLoad(url, playerName);
+            this.elements.skinImage.onerror = () => this.handleImageError(url);
+            this.elements.skinImage.src = url;
+            this.elements.skinImage.dataset.player = playerName;
+            this.elements.skinImage.dataset.renderType = renderType;
+            this.elements.skinImage.dataset.renderCrop = renderCrop;
+
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                await this.loadFallbackSkin(playerName);
+            }
+        }
+    }
+
+    /**
+     * 🔄 Carrega a skin usando APIs de fallback
+     * @param {string} playerName - Nome do jogador
+     * @method
+     */
+    async loadFallbackSkin(playerName) {
+        this.isFallbackMode = true;
+        this.showError('API principal indisponível. Usando fallback...');
+
+        const fallbackUrls = [
+            `https://visage.surgeplay.com/full/512/${this.currentUuid}`,
+            `https://mc-heads.net/body/${this.currentUuid}`,
+            `https://crafatar.com/renders/body/${this.currentUuid}`
+        ];
+
+        for (const url of fallbackUrls) {
+            try {
+                const response = await fetch(url, { 
+                    signal: this.abortController.signal 
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const objectUrl = URL.createObjectURL(blob);
+                    this.currentSkinUrl = objectUrl;
+
+                    this.elements.skinImage.onload = () => this.handleImageLoad(objectUrl, playerName);
+                    this.elements.skinImage.onerror = () => this.handleImageError(objectUrl);
+                    this.elements.skinImage.src = objectUrl;
+                    this.elements.skinImage.dataset.player = playerName;
+                    this.elements.skinImage.dataset.fallback = 'true';
+                    return;
+                }
+            } catch (error) {
+                continue;
+            }
+        }
+
+        throw new Error('Todos os fallbacks falharam');
     }
 
     /**
@@ -300,6 +368,7 @@ class SkinController {
         this.elements.resultContainer.style.display = 'none';
         this.currentSkinUrl = null;
         this.showError('Falha ao carregar a imagem da skin.');
+        this.removeExistingButtons();
     }
 
     /**
@@ -313,6 +382,7 @@ class SkinController {
             this.elements.resultContainer.style.display = 'none';
             this.currentSkinUrl = null;
             this.showError(error.message || 'Erro ao buscar informações do jogador.');
+            this.removeExistingButtons();
         }
     }
 
@@ -381,7 +451,12 @@ class SkinController {
             return;
         }
 
-        const downloadUrl = `${this.baseUrl}skin/${this.currentPlayerName}/default`;
+        let downloadUrl;
+        if (this.isFallbackMode) {
+            downloadUrl = `https://visage.surgeplay.com/skin/${this.currentUuid}`;
+        } else {
+            downloadUrl = `${this.baseUrl}skin/${this.currentPlayerName}/default`;
+        }
         
         fetch(downloadUrl)
             .then(response => {
