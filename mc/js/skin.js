@@ -9,7 +9,7 @@ class SoundManager {
      */
     constructor() {
         this.sounds = {
-            search: 'https://docs.lunareclipse.studio/assets/sounds/level_up.mp3'
+            search: 'https://texturas-nerdzone.pages.dev/skin/mc/sounds/level-up.mp3'
         };
         this.audioCache = {};
         this.enabled = true;
