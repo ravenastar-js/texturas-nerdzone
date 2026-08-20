@@ -15,6 +15,9 @@ class SkinController {
             'https://crafatar.com/renders/body/'
         ];
         
+        // 🔊 Inicializa o gerenciador de sons
+        this.soundManager = new SoundManager();
+        
         this.elements = {
             playerInput: document.getElementById('playerName'),
             renderType: document.getElementById('renderType'),
@@ -217,7 +220,10 @@ class SkinController {
      * @method
      */
     setupEventListeners() {
-        this.elements.renderType.addEventListener('change', () => this.updateCropOptions());
+        this.elements.renderType.addEventListener('change', () => {
+            this.updateCropOptions();
+            this.soundManager.play('render');
+        });
         this.elements.searchBtn.addEventListener('click', () => this.fetchSkin());
         this.elements.playerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -325,6 +331,9 @@ class SkinController {
             } else {
                 await this.loadFallbackSkin(playerName);
             }
+
+            // 🔊 Toca o som de sucesso da pesquisa
+            this.soundManager.play('search');
 
         } catch (error) {
             this.handleFetchError(error);
