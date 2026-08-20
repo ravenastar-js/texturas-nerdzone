@@ -1,4 +1,98 @@
 /**
+ * 🔊 Gerenciador de sons para feedback de ações
+ * @class
+ */
+class SoundManager {
+    /**
+     * 🏗️ Inicializa o gerenciador com as URLs dos sons
+     * @constructor
+     */
+    constructor() {
+        this.sounds = {
+            search: 'https://docs.lunareclipse.studio/assets/sounds/level_up.mp3'
+        };
+        this.audioCache = {};
+        this.enabled = true;
+        this.loadSounds();
+    }
+
+    /**
+     * 📥 Pré-carrega os sons para reprodução mais rápida
+     * @method
+     */
+    loadSounds() {
+        Object.entries(this.sounds).forEach(([key, url]) => {
+            const audio = new Audio(url);
+            audio.preload = 'auto';
+            this.audioCache[key] = audio;
+        });
+    }
+
+    /**
+     * ▶️ Reproduz um som específico
+     * @param {string} soundName - Nome do som ('search' ou 'render')
+     * @method
+     */
+    play(soundName) {
+        if (!this.enabled) return;
+
+        if (soundName === 'render') {
+            this.playClickSound();
+            return;
+        }
+
+        const audio = this.audioCache[soundName];
+        if (audio) {
+            try {
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+            } catch {
+                // Fallback silencioso para erros de reprodução
+            }
+        }
+    }
+
+    /**
+     * 🔇 Ativa ou desativa todos os sons
+     * @param {boolean} enabled - Estado do som
+     * @method
+     */
+    setEnabled(enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * 🖱️ Gera um som de clique usando Web Audio API (fallback)
+     * @method
+     */
+    playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.1);
+            
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        } catch {
+            // Fallback silencioso se a Web Audio API não estiver disponível
+        }
+    }
+}
+
+/**
  * 🎮 Controlador principal de renderização de skins Minecraft
  * @class
  */
@@ -15,7 +109,6 @@ class SkinController {
             'https://crafatar.com/renders/body/'
         ];
         
-        // 🔊 Inicializa o gerenciador de sons
         this.soundManager = new SoundManager();
         
         this.elements = {
@@ -332,7 +425,6 @@ class SkinController {
                 await this.loadFallbackSkin(playerName);
             }
 
-            // 🔊 Toca o som de sucesso da pesquisa
             this.soundManager.play('search');
 
         } catch (error) {
