@@ -540,7 +540,7 @@ class SkinController {
     }
 
     /**
-     * 🔗 Abre o link direto da API em uma nova aba
+     * 🔗 Abre o link direto da API em uma nova aba com segurança
      * @method
      */
     openApiLink() {
@@ -555,7 +555,7 @@ class SkinController {
         }
 
         const apiUrl = `${this.baseUrl}${this.currentRenderType}/${this.currentPlayerName}/${this.currentRenderCrop}`;
-        window.open(apiUrl, '_blank');
+        window.open(apiUrl, '_blank', 'noopener,noreferrer');
     }
 
     /**
