@@ -67,25 +67,6 @@ button {
     border-radius: 10px;
 }
 
-/* NOVO: Estilos para os controles de renderização */
-.render-controls {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.render-controls select {
-    width: auto;
-    min-width: 200px;
-    flex: 1;
-}
-
-.render-controls.hidden {
-    display: none;
-}
-
 /* Estilização Específica para Select */
 select {
     /* Reset completo da seta padrão */
@@ -301,39 +282,18 @@ button#btcp:hover{
     box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.32);
 }
 
+.render-controls {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.render-controls.hidden {
+    display: none;
+}
+
 .result-container p {
     overflow: auto;
     padding: 10px 10px;
 }
-
-/* NOVO: Botões de ação */
-.action-btn {
-    width: auto;
-    min-width: 150px;
-    padding: 10px 20px;
-    font-size: 12px;
-    background: #ffffff;
-    color: #a52d2d;
-    border: 3px solid #ffffff;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.action-btn:hover {
-    color: white;
-    background: #a52d2d;
-}
-
-.action-btn i {
-    font-size: 14px;
-}
-
-/* NOVO: Container dos botões */
-.skin-display .action-btn {
-    margin: 5px;
- }
