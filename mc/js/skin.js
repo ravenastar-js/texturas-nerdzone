@@ -9,6 +9,7 @@ class SkinController {
      */
     constructor() {
         this.baseUrl = 'https://starlight.lunareclipse.studio/api/v1/render/';
+        this.skinApiUrl = 'https://api.mineatar.io/body/full/';
         
         this.elements = {
             playerInput: document.getElementById('playerName'),
@@ -98,6 +99,8 @@ class SkinController {
         this.abortController = null;
         this.currentRequest = null;
         this.currentSkinUrl = null;
+        this.currentPlayerName = null;
+        this.currentUuid = null;
     }
 
     /**
@@ -233,11 +236,21 @@ class SkinController {
         this.elements.resultContainer.style.display = 'none';
         this.elements.skinImage.style.display = 'none';
         this.currentSkinUrl = null;
+        this.currentPlayerName = playerName;
+        this.currentUuid = null;
 
         try {
             const { skinImage, renderType, renderCrop } = this.elements;
             this.abortController = new AbortController();
             this.currentRequest = Symbol();
+
+            const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
+            if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
+
+            const uuidData = await uuidResponse.json();
+            this.currentUuid = uuidData.id;
+            this.elements.uuidDisplay.innerText = uuidData.id;
+            this.elements.resultContainer.style.display = 'flex';
 
             const imageUrl = `${this.baseUrl}${renderType.value}/${playerName}/${renderCrop.value}`;
             
@@ -258,14 +271,6 @@ class SkinController {
             skinImage.dataset.player = playerName;
             skinImage.dataset.renderType = renderType.value;
             skinImage.dataset.renderCrop = renderCrop.value;
-            
-            this.elements.resultContainer.style.display = 'flex';
-            
-            const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
-            if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
-
-            const uuidData = await uuidResponse.json();
-            this.elements.uuidDisplay.innerText = uuidData.id;
 
         } catch (error) {
             this.handleFetchError(error);
@@ -280,7 +285,7 @@ class SkinController {
      */
     handleImageLoad(url, playerName) {
         this.toggleLoading(false);
-        this.createButtons(url, playerName);
+        this.createButtons(playerName);
         this.elements.skinImage.style.display = 'block';
         this.elements.resultContainer.style.display = 'block';
         this.hideError();
@@ -326,18 +331,17 @@ class SkinController {
 
     /**
      * 🖼️ Cria botões de ação
-     * @param {string} url - URL da imagem
      * @param {string} playerName - Nome do jogador
      * @method
      */
-    createButtons(url, playerName) {
+    createButtons(playerName) {
         this.removeExistingButtons();
 
         const downloadBtn = document.createElement('button');
         downloadBtn.id = 'downloadBtn';
         downloadBtn.className = 'action-btn';
         downloadBtn.innerHTML = '<i class="fas fa-download"></i> Baixar Skin';
-        downloadBtn.onclick = () => this.downloadSkin(url);
+        downloadBtn.onclick = () => this.downloadSkin();
 
         const nameMcBtn = document.createElement('button');
         nameMcBtn.id = 'nameMcBtn';
@@ -370,17 +374,35 @@ class SkinController {
     }
 
     /**
-     * 💾 Dispara o download da skin
-     * @param {string} url - URL da imagem
+     * 💾 Dispara o download da skin original
      * @method
      */
-    downloadSkin(url) {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `skin_${this.generateFileHash()}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    downloadSkin() {
+        if (!this.currentUuid) {
+            this.showError('UUID não disponível para baixar a skin.');
+            return;
+        }
+
+        const skinUrl = `https://api.mineatar.io/skin/${this.currentUuid}`;
+        
+        fetch(skinUrl)
+            .then(response => {
+                if (!response.ok) throw new Error('Erro ao baixar a skin');
+                return response.blob();
+            })
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `skin_${this.currentPlayerName || 'player'}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            })
+            .catch(() => {
+                this.showError('Não foi possível baixar a skin original. Tente novamente.');
+            });
     }
 
     /**
