@@ -182,6 +182,41 @@ class SkinController {
         this.setupModal();
         this.hideError();
         this.checkApiStatus();
+        this.handleUrlParams();
+    }
+
+    /**
+     * 🔗 Processa os parâmetros da URL e executa a pesquisa automaticamente
+     * @method
+     */
+    handleUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const nickname = urlParams.get('nickname');
+        const render = urlParams.get('r');
+
+        if (nickname) {
+            this.elements.playerInput.value = nickname;
+
+            if (render) {
+                const [renderType, renderCrop] = render.split('-');
+                if (renderType && this.renderConfig.types[renderType]) {
+                    this.elements.renderType.value = renderType;
+                    this.updateCropOptions();
+                }
+                if (renderCrop) {
+                    const cropType = this.renderConfig.types[this.elements.renderType.value];
+                    const crops = this.renderConfig.crops[cropType] || ['full'];
+                    if (crops.includes(renderCrop)) {
+                        this.elements.renderCrop.value = renderCrop;
+                    }
+                }
+            }
+
+            this.fetchSkin();
+
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
+        }
     }
 
     /**
@@ -278,13 +313,39 @@ class SkinController {
      * @method
      */
     setupEventListeners() {
-        this.elements.renderType.addEventListener('change', () => this.updateCropOptions());
-        this.elements.searchBtn.addEventListener('click', () => this.fetchSkin());
+        this.elements.renderType.addEventListener('change', () => {
+            this.updateCropOptions();
+            this.updateUrl();
+        });
+        this.elements.searchBtn.addEventListener('click', () => {
+            this.fetchSkin();
+            this.updateUrl();
+        });
         this.elements.playerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.fetchSkin();
+                this.updateUrl();
             }
         });
+    }
+
+    /**
+     * 🔗 Atualiza a URL com os parâmetros atuais
+     * @method
+     */
+    updateUrl() {
+        const playerName = this.elements.playerInput.value.trim();
+        if (!playerName) return;
+
+        const renderType = this.elements.renderType.value;
+        const renderCrop = this.elements.renderCrop.value;
+        
+        let url = `${window.location.pathname}?nickname=${encodeURIComponent(playerName)}`;
+        if (renderType && renderCrop) {
+            url += `&r=${renderType}-${renderCrop}`;
+        }
+        
+        window.history.replaceState({}, '', url);
     }
 
     /**
