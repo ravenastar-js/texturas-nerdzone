@@ -120,7 +120,6 @@ class SkinController {
         this.setupEventListeners();
         this.setupModal();
         this.hideError();
-        this.removeDuplicateCopyButton();
         this.checkApiStatus();
     }
 
@@ -167,17 +166,6 @@ class SkinController {
         }
         this.elements.renderType.style.display = '';
         this.elements.renderCrop.style.display = '';
-    }
-
-    /**
-     * 🗑️ Remove o botão de copiar UUID duplicado do HTML
-     * @method
-     */
-    removeDuplicateCopyButton() {
-        const duplicateBtn = document.getElementById('btcp');
-        if (duplicateBtn) {
-            duplicateBtn.remove();
-        }
     }
 
     /**
@@ -330,6 +318,8 @@ class SkinController {
             this.elements.uuidDisplay.innerText = uuidData.id;
             this.elements.resultContainer.style.display = 'flex';
 
+            this.createCopyUuidButton();
+
             if (this.apiAvailable) {
                 await this.tryLoadSkin(playerName, renderType.value, renderCrop.value);
             } else {
@@ -339,6 +329,25 @@ class SkinController {
         } catch (error) {
             this.handleFetchError(error);
         }
+    }
+
+    /**
+     * 📋 Cria o botão de copiar UUID dentro do result-container
+     * @method
+     */
+    createCopyUuidButton() {
+        const existingBtn = document.getElementById('copyUuidBtn');
+        if (existingBtn) {
+            existingBtn.remove();
+        }
+
+        const copyBtn = document.createElement('button');
+        copyBtn.id = 'copyUuidBtn';
+        copyBtn.className = 'action-btn';
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar UUID';
+        copyBtn.onclick = () => this.copyUUID();
+
+        this.elements.resultContainer.appendChild(copyBtn);
     }
 
     /**
@@ -634,7 +643,7 @@ class SkinController {
 
         navigator.clipboard.writeText(uuid)
             .then(() => {
-                const copyBtn = this.elements.resultContainer.querySelector('#copyUuidBtn');
+                const copyBtn = document.getElementById('copyUuidBtn');
                 if (copyBtn) {
                     const originalText = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
