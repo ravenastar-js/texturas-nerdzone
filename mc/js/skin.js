@@ -8,6 +8,8 @@ class SkinController {
      * @constructor
      */
     constructor() {
+        this.baseUrl = 'https://starlight.lunareclipse.studio/api/v1/render/';
+        
         this.elements = {
             playerInput: document.getElementById('playerName'),
             renderType: document.getElementById('renderType'),
@@ -19,13 +21,13 @@ class SkinController {
             modal: document.getElementById('skinModal'),
             modalImage: document.getElementById('modalSkinImage'),
             uuidDisplay: document.getElementById('result'),
-            resultContainer: document.querySelector('.result-container'),
-            errorMessage: document.getElementById('errorMessage')
+            resultContainer: document.querySelector('.result-container')
         };
 
         this.renderConfig = {
             crops: {
                 full: ['full'],
+                default: ['default'],
                 head: ['full', 'head'],
                 bust: ['full', 'bust']
             },
@@ -94,6 +96,7 @@ class SkinController {
         };
 
         this.abortController = null;
+        this.currentRequest = null;
         this.currentSkinUrl = null;
     }
 
@@ -115,11 +118,10 @@ class SkinController {
     populateRenderTypes() {
         const fragment = document.createDocumentFragment();
 
-        Object.entries(this.renderConfig.types).forEach(([type]) => {
+        Object.entries(this.renderConfig.types).forEach(([type, cropType]) => {
             const option = document.createElement('option');
             option.value = type;
-            const translation = this.renderConfig.translations[type] || type;
-            option.textContent = `${type} (${translation})`;
+            option.textContent = `${type} (${this.renderConfig.translations[type]})`;
             fragment.appendChild(option);
         });
 
@@ -133,19 +135,24 @@ class SkinController {
      */
     updateCropOptions() {
         const selectedType = this.elements.renderType.value;
-        const cropType = this.renderConfig.types[selectedType] || 'full';
-        const crops = this.renderConfig.crops[cropType] || ['full'];
-
+        const cropType = this.renderConfig.types[selectedType];
+        const crops = this.renderConfig.crops[cropType];
+    
         const fragment = document.createDocumentFragment();
         crops.forEach(crop => {
             const option = document.createElement('option');
             option.value = crop;
-            option.textContent = crop.charAt(0).toUpperCase() + crop.slice(1);
+            option.textContent = crop;
             fragment.appendChild(option);
         });
-
+    
         this.elements.renderCrop.replaceChildren(fragment);
-        this.elements.renderCrop.style.display = crops.length <= 1 ? 'none' : '';
+    
+        if (crops.length === 1) {
+            this.elements.renderCrop.style.display = 'none';
+        } else {
+            this.elements.renderCrop.style.display = '';
+        }
     }
 
     /**
@@ -168,8 +175,7 @@ class SkinController {
      */
     setupModal() {
         this.elements.skinImage.addEventListener('click', () => {
-            const player = this.elements.skinImage.dataset.player;
-            if (player && this.currentSkinUrl) {
+            if (this.elements.skinImage.dataset.player && this.currentSkinUrl) {
                 this.elements.modalImage.src = this.currentSkinUrl;
                 this.elements.modal.style.display = 'block';
             }
@@ -202,11 +208,11 @@ class SkinController {
      * @method
      */
     generateFileHash() {
-        return Math.random().toString(16).substring(2, 10);
+        return Math.random().toString(16).substr(2, 8);
     }
 
     /**
-     * 📡 Busca a skin e informações do jogador
+     * 📡 Busca a skin do jogador
      * @method
      */
     async fetchSkin() {
@@ -229,155 +235,82 @@ class SkinController {
         this.currentSkinUrl = null;
 
         try {
+            const { skinImage, renderType, renderCrop } = this.elements;
             this.abortController = new AbortController();
+            this.currentRequest = Symbol();
+
+            const imageUrl = `${this.baseUrl}${renderType.value}/${playerName}/${renderCrop.value}`;
             
-            const uuidResponse = await fetch(
-                `https://api.minetools.eu/uuid/${playerName}`,
+            const response = await fetch(
+                imageUrl,
                 { signal: this.abortController.signal }
             );
 
-            if (!uuidResponse.ok) {
-                throw new Error('Jogador não encontrado. Verifique o nome e tente novamente.');
-            }
+            if (!response.ok) throw new Error('Erro na resposta da API');
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            this.currentSkinUrl = url;
+
+            skinImage.onload = () => this.handleImageLoad(url, playerName);
+            skinImage.onerror = () => this.handleImageError(url);
+            skinImage.src = url;
+            skinImage.dataset.player = playerName;
+            skinImage.dataset.renderType = renderType.value;
+            skinImage.dataset.renderCrop = renderCrop.value;
+            
+            this.elements.resultContainer.style.display = 'flex';
+            
+            const uuidResponse = await fetch(`https://api.minetools.eu/uuid/${playerName}`);
+            if (!uuidResponse.ok) throw new Error('Erro ao buscar UUID');
 
             const uuidData = await uuidResponse.json();
-            
-            if (!uuidData.id) {
-                throw new Error('UUID não encontrado para este jogador.');
-            }
-
-            const uuid = uuidData.id;
-            this.elements.uuidDisplay.textContent = uuid;
-            this.elements.resultContainer.style.display = 'flex';
-
-            const renderType = this.elements.renderType.value;
-            const renderCrop = this.elements.renderCrop.value;
-            
-            const imageUrl = `https://starlight.lunareclipse.studio/api/v1/render/${renderType}/${playerName}/${renderCrop}`;
-            
-            const testResponse = await fetch(imageUrl, { 
-                signal: this.abortController.signal,
-                method: 'HEAD' 
-            });
-
-            if (testResponse.ok) {
-                this.loadSkinImage(imageUrl, playerName);
-            } else {
-                this.loadFallbackSkin(uuid, playerName);
-            }
+            this.elements.uuidDisplay.innerText = uuidData.id;
 
         } catch (error) {
-            if (error.name !== 'AbortError') {
-                try {
-                    const uuid = this.elements.uuidDisplay.textContent;
-                    if (uuid) {
-                        this.loadFallbackSkin(uuid, playerName);
-                    } else {
-                        throw new Error('Não foi possível carregar a skin.');
-                    }
-                } catch (fallbackError) {
-                    this.handleFetchError(error.message || 'Erro ao buscar informações do jogador.');
-                }
-            }
+            this.handleFetchError(error);
         }
     }
 
     /**
-     * 🖼️ Carrega a imagem da skin
-     * @param {string} imageUrl - URL da imagem
-     * @param {string} playerName - Nome do jogador
-     * @method
-     */
-    loadSkinImage(imageUrl, playerName) {
-        this.currentSkinUrl = imageUrl;
-        
-        this.elements.skinImage.onload = () => {
-            this.handleImageLoad(playerName);
-        };
-        
-        this.elements.skinImage.onerror = () => {
-            const uuid = this.elements.uuidDisplay.textContent;
-            if (uuid) {
-                this.loadFallbackSkin(uuid, playerName);
-            } else {
-                this.handleImageError('Falha ao carregar a imagem da skin.');
-            }
-        };
-
-        this.elements.skinImage.src = imageUrl;
-        this.elements.skinImage.dataset.player = playerName;
-    }
-
-    /**
-     * 🔄 Carrega a skin usando API de fallback
-     * @param {string} uuid - UUID do jogador
-     * @param {string} playerName - Nome do jogador
-     * @method
-     */
-    loadFallbackSkin(uuid, playerName) {
-        const fallbackUrl = `https://visage.surgeplay.com/full/512/${uuid}`;
-        this.currentSkinUrl = fallbackUrl;
-        
-        this.elements.skinImage.onload = () => {
-            this.handleImageLoad(playerName);
-        };
-        
-        this.elements.skinImage.onerror = () => {
-            const defaultSkin = `https://mc-heads.net/avatar/${uuid}/512`;
-            this.currentSkinUrl = defaultSkin;
-            
-            this.elements.skinImage.onload = () => {
-                this.handleImageLoad(playerName);
-            };
-            this.elements.skinImage.onerror = () => {
-                this.handleImageError('Não foi possível carregar a skin do jogador.');
-            };
-            this.elements.skinImage.src = defaultSkin;
-        };
-
-        this.elements.skinImage.src = fallbackUrl;
-        this.elements.skinImage.dataset.player = playerName;
-        this.elements.skinImage.dataset.fallback = 'true';
-    }
-
-    /**
      * ✅ Trata carregamento bem-sucedido da imagem
+     * @param {string} url - URL da imagem
      * @param {string} playerName - Nome do jogador
      * @method
      */
-    handleImageLoad(playerName) {
+    handleImageLoad(url, playerName) {
         this.toggleLoading(false);
+        this.createButtons(url, playerName);
         this.elements.skinImage.style.display = 'block';
-        this.createButtons(playerName);
+        this.elements.resultContainer.style.display = 'block';
         this.hideError();
     }
 
     /**
      * 🛑 Trata erro no carregamento da imagem
-     * @param {string} errorMessage - Mensagem de erro
+     * @param {string} url - URL da imagem
      * @method
      */
-    handleImageError(errorMessage) {
+    handleImageError(url) {
+        URL.revokeObjectURL(url);
         this.toggleLoading(false);
-        this.elements.skinImage.style.display = 'none';
         this.elements.resultContainer.style.display = 'none';
         this.currentSkinUrl = null;
-        this.showError(errorMessage);
-        this.removeButtons();
+        this.showError('Falha ao carregar a imagem da skin.');
     }
 
     /**
      * 🚨 Trata erros na requisição
-     * @param {string} errorMessage - Mensagem de erro
+     * @param {Error} error - Erro ocorrido
      * @method
      */
-    handleFetchError(errorMessage) {
-        this.toggleLoading(false);
-        this.elements.resultContainer.style.display = 'none';
-        this.elements.skinImage.style.display = 'none';
-        this.currentSkinUrl = null;
-        this.showError(errorMessage);
-        this.removeButtons();
+    handleFetchError(error) {
+        if (error.name !== 'AbortError') {
+            this.toggleLoading(false);
+            this.elements.resultContainer.style.display = 'none';
+            this.currentSkinUrl = null;
+            this.showError(error.message || 'Erro ao buscar informações do jogador.');
+        }
     }
 
     /**
@@ -393,17 +326,18 @@ class SkinController {
 
     /**
      * 🖼️ Cria botões de ação
+     * @param {string} url - URL da imagem
      * @param {string} playerName - Nome do jogador
      * @method
      */
-    createButtons(playerName) {
-        this.removeButtons();
+    createButtons(url, playerName) {
+        this.removeExistingButtons();
 
         const downloadBtn = document.createElement('button');
         downloadBtn.id = 'downloadBtn';
         downloadBtn.className = 'action-btn';
         downloadBtn.innerHTML = '<i class="fas fa-download"></i> Baixar Skin';
-        downloadBtn.onclick = () => this.downloadSkin();
+        downloadBtn.onclick = () => this.downloadSkin(url);
 
         const nameMcBtn = document.createElement('button');
         nameMcBtn.id = 'nameMcBtn';
@@ -427,7 +361,7 @@ class SkinController {
      * 🗑️ Remove botões existentes
      * @method
      */
-    removeButtons() {
+    removeExistingButtons() {
         const buttons = ['downloadBtn', 'nameMcBtn', 'copyUuidBtn'];
         buttons.forEach(id => {
             const btn = document.getElementById(id);
@@ -437,27 +371,16 @@ class SkinController {
 
     /**
      * 💾 Dispara o download da skin
+     * @param {string} url - URL da imagem
      * @method
      */
-    downloadSkin() {
-        const imageUrl = this.elements.skinImage.src;
-        if (!imageUrl || imageUrl === window.location.href) return;
-
-        fetch(imageUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `skin_${this.generateFileHash()}.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            })
-            .catch(() => {
-                window.open(imageUrl, '_blank');
-            });
+    downloadSkin(url) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `skin_${this.generateFileHash()}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     /**
@@ -465,7 +388,7 @@ class SkinController {
      * @method
      */
     copyUUID() {
-        const uuid = this.elements.uuidDisplay.textContent;
+        const uuid = this.elements.uuidDisplay.innerText;
         if (!uuid || uuid === 'Carregando...') {
             this.showError('Nenhum UUID disponível para copiar.');
             return;
@@ -499,7 +422,7 @@ class SkinController {
      * @method
      */
     showError(message) {
-        const errorElement = this.elements.errorMessage;
+        const errorElement = document.getElementById('errorMessage');
         if (errorElement) {
             errorElement.textContent = message;
             errorElement.style.display = 'block';
@@ -513,7 +436,7 @@ class SkinController {
      * @method
      */
     hideError() {
-        const errorElement = this.elements.errorMessage;
+        const errorElement = document.getElementById('errorMessage');
         if (errorElement) {
             errorElement.style.display = 'none';
         }
